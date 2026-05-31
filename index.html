@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gujarati Ultra-Inmersivo - RubenBhai Misión 1 Completa</title>
+    <style>
+        /* =====================================================================
+           ESTILOS GENERALES (DISEÑO ZEN / MODO OSCURO PREMIUM)
+           ===================================================================== */
+        :root {
+            --bg-color: #0d0d0d;
+            --surface-color: #161616;
+            --primary-color: #ffd700; 
+            --accent-color: #00ffcc; 
+            --text-color: #e5e5e5;
+            --text-muted: #888888;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            max-width: 850px;
+            width: 100%;
+            background-color: var(--surface-color);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 1px solid #222;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 25px;
+        }
+
+        .level-badge {
+            background: linear-gradient(90deg, var(--primary-color), #ffa500);
+            color: #000;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            margin: 15px 0 5px 0;
+            font-size: 2.3rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .ambient-box {
+            background: #1f1f1f;
+            padding: 12px 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            border: 1px dashed #333;
+        }
+
+        /* =====================================================================
+           TEATRO DE AUDIO INTERACTIVO (KARAOKE)
+           ===================================================================== */
+        .audio-theater {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-bottom: 40px;
+        }
+
+        .dialogue-line {
+            background-color: #1a1a1a;
+            padding: 25px;
+            border-radius: 16px;
+            border-left: 4px solid #333;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dialogue-line.active {
+            border-left-color: var(--primary-color);
+            background-color: #222;
+            transform: translateX(8px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
+        }
+
+        .speaker-tag {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .speaker-aayan { color: #4fc3f7; }
+        .speaker-shreya { color: #f06292; }
+        .context-tag { color: var(--text-muted); font-style: italic; }
+
+        .gujarati-text {
+            font-size: 2.1rem;
+            line-height: 3.2rem;
+            color: #666; 
+            transition: color 0.1s ease;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .gujarati-text span {
+            transition: color 0.15s ease, text-shadow 0.15s ease;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .gujarati-text span.word-active {
+            color: var(--primary-color) !important;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+            transform: scale(1.03);
+        }
+
+        .dialogue-line.active .gujarati-text span {
+            color: #b5b5b5;
+        }
+
+        .spanish-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6rem;
+            margin-bottom: 18px;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-listen { background-color: #2a2a2a; color: #fff; }
+        .btn-listen:hover { background-color: var(--primary-color); color: #000; }
+
+        .btn-record { background-color: #2a2a2a; color: #fff; }
+        .btn-record.recording { background-color: #ff3333; color: #fff; animation: pulse 1.5s infinite; }
+        .btn-record:hover:not(.recording) { background-color: var(--accent-color); color: #000; }
+
+        .btn-play-self { background-color: #1a3a3a; color: var(--accent-color); display: none; }
+        .btn-play-self:hover { background-color: var(--accent-color); color: #000; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .gujarati-text span.word-active,
+        .spanish-text span.word-active {
+            background-color: #ffd700 !important; /* El amarillo/oro brillante */
+            color: #000 !important;
+            font-weight: bold;
+            border-radius: 4px;
+            padding: 0 2px;
+            transition: all 0.1s ease;
+        }
+
+        .spanish-text span {
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            padding: 0 2px;
+            display: inline-block; /* Para que se comporte igual que el Gujarati */
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="ambient-audio" loop src="bazar.mp3"></audio>
+
+    <main class="app-container">
+        
+        <header>
+            <span class="level-badge">Misión 01 - RubenBhai Full Pilot</span>
+            <h1>Teatro Multimedia de Gujarati</h1>
+            <p class="subtitle">Entrenamiento inmersivo con tus 4 audios reales de Sarvam AI v3.</p>
+        </header>
+
+        <div class="ambient-box">
+            <span>🌍 Paisaje Sonoro: <strong>Bazar de Ahmedabad</strong></span>
+            <button class="btn btn-listen" id="ambient-toggle" onclick="toggleAmbience()">🎵 Activar Entorno</button>
+        </div>
+
+        <section class="audio-theater">
+            
+            <div class="dialogue-line" id="line-1">
+                <div class="meta-info">
+                    <span class="speaker-tag speaker-aayan">aayan</span>
+                </div>
+                <div class="gujarati-text" id="text-1">
+                    <span data-start="0.55" data-end="0.91">અરે,</span>
+                    <span data-start="1.28" data-end="3.42">જુઓ આ જૂની દુકાનમાં કંઈક અલગ છે.</span>
+                    <span data-start="3.86" data-end="5.38">શું તમે આ ક્યારેય જોયું છે?</span>
+                </div>
+                <div class="spanish-text" id="spanish-1">
+                    <span data-start="0.55" data-end="0.91">¡Guao!</span>
+                    <span data-start="1.28" data-end="3.42">Mira... ¡hay algo diferente en esta tienda antigua!</span>
+                    <span data-start="3.86" data-end="5.38">¿Habías visto esto alguna vez?</span>
+                </div>
+                <div class="action-bar">
+                    <button class="btn btn-listen" onclick="playMaster('audio_01_aayan_curiosidad.wav', 'line-1', 'text-1', 'spanish-1')">🔊 Escuchar Maestro</button>
+                    <button class="btn btn-record" id="rec-line-1" onclick="toggleRecord('line-1')">🎙️ Practicar</button>
+                    <button class="btn btn-play-self" id="play-line-1" onclick="playRecorded('line-1')">🎧 Escucharme</button>
+                </div>
+            </div>
+
+            <div class="dialogue-line" id="line-2">
+                <div class="meta-info">
+                    <span class="speaker-tag speaker-shreya">shreya</span>
+                </div>
+                <div class="gujarati-text" id="text-2">
+                    <span data-start="0.25" data-end="0.67">ઓહો.</span>
+                    <span data-start="1.16" data-end="3.27">આ આટલું સુંદર અને અદ્ભુત છે.</span>
+                    <span data-start="3.64" data-end="5.53">મને તો વિશ્વાસ જ નથી થતો.</span>
+                </div>
+                <div class="spanish-text" id="spanish-2">
+                    <span data-start="0.25" data-end="0.67">¡Oh!</span>
+                    <span data-start="1.16" data-end="3.27">¡Esto es tan hermoso y maravilloso!</span>
+                    <span data-start="3.64" data-end="5.53">¡No lo puedo ni creer!</span>
+                </div>
+                <div class="action-bar">
+                    <button class="btn btn-listen" onclick="playMaster('audio_02_shreya_sorpresa.wav', 'line-2', 'text-2', 'spanish-2')">🔊 Escuchar Maestro</button>
+                    <button class="btn btn-record" id="rec-line-2" onclick="toggleRecord('line-2')">🎙️ Practicar</button>
+                    <button class="btn btn-play-self" id="play-line-2" onclick="playRecorded('line-2')">🎧 Escucharme</button>
+                </div>
+            </div>
+
+            <div class="dialogue-line" id="line-3">
+                <div class="meta-info">
+                    <span class="speaker-tag speaker-aayan">aayan</span>
+                </div>
+                <div class="gujarati-text" id="text-3">
+                    <span data-start="0.33" data-end="1.03">અફસોસ</span>
+                    <span data-start="1.36" data-end="2.63">પણ દુકાનદાર અહીં નથી.</span>
+                    <span data-start="3.09" data-end="4.69">હવે આપણે આગળ શું કરીશું?</span>
+                </div>
+                <div class="spanish-text" id="spanish-3">
+                    <span data-start="0.33" data-end="1.03">Qué lástima,</span>
+                    <span data-start="1.36" data-end="2.63">pero el tendero no está aquí...</span>
+                    <span data-start="3.09" data-end="4.69">¿Qué haremos ahora?</span>
+                </div>
+                <div class="action-bar">
+                    <button class="btn btn-listen" onclick="playMaster('audio_03_aayan_intriga.wav', 'line-3', 'text-3', 'spanish-3')">🔊 Escuchar Maestro</button>
+                    <button class="btn btn-record" id="rec-line-3" onclick="toggleRecord('line-3')">🎙️ Practicar</button>
+                    <button class="btn btn-play-self" id="play-line-3" onclick="playRecorded('line-3')">🎧 Escucharme</button>
+                </div>
+            </div>
+
+            <div class="dialogue-line" id="line-4">
+                <div class="meta-info">
+                    <span class="speaker-tag speaker-shreya">shreya</span>
+                </div>
+                <div class="gujarati-text" id="text-4">
+                    <span data-start="0.33" data-end="2.41">હવે ધીમેથી આ જુઓ.</span>
+                    <span data-start="2.78" data-end="3.79">અને વિચારો.</span>
+                    <span data-start="4.25" data-end="6.12">અહીં કંઈક સંકેત જરૂર હશે.</span>
+                </div>
+                <div class="spanish-text" id="spanish-4">
+                    <span data-start="0.33" data-end="2.41">Ahora, mira esto con calma...</span>
+                    <span data-start="2.78" data-end="3.79">y piensa.</span>
+                    <span data-start="4.25" data-end="6.12">Seguro que debe haber alguna pista aquí.</span>
+                </div>
+                <div class="action-bar">
+                    <button class="btn btn-listen" onclick="playMaster('audio_04_shreya_calma.wav', 'line-4', 'text-4', 'spanish-4')">🔊 Escuchar Maestro</button>
+                    <button class="btn btn-record" id="rec-line-4" onclick="toggleRecord('line-4')">🎙️ Practicar</button>
+                    <button class="btn btn-play-self" id="play-line-4" onclick="playRecorded('line-4')">🎧 Escucharme</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <audio id="master-player"></audio>
+    <audio id="self-player"></audio>
+    
+    <script>
+        // -----------------------------------------------------------------
+        //  1. ELEMENTOS DE CONTROL GLOBAL
+        // -----------------------------------------------------------------
+        // Usamos tus elementos originales del HTML
+        const masterPlayer = document.getElementById('master-player') || new Audio();
+        const selfPlayer = document.getElementById('self-player') || new Audio();
+        
+        let mediaRecorder;
+        let audioChunks = {};
+        let activeTextId = null;
+
+        // -----------------------------------------------------------------
+        //  2. CONFIGURACIÓN DEL AUDIO AMBIENTAL
+        // -----------------------------------------------------------------
+        // Usamos el elemento existente si está en el HTML, o creamos uno nuevo
+        const ambientAudio = document.getElementById('ambient-audio') || new Audio('bazar_ahmedabad.mp3');
+        ambientAudio.loop = true;
+        
+        // Si es un objeto nuevo sin origen asignado, se lo ponemos
+        if (!ambientAudio.src && !ambientAudio.querySelector('source')) {
+            ambientAudio.src = 'bazar_ahmedabad.mp3';
+        }
+
+        let ambientActive = true;
+
+        // Forzar el inicio automático apenas cargue la página
+        window.addEventListener('DOMContentLoaded', () => {
+            ambientAudio.play().then(() => {
+                console.log("Ambiente iniciado automáticamente");
+                actualizarBotonAmbiente(true);
+            }).catch(e => {
+                console.log("El navegador bloqueó el autoplay. Esperando interacción.");
+                ambientActive = false;
+                actualizarBotonAmbiente(false);
+            });
+        });
+
+        function toggleAmbience() {
+            if (ambientActive) {
+                ambientAudio.pause();
+                ambientActive = false;
+                actualizarBotonAmbiente(false);
+            } else {
+                ambientAudio.play().catch(e => console.log(e));
+                ambientActive = true;
+                actualizarBotonAmbiente(true);
+            }
+        }
+
+        function actualizarBotonAmbiente(activo) {
+            const btn = document.getElementById('ambient-toggle');
+            if (btn) {
+                if (activo) {
+                    btn.innerHTML = "🔇 Silenciar Entorno";
+                    btn.classList.add('ambient-on');
+                } else {
+                    btn.innerHTML = "🎵 Activar Entorno";
+                    btn.classList.remove('ambient-on');
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------
+        //  3. REPRODUCTOR MAESTRO (CON DOBLE RESALTADO EN ESPEJO)
+        // -----------------------------------------------------------------
+        function playMaster(archivoUrl, lineId, textId, spanishId) {
+            // Limpiamos los estados activos de cualquier línea previa
+            document.querySelectorAll('.dialogue-line').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.gujarati-text span').forEach(w => w.className = '');
+            document.querySelectorAll('.spanish-text span').forEach(w => w.className = '');
+
+            activeTextId = textId;
+            masterPlayer.src = archivoUrl;
+            masterPlayer.load();
+
+            masterPlayer.play().then(() => {
+                const currentLine = document.getElementById(lineId);
+                if (currentLine) currentLine.classList.add('active');
+            }).catch(e => console.log("Interacción requerida o archivo no encontrado"));
+
+            // Sincronización en tiempo real para ambos idiomas
+            masterPlayer.ontimeupdate = function() {
+                const currentTime = masterPlayer.currentTime;
+                
+                // Iluminación quirúrgica en Gujarati
+                const words = document.querySelectorAll(`#${activeTextId} span`);
+                words.forEach(word => {
+                    const start = parseFloat(word.getAttribute('data-start'));
+                    const end = parseFloat(word.getAttribute('data-end'));
+                    if (currentTime >= start && currentTime <= end) {
+                        word.className = 'word-active';
+                    } else if (currentTime > end) {
+                        word.className = ''; 
+                    }
+                });
+
+                // Iluminación simultánea espejo en Español
+                if (spanishId) {
+                    const spanishPhrases = document.querySelectorAll(`#${spanishId} span`);
+                    spanishPhrases.forEach(phrase => {
+                        const start = parseFloat(phrase.getAttribute('data-start'));
+                        const end = parseFloat(phrase.getAttribute('data-end'));
+                        if (currentTime >= start && currentTime <= end) {
+                            phrase.className = 'word-active';
+                        } else if (currentTime > end) {
+                            phrase.className = ''; 
+                        }
+                    });
+                }
+            };
+
+            // Limpieza al terminar
+            masterPlayer.onended = function() {
+                const currentLine = document.getElementById(lineId);
+                if (currentLine) currentLine.classList.remove('active');
+                document.querySelectorAll(`#${activeTextId} span`).forEach(w => w.className = '');
+                if (spanishId) {
+                    document.querySelectorAll(`#${spanishId} span`).forEach(w => w.className = '');
+                }
+            };
+        }
+
+        // -----------------------------------------------------------------
+        //  4. SISTEMA DE GRABACIÓN DE AUDIO (PRACTICAR)
+        // -----------------------------------------------------------------
+        function toggleRecord(lineId) {
+            const btn = document.getElementById(`rec-${lineId}`);
+            
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                // Detener la grabación
+                mediaRecorder.stop();
+                btn.innerHTML = "🎙️ Practicar";
+                btn.classList.remove('recording');
+            } else {
+                // Iniciar la grabación
+                navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks[lineId] = [];
+
+                    mediaRecorder.ondataavailable = e => {
+                        audioChunks[lineId].push(e.data);
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const blob = new Blob(audioChunks[lineId], { type: 'audio/wav' });
+                        const url = URL.createObjectURL(blob);
+                        // Habilitamos el botón de escucha del alumno para esta línea
+                        const playBtn = document.getElementById(`play-${lineId}`);
+                        if (playBtn) {
+                            playBtn.disabled = false;
+                            playBtn.dataset.url = url;
+                        }
+                    };
+
+                    mediaRecorder.start();
+                    btn.innerHTML = "🛑 Detener";
+                    btn.classList.add('recording');
+                }).catch(err => {
+                    alert("Error al acceder al micrófono. Por favor, dale permisos.");
+                });
+            }
+        }
+
+        function playRecorded(lineId) {
+            const playBtn = document.getElementById(`play-${lineId}`);
+            if (playBtn && playBtn.dataset.url) {
+                selfPlayer.src = playBtn.dataset.url;
+                selfPlayer.play();
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -174,7 +174,6 @@
         .btn-record.recording { background-color: #ff3333; color: #fff; animation: pulse 1.5s infinite; }
         .btn-record:hover:not(.recording) { background-color: var(--accent-color); color: #000; }
 
-        /* 💡 ¡CORREGIDO! Cambiado de 'none' a 'flex' pero controlado visualmente con opacidad */
         .btn-play-self { 
             background-color: #1a3a3a; 
             color: var(--accent-color); 
@@ -216,8 +215,7 @@
 </head>
 <body>
 
-    <!-- Sincronizamos el archivo de entorno a uno solo (bazar_ahmedabad.mp3) -->
-    <audio id="ambient-audio" loop src="bazar_ahmedabad.mp3"></audio>
+    <audio id="ambient-audio" loop src="bazar.mp3"></audio>
 
     <main class="app-container">
         
@@ -234,7 +232,6 @@
 
         <section class="audio-theater">
     
-            <!-- ACCIONES LÍNEA 1: AAYAN (CURIOSIDAD) -->
             <div class="dialogue-line" id="line-1">
                 <div class="meta-info">
                     <span class="speaker-tag speaker-aayan">aayan</span>
@@ -256,14 +253,13 @@
                 </div>
             </div>
 
-            <!-- ACCIONES LÍNEA 2: SHREYA (SORPRESA) -->
             <div class="dialogue-line" id="line-2">
                 <div class="meta-info">
                     <span class="speaker-tag speaker-shreya">shreya</span>
                 </div>
                 <div class="gujarati-text" id="text-2">
                     <span data-start="0.25" data-end="0.67">ઓહો.</span>
-                    <span data-start="1.16" data-end="3.27">આ આટલું Sુંદર અને અદ્ભુત છે.</span>
+                    <span data-start="1.16" data-end="3.27">આ આટલું સુંદર અને અદ્ભુત છે.</span>
                     <span data-start="3.64" data-end="5.53">મને તો વિશ્વાસ જ નથી થતો.</span>
                 </div>
                 <div class="spanish-text" id="spanish-2">
@@ -278,7 +274,6 @@
                 </div>
             </div>
 
-            <!-- ACCIONES LÍNEA 3: AAYAN (INTRIGA) -->
             <div class="dialogue-line" id="line-3">
                 <div class="meta-info">
                     <span class="speaker-tag speaker-aayan">aayan</span>
@@ -300,7 +295,6 @@
                 </div>
             </div>
 
-            <!-- ACCIONES LÍNEA 4: SHREYA (CALMA) -->
             <div class="dialogue-line" id="line-4">
                 <div class="meta-info">
                     <span class="speaker-tag speaker-shreya">shreya</span>
@@ -325,39 +319,27 @@
         </section>
     </main>
 
-    <audio id="master-player"></audio>
-    <audio id="self-player"></audio>
+    <audio id="master-player" playsinline></audio>
+    <audio id="self-player" playsinline></audio>
     
     <script>
-        // -----------------------------------------------------------------
-        //  1. ELEMENTOS DE CONTROL GLOBAL
-        // -----------------------------------------------------------------
-        const masterPlayer = document.getElementById('master-player') || new Audio();
-        const selfPlayer = document.getElementById('self-player') || new Audio();
+        // Elements y estados globales
+        const masterPlayer = document.getElementById('master-player');
+        const selfPlayer = document.getElementById('self-player');
+        const ambientAudio = document.getElementById('ambient-audio');
         
+        ambientAudio.loop = true;
+        let ambientActive = false; // Arranca apagado para forzar activación limpia por toque
         let mediaRecorder;
         let audioChunks = {};
         let activeTextId = null;
 
-        // -----------------------------------------------------------------
-        //  2. CONFIGURACIÓN DEL AUDIO AMBIENTAL
-        // -----------------------------------------------------------------
-        const ambientAudio = document.getElementById('ambient-audio') || new Audio('bazar_ahmedabad.mp3');
-        ambientAudio.loop = true;
-        
-        if (!ambientAudio.src && !ambientAudio.querySelector('source')) {
-            ambientAudio.src = 'bazar_ahmedabad.mp3';
-        }
-
-        let ambientActive = true;
-
-        // Forzar el inicio automático apenas cargue la página
+        // Intentar encendido automático (Windows/Android pasará, iOS irá al catch)
         window.addEventListener('DOMContentLoaded', () => {
             ambientAudio.play().then(() => {
-                console.log("Ambiente iniciado automáticamente");
+                ambientActive = true;
                 actualizarBotonAmbiente(true);
             }).catch(e => {
-                console.log("El navegador bloqueó el autoplay. Esperando interacción.");
                 ambientActive = false;
                 actualizarBotonAmbiente(false);
             });
@@ -378,20 +360,20 @@
         function actualizarBotonAmbiente(activo) {
             const btn = document.getElementById('ambient-toggle');
             if (btn) {
-                if (activo) {
-                    btn.innerHTML = "🔇 Silenciar Entorno";
-                    btn.classList.add('ambient-on');
-                } else {
-                    btn.innerHTML = "🎵 Activar Entorno";
-                    btn.classList.remove('ambient-on');
-                }
+                btn.innerHTML = activo ? "🔇 Silenciar Entorno" : "🎵 Activar Entorno";
             }
         }
 
-        // -----------------------------------------------------------------
-        //  3. REPRODUCTOR MAESTRO (CON DOBLE RESALTADO EN ESPEJO)
-        // -----------------------------------------------------------------
+        // REPRODUCTOR MAESTRO BLINDADO PARA IOS
         function playMaster(archivoUrl, lineId, textId, spanishId) {
+            // 🚀 TRUCO DE INMERSIÓN PARA IPHONE: Activamos el bazar usando la interacción directa del botón maestro
+            if (!ambientActive) {
+                ambientAudio.play().then(() => {
+                    ambientActive = true;
+                    actualizarBotonAmbiente(true);
+                }).catch(err => console.log(err));
+            }
+
             document.querySelectorAll('.dialogue-line').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.gujarati-text span').forEach(w => w.className = '');
             document.querySelectorAll('.spanish-text span').forEach(w => w.className = '');
@@ -400,15 +382,16 @@
             masterPlayer.src = archivoUrl;
             masterPlayer.load();
 
+            // Ejecución limpia del play
             masterPlayer.play().then(() => {
                 const currentLine = document.getElementById(lineId);
                 if (currentLine) currentLine.classList.add('active');
-            }).catch(e => console.log("Interacción requerida o archivo no encontrado"));
+            }).catch(e => console.log("iOS requiere interacción manual"));
 
             masterPlayer.ontimeupdate = function() {
                 const currentTime = masterPlayer.currentTime;
                 
-                // Iluminación en Gujarati
+                // Gujarati
                 const words = document.querySelectorAll(`#${activeTextId} span`);
                 words.forEach(word => {
                     const start = parseFloat(word.getAttribute('data-start'));
@@ -420,7 +403,7 @@
                     }
                 });
 
-                // Iluminación en Español
+                // Español Espejo
                 if (spanishId) {
                     const spanishPhrases = document.querySelectorAll(`#${spanishId} span`);
                     spanishPhrases.forEach(phrase => {
@@ -445,9 +428,7 @@
             };
         }
 
-        // -----------------------------------------------------------------
-        //  4. SISTEMA DE GRABACIÓN DE AUDIO (PRACTICAR)
-        // -----------------------------------------------------------------
+        // SISTEMA DE GRABACIÓN COMPATIBLE CON IPHONE/IOS
         function toggleRecord(lineId) {
             const btn = document.getElementById(`rec-${lineId}`);
             
@@ -457,20 +438,25 @@
                 btn.classList.remove('recording');
             } else {
                 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                    
+                    // 🚀 MEJORA DE FORMATO PARA APPLE: Dejamos que el navegador elija su formato idóneo (iOS usará MP4/AAC automáticamente)
                     mediaRecorder = new MediaRecorder(stream);
                     audioChunks[lineId] = [];
 
                     mediaRecorder.ondataavailable = e => {
-                        audioChunks[lineId].push(e.data);
+                        if (e.data && e.data.size > 0) {
+                            audioChunks[lineId].push(e.data);
+                        }
                     };
 
                     mediaRecorder.onstop = () => {
-                        const blob = new Blob(audioChunks[lineId], { type: 'audio/wav' });
+                        // Creamos el blob sin forzar el tipo WAV que Apple aborrece
+                        const blob = new Blob(audioChunks[lineId]);
                         const url = URL.createObjectURL(blob);
                         
                         const playBtn = document.getElementById(`play-${lineId}`);
                         if (playBtn) {
-                            playBtn.removeAttribute('disabled'); // Desbloquea el botón
+                            playBtn.removeAttribute('disabled'); 
                             playBtn.dataset.url = url; 
                         }
                     };
@@ -479,7 +465,7 @@
                     btn.innerHTML = "🛑 Detener";
                     btn.classList.add('recording');
                 }).catch(err => {
-                    alert("Error al acceder al micrófono. Por favor, dale permisos.");
+                    alert("Por favor, permite el acceso al micrófono en los ajustes de tu iPhone.");
                 });
             }
         }
@@ -488,25 +474,10 @@
             const playBtn = document.getElementById(`play-${lineId}`);
             if (playBtn && playBtn.dataset.url) {
                 selfPlayer.src = playBtn.dataset.url;
-                selfPlayer.play();
+                selfPlayer.load();
+                selfPlayer.play().catch(e => console.log("Bloqueo de audio nativo en iOS"));
             }
         }
-
-        // 🚀 TRUCO MAESTRO: Activa el ambiente con el primer clic del usuario en cualquier parte de la web
-        function desbloquearAmbienteAlPrimerClic() {
-            if (!ambientActive) {
-                ambientAudio.play().then(() => {
-                    console.log("Ambiente desbloqueado con éxito.");
-                    ambientActive = true;
-                    actualizarBotonAmbiente(true);
-                }).catch(err => console.log("Esperando interacción..."));
-            }
-            document.removeEventListener('click', desbloquearAmbienteAlPrimerClic);
-            document.removeEventListener('keydown', desbloquearAmbienteAlPrimerClic);
-        }
-        document.addEventListener('click', desbloquearAmbienteAlPrimerClic);
-        document.addEventListener('keydown', desbloquearAmbienteAlPrimerClic);
-
     </script>
 </body>
 </html>

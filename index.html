@@ -428,7 +428,9 @@
             };
         }
 
-        // SISTEMA DE GRABACIÓN COMPATIBLE CON IPHONE/IOS
+        // =====================================================================
+        //  4. SISTEMA DE GRABACIÓN COMPATIBLE CON IOS 26+
+        // =====================================================================
         function toggleRecord(lineId) {
             const btn = document.getElementById(`rec-${lineId}`);
             
@@ -437,9 +439,16 @@
                 btn.innerHTML = "🎙️ Practicar";
                 btn.classList.remove('recording');
             } else {
+                // 🚀 TRUCO MAESTRO PARA IOS 26: "Engañamos" al iPhone reproduciendo un milisegundo 
+                // de silencio en el reproductor del alumno JUSTO en el momento del clic.
+                // Esto le dice a Apple que este reproductor fue autorizado manualmente por ti.
+                if (selfPlayer) {
+                    selfPlayer.src = ""; // Vacío momentáneo
+                    selfPlayer.play().then(() => selfPlayer.pause()).catch(() => {});
+                }
+
                 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-                    
-                    // 🚀 MEJORA DE FORMATO PARA APPLE: Dejamos que el navegador elija su formato idóneo (iOS usará MP4/AAC automáticamente)
+                    // Dejamos el formato libre para que el iPhone use su codec nativo preferido (AAC/MP4)
                     mediaRecorder = new MediaRecorder(stream);
                     audioChunks[lineId] = [];
 
@@ -450,7 +459,7 @@
                     };
 
                     mediaRecorder.onstop = () => {
-                        // Creamos el blob sin forzar el tipo WAV que Apple aborrece
+                        // Creamos el archivo de audio sin forzar extensiones pesadas
                         const blob = new Blob(audioChunks[lineId]);
                         const url = URL.createObjectURL(blob);
                         
@@ -465,7 +474,7 @@
                     btn.innerHTML = "🛑 Detener";
                     btn.classList.add('recording');
                 }).catch(err => {
-                    alert("Por favor, permite el acceso al micrófono en los ajustes de tu iPhone.");
+                    alert("Por favor, verifica los permisos de tu micrófono en los ajustes de Safari en tu iPhone.");
                 });
             }
         }
@@ -473,9 +482,15 @@
         function playRecorded(lineId) {
             const playBtn = document.getElementById(`play-${lineId}`);
             if (playBtn && playBtn.dataset.url) {
+                // Forzamos la carga limpia del archivo generado
                 selfPlayer.src = playBtn.dataset.url;
-                selfPlayer.load();
-                selfPlayer.play().catch(e => console.log("Bloqueo de audio nativo en iOS"));
+                selfPlayer.load(); 
+                
+                // Reproducción directa
+                selfPlayer.play().catch(e => {
+                    console.log("Error de salida en iOS:", e);
+                    alert("Asegúrate de que el switch físico de silencio de tu iPhone no esté activado.");
+                });
             }
         }
     </script>

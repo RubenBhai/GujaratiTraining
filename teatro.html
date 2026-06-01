@@ -325,7 +325,7 @@
             ambientActive = true;
             actualizarBotonAmbiente(true);
         }        
-                const masterPlayer = document.getElementById('master-player');
+        const masterPlayer = document.getElementById('master-player');
         const selfPlayer = document.getElementById('self-player');
         const ambientAudio = document.getElementById('ambient-audio');
 
@@ -475,11 +475,20 @@
         function playRecorded(lineId) {
             const playBtn = document.getElementById(`play-${lineId}`);
             if (playBtn && playBtn.dataset.url) {
+                // Silenciar ambiente al reproducir grabación
+                if (ambientActive) ambientAudio.pause();
+        
                 selfPlayer.src = playBtn.dataset.url;
                 selfPlayer.load();
                 selfPlayer.play().catch(() => {
+                    if (ambientActive) ambientAudio.play().catch(e => console.log(e));
                     alert("Asegúrate de que el switch físico de silencio de tu dispositivo no esté activado.");
                 });
+        
+                // Restaurar ambiente al terminar
+                selfPlayer.onended = () => {
+                    if (ambientActive) ambientAudio.play().catch(e => console.log(e));
+                };
             }
         }
 

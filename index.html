@@ -671,7 +671,7 @@
 
                 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
                     // Forzamos mp4/aac para garantizar compatibilidad directa de audio con Gemini
-                    mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/mp4' });
+                    mediaRecorder = new MediaRecorder(stream);
                     audioChunks[lineId] = [];
 
                     mediaRecorder.ondataavailable = e => {
@@ -681,7 +681,7 @@
                     };
 
                     mediaRecorder.onstop = () => {
-                        const blob = new Blob(audioChunks[lineId], { type: 'audio/mp4' });
+                        const blob = new Blob(audioChunks[lineId]);
                         const url = URL.createObjectURL(blob);
                         
                         const playBtn = document.getElementById(`play-${lineId}`);

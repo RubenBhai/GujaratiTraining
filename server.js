@@ -51,7 +51,9 @@ app.post('/api/login', (req, res) => {
 
 // ENDPOINT DE IA: Recibe el audio del Android y lo manda a evaluar a Gemini
 app.post('/api/evaluar-audio', async (req, res) => {
-    const { audioBase64, fraseObjetivo } = req.body;
+    
+    // 🚀 ACTUALIZADO: Ahora recibe el mimeType real que manda el celular
+    const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
     if (!audioBase64 || !fraseObjetivo) {
         return res.status(400).json({ error: "Datos multimedia incompletos o corruptos." });
@@ -75,7 +77,7 @@ app.post('/api/evaluar-audio', async (req, res) => {
                 promptPedagogico,
                 {
                     inlineData: {
-                        mimeType: "audio/mp4", // Formato nativo y ultra liviano del grabador del Android
+                        mimeType: mimeType || "audio/mp4", // 🚀 ACTUALIZADO: Usa el formato real que grabó el teléfono
                         data: audioBase64
                     }
                 }
@@ -83,8 +85,13 @@ app.post('/api/evaluar-audio', async (req, res) => {
             config: { responseMimeType: "application/json" }
         });
 
+        // 🚀 ACTUALIZADO: Limpiamos los backticks de Markdown antes de parsear, por seguridad
+        let iaTexto = response.text;
+        iaTexto = iaTexto.replace(/```json/gi, "").replace(/
+```/g, "").trim();
+
         // Devolvemos la respuesta estructurada de la IA directamente al celular del alumno
-        res.json(JSON.parse(response.text));
+        res.json(JSON.parse(iaTexto));
 
     } catch (error) {
         console.error("Error en el motor de IA:", error);

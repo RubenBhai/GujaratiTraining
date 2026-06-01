@@ -215,6 +215,7 @@
             .then(data => {
                 if (data.acceso) {
                     sessionStorage.setItem('accessToken', data.token);
+                    sessionStorage.setItem('autoplayAmbient', 'true');
                     window.location.href = 'teatro.html';
                 }
             })

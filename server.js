@@ -91,7 +91,7 @@ app.post('/api/evaluar-audio', verificarAcceso, async (req, res) => {
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-2.0-flash',
+            model: 'gemini-2.5-flash',
             contents: [
                 {
                     role: "user",

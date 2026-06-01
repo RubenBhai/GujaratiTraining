@@ -92,18 +92,15 @@ app.post('/api/evaluar-audio', verificarAcceso, async (req, res) => {
     try {
         const response = await ai.models.generateContent({
             model: 'gemini-2.0-flash',
-            contents: {
-                role: "user",
-                parts: [
-                    { text: promptPedagogico },
-                    {
-                        inlineData: {
-                            mimeType: mimeType || "audio/webm",
-                            data: audioBase64
-                        }
-                    }
-                ]
-            },
+            contents: [
+                {
+                    role: "user",
+                    parts: [
+                        { text: promptPedagogico },
+                        { inlineData: { mimeType: mimeType || "audio/webm", data: audioBase64 } }
+                    ]
+                }
+            ],
             config: { responseMimeType: "application/json" }
         });
 

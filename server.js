@@ -16,9 +16,16 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // 2. LISTA DE ACCESO CONTROLADO (Agrega o cambia tus amigos aquí)
 const USUARIOS_AUTORIZADOS = {
-    "ruben": "bhai2026",
-    "invitado1": "gujarati_top",
-    "invitado2": "ahmedabad"
+    "rubenbhai": "144000",
+    "vanessaben": "144000",
+    "saraben": "144000",
+    "maritereben": "144000",
+    "kellyben": "144000",
+    "dianaben": "144000",
+    "nonaben": "144000",
+    "veronicaben": "144000",
+    "shamiraben": "144000",
+    "xiomaraben": "144000"
 };
 
 // RUTA DE PRUEBA: Para verificar que el servidor esté vivo

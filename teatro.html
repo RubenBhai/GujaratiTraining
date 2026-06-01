@@ -318,8 +318,14 @@
         if (!sessionStorage.getItem('accessToken')) {
             window.location.href = 'index.html';
         }
-
-        const masterPlayer = document.getElementById('master-player');
+        
+        if (sessionStorage.getItem('autoplayAmbient') === 'true') {
+            sessionStorage.removeItem('autoplayAmbient');
+            ambientAudio.play().catch(e => console.log(e));
+            ambientActive = true;
+            actualizarBotonAmbiente(true);
+        }        
+                const masterPlayer = document.getElementById('master-player');
         const selfPlayer = document.getElementById('self-player');
         const ambientAudio = document.getElementById('ambient-audio');
 

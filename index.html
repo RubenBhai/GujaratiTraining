@@ -157,6 +157,8 @@
 </head>
 <body>
 
+    <audio id="ambient-audio" loop autoplay src="bazar.mp3"></audio>
+
     <div class="login-wrapper">
         <form class="login-box" onsubmit="ejecutarLogin(event)">
 
@@ -178,6 +180,10 @@
 
     <script>
         const BACKEND_URL = "https://gujaratitraining.onrender.com";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ambient-audio').play().catch(e => console.log(e));
+        });        
 
         // Si ya tiene sesión activa, saltar el login directamente
         if (sessionStorage.getItem('accessToken')) {

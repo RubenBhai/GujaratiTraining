@@ -1,7 +1,7 @@
 {
   "name": "gujarati-backend",
   "version": "1.0.0",
-  "description": "Servidor seguro para el piloto de Gujarati Inmersivo",
+  "description": "Servidor seguro para el piloto de Gujarati Inmersivo Total",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

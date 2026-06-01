@@ -180,28 +180,29 @@
 
     <script>
         const BACKEND_URL = "https://gujaratitraining.onrender.com";
-
-        window.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('ambient-audio').play().catch(e => console.log(e));
-        }, { once: true });        
-
+    
         // Si ya tiene sesión activa, saltar el login directamente
         if (sessionStorage.getItem('accessToken')) {
             window.location.href = 'teatro.html';
         }
-
+    
+        // Activar ambiente en el primer toque del usuario
+        document.addEventListener('click', () => {
+            document.getElementById('ambient-audio').play().catch(e => console.log(e));
+        }, { once: true });
+    
         function ejecutarLogin(e) {
             e.preventDefault();
-
+    
             const user = document.getElementById('user-input').value.trim();
             const pass = document.getElementById('pass-input').value.trim();
             const errorMsg = document.getElementById('login-error');
             const btn = document.querySelector('.login-btn');
-
+    
             errorMsg.style.display = "none";
             btn.textContent = "Verificando...";
             btn.disabled = true;
-
+    
             fetch(`${BACKEND_URL}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -214,8 +215,7 @@
             .then(data => {
                 if (data.acceso) {
                     sessionStorage.setItem('accessToken', data.token);
-                    // Redirigir al teatro
-                    window.location.href = 'index.html';
+                    window.location.href = 'teatro.html';
                 }
             })
             .catch(() => {
@@ -226,6 +226,6 @@
             });
         }
     </script>
-
+        
 </body>
 </html>

@@ -555,13 +555,6 @@
         // REPRODUCTOR MAESTRO (CON RESALTADO EN ESPEJO)
         // =====================================================================
         function playMaster(archivoUrl, lineId, textId, spanishId) {
-            if (!ambientActive) {
-                ambientAudio.play().then(() => {
-                    ambientActive = true;
-                    actualizarBotonAmbiente(true);
-                }).catch(err => console.log(err));
-            }
-
             document.querySelectorAll('.dialogue-line').forEach(l => l.classList.remove('active'));
             // Mejor práctica: usar classList.remove en lugar de vaciar toda la className
             document.querySelectorAll('.gujarati-text span, .spanish-text span').forEach(w => w.classList.remove('word-active'));
@@ -643,6 +636,7 @@
 
             // Iniciar nueva grabación
             recordingLineId = lineId;
+            if (ambientActive) ambientAudio.pause();
 
             if (selfPlayer) {
                 selfPlayer.src = ""; 
@@ -669,7 +663,7 @@
                         playBtn.removeAttribute('disabled'); 
                         playBtn.dataset.url = url; 
                     }
-
+                    if (ambientActive) ambientAudio.play().catch(e => console.log(e));
                     convertirAudioABase64(blob, lineId);
                 };
 

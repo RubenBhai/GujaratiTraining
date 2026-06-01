@@ -3,498 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Learn Gujarati Ultra-Inmersivo — Acceso</title>
     <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico">
-    <title>Gujarati Ultra-Inmersivo - RubenBhai Misión 1 Completa</title>
     <style>
-        /* =====================================================================
-           ESTILOS GENERALES (DISEÑO ZEN / MODO OSCURO PREMIUM)
-           ===================================================================== */
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; }
 
         :root {
+            --primary-color: #ffd700;
+            --accent-color: #00ffcc;
             --bg-color: #0d0d0d;
-            --surface-color: #161616;
-            --primary-color: #ffd700; 
-            --accent-color: #00ffcc; 
-            --text-color: #e5e5e5;
+            --surface-color: rgba(22, 22, 22, 0.88);
             --text-muted: #888888;
-            --border-color: #222222;
+            --border-color: #333333;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Segoe UI', system-ui, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+
+            /* IMAGEN DE FONDO */
+            background-image: url('LearnGujarati_SuperInmersivo_Main.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
-        .app-container {
-            max-width: 850px;
+        /* Capa oscura encima de la imagen para que el formulario sea legible */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 0;
+        }
+
+        .login-wrapper {
+            position: relative;
+            z-index: 1;
             width: 100%;
-            background-color: var(--surface-color);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-            border: 1px solid #222;
+            max-width: 400px;
+            padding: 20px;
         }
 
-        header {
+        .login-box {
+            background: var(--surface-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 40px 36px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
             text-align: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid #222;
-            padding-bottom: 25px;
+        }
+
+        .logo-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
         }
 
         .level-badge {
-            background: linear-gradient(90deg, var(--primary-color), #ffa500);
-            color: #000;
-            padding: 6px 16px;
+            display: inline-block;
+            background: #1a1a1a;
+            color: var(--primary-color);
+            border: 1px solid #333;
+            padding: 5px 14px;
             border-radius: 30px;
             font-weight: 800;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 16px;
         }
 
         h1 {
-            margin: 15px 0 5px 0;
-            font-size: 2.3rem;
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0 0 8px 0;
             letter-spacing: -0.5px;
         }
 
         .subtitle {
             color: var(--text-muted);
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        .ambient-box {
-            background: #1f1f1f;
-            padding: 12px 20px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
             font-size: 0.9rem;
-            border: 1px dashed #333;
-        }
-
-        /* =====================================================================
-           TEATRO DE AUDIO INTERACTIVO (KARAOKE)
-           ===================================================================== */
-        .audio-theater {
-            display: flex;
-            flex-direction: column;
-            gap: 28px;
-            margin-bottom: 40px;
-        }
-
-        .dialogue-line {
-            background-color: #1a1a1a;
-            padding: 25px;
-            border-radius: 16px;
-            border-left: 4px solid #333;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .dialogue-line.active {
-            border-left-color: var(--primary-color);
-            background-color: #222;
-            transform: translateX(8px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .meta-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            margin-bottom: 12px;
-        }
-
-        .speaker-tag {
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-        .speaker-aayan { color: #4fc3f7; }
-        .speaker-shreya { color: #f06292; }
-
-        .gujarati-text {
-            font-size: 2.1rem;
-            line-height: 3.2rem;
-            color: #666; 
-            transition: color 0.1s ease;
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .gujarati-text span {
-            transition: color 0.15s ease, text-shadow 0.15s ease;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-        .dialogue-line.active .gujarati-text span {
-            color: #b5b5b5;
-        }
-
-        .spanish-text {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.6rem;
-            margin-bottom: 18px;
-        }
-
-        .action-bar {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap; /* Asegura buen layout en móviles */
-        }
-
-        .btn {
-            border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .btn-listen { background-color: #2a2a2a; color: #fff; }
-        .btn-listen:hover { background-color: var(--primary-color); color: #000; }
-
-        .btn-record { background-color: #2a2a2a; color: #fff; }
-        .btn-record.recording { background-color: #ff3333; color: #fff; animation: pulse 1.5s infinite; }
-        .btn-record:hover:not(.recording) { background-color: var(--accent-color); color: #000; }
-
-        .btn-play-self { 
-            background-color: #1a3a3a; 
-            color: var(--accent-color); 
-            display: flex; 
-            opacity: 0.4; 
-            cursor: not-allowed;
-        }
-        .btn-play-self:not([disabled]) {
-            opacity: 1;
-            cursor: pointer;
-        }
-        .btn-play-self:not([disabled]):hover { background-color: var(--accent-color); color: #000; }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        /* DISEÑO DE ILUMINACIÓN DE PALABRAS EN ESPEJO */
-        .gujarati-text span.word-active,
-        .spanish-text span.word-active {
-            background-color: #ffd700 !important; 
-            color: #000 !important;
-            font-weight: bold;
-            border-radius: 4px;
-            padding: 0 4px;
-            text-shadow: none !important;
-            transform: scale(1.03);
-        }
-
-        .spanish-text span {
-            transition: all 0.2s ease;
-            border-radius: 4px;
-            padding: 0 2px;
-            display: inline-block; 
-        }
-
-        /* =====================================================================
-           NUEVOS ESTILOS: EVALUACIÓN DE GEMINI IA Y PANTALLA DE LOGIN
-           ===================================================================== */
-        .loading-ia {
-            display: none;
-            color: var(--accent-color);
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-left: 10px;
-            animation: pulse 1s infinite;
-        }
-
-        .eval-panel {
-            margin-top: 15px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            background-color: #111;
-            border: 1px solid var(--border-color);
-            display: none;
-        }
-
-        .eval-nota {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 0 0 5px 0;
-        }
-
-        .eval-transcripcion {
-            font-size: 0.95rem;
-            color: #ccc;
-            margin: 0 0 5px 0;
-            font-style: italic;
-        }
-
-        .eval-consejo {
-            font-size: 0.9rem;
-            color: var(--primary-color);
-            margin: 0;
-            line-height: 1.3;
-        }
-
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .login-box {
-            background-color: var(--surface-color);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--border-color);
-            max-width: 380px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            margin: 0 0 28px 0;
+            line-height: 1.5;
         }
 
         .login-input {
             width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background-color: #1f1f1f;
+            padding: 14px 16px;
+            margin-bottom: 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.05);
             color: #fff;
             font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .login-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .login-input::placeholder {
+            color: #555;
         }
 
         .login-btn {
             width: 100%;
             padding: 14px;
-            background-color: var(--primary-color);
+            background: linear-gradient(90deg, var(--primary-color), #ffa500);
             color: #000;
             border: none;
             font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
+            font-weight: 800;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: opacity 0.2s, transform 0.1s;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
         }
-        .login-btn:hover { background-color: #ffea70; }
+
+        .login-btn:hover { opacity: 0.9; }
+        .login-btn:active { transform: scale(0.98); }
 
         #login-error {
-            color: #ff3333;
+            color: #ff4444;
             font-size: 0.85rem;
-            margin-top: 15px;
+            margin-top: 14px;
             display: none;
+            line-height: 1.4;
+        }
+
+        .footer-text {
+            margin-top: 24px;
+            color: #444;
+            font-size: 0.78rem;
         }
     </style>
 </head>
 <body>
 
-    <div id="login-screen">
+    <div class="login-wrapper">
         <form class="login-box" onsubmit="ejecutarLogin(event)">
-            <span class="level-badge" style="background: #222; color: var(--primary-color); border: 1px solid #333;">🔐 Sistema Privado</span>
-            <h2 style="margin: 20px 0 10px 0; font-size: 1.8rem;">Identificación</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">Acceso exclusivo al piloto privado de Gujarati.</p>
-            
-            <input type="text" id="user-input" class="login-input" placeholder="Nombre de Usuario" required>
-            <input type="password" id="pass-input" class="login-input" placeholder="Contraseña" required>
-            
-            <button type="submit" class="login-btn">Ingresar al Teatro</button>
+
+            <img src="LearnGujarati_SuperInmersivo.ico" alt="Logo" class="logo-img">
+
+            <div class="level-badge">🔐 Sistema Privado</div>
+            <h1>Identificación</h1>
+            <p class="subtitle">Acceso exclusivo al piloto privado de<br><strong style="color: var(--primary-color);">Gujarati Ultra-Inmersivo</strong></p>
+
+            <input type="text" id="user-input" class="login-input" placeholder="Nombre de Usuario" required autocomplete="username">
+            <input type="password" id="pass-input" class="login-input" placeholder="Contraseña" required autocomplete="current-password">
+
+            <button type="submit" class="login-btn">🎭 Ingresar al Teatro</button>
+
             <p id="login-error"></p>
+            <p class="footer-text">Gujarati Ultra-Inmersivo · RubenBhai Pilot</p>
         </form>
     </div>
 
-    <audio id="ambient-audio" loop src="bazar.mp3"></audio>
-
-    <main class="app-container">
-        
-        <header>
-            <span class="level-badge">Misión 01 - RubenBhai Full Pilot</span>
-            <h1>Teatro Multimedia de Gujarati</h1>
-            <p class="subtitle">Entrenamiento inmersivo con tus 4 audios reales de Sarvam AI v3.</p>
-        </header>
-
-        <div class="ambient-box">
-            <span>🌍 Paisaje Sonoro: <strong>Bazar de Ahmedabad</strong></span>
-            <button class="btn btn-listen" id="ambient-toggle" onclick="toggleAmbience()">🎵 Activar Entorno</button>
-        </div>
-
-        <section class="audio-theater">
-
-            <!-- LÍNEA 1: AAYAN (CURIOSIDAD) -->
-            <div class="dialogue-line" id="line-1">
-                <div class="meta-info">
-                    <span class="speaker-tag speaker-aayan">aayan</span>
-                </div>
-                <div class="gujarati-text" id="text-1">
-                    <span data-start="0.554" data-end="0.908">અરે,</span>
-                    <span data-start="1.279" data-end="3.422">જુઓ આ જૂની દુકાનમાં કંઈક અલગ છે.</span>
-                    <span data-start="3.861" data-end="5.380">શું તમે આ ક્યારેય જોયું છે?</span>
-                </div>
-                <div class="spanish-text" id="spanish-1">
-                    <span data-start="0.554" data-end="0.908">¡Guao!</span>
-                    <span data-start="1.279" data-end="3.422">Mira, hay algo diferente en esta tienda antigua.</span>
-                    <span data-start="3.861" data-end="5.380">¿Habías visto esto alguna vez?</span>
-                </div>
-                <div class="action-bar">
-                    <button class="btn btn-listen" onclick="playMaster('audio_01_aayan_curiosidad.mp3', 'line-1', 'text-1', 'spanish-1')">🔊 Escuchar Maestro</button>
-                    <button class="btn btn-record" id="rec-line-1" onclick="toggleRecord('line-1')">🎙️ Practicar</button>
-                    <button class="btn btn-play-self" id="play-line-1" onclick="playRecorded('line-1')" disabled>🎧 Escucharme</button>
-                    <span id="load-line-1" class="loading-ia">✨ Evaluando...</span>
-                </div>
-                <div class="eval-panel" id="eval-panel-line-1">
-                    <p class="eval-nota" id="nota-line-1">⭐ Nota: 0/10</p>
-                    <p class="eval-transcripcion" id="trans-line-1"></p>
-                    <p class="eval-consejo" id="consejo-line-1"></p>
-                </div>
-            </div>
-
-            <!-- LÍNEA 2: SHREYA (SORPRESA) -->
-            <div class="dialogue-line" id="line-2">
-                <div class="meta-info">
-                    <span class="speaker-tag speaker-shreya">shreya</span>
-                </div>
-                <div class="gujarati-text" id="text-2">
-                    <span data-start="0.250" data-end="0.672">ઓહો.</span>
-                    <span data-start="1.161" data-end="3.270">આ આટલું સુંદર અને અદ્ભુત છે.</span>
-                    <span data-start="3.642" data-end="5.532">મને તો વિશ્વાસ જ નથી થતો.</span>
-                </div>
-                <div class="spanish-text" id="spanish-2">
-                    <span data-start="0.250" data-end="0.672">¡Oh!</span>
-                    <span data-start="1.161" data-end="3.270">¡Esto es tan hermoso y maravilloso!</span>
-                    <span data-start="3.642" data-end="5.532">¡No lo puedo ni creer!</span>
-                </div>
-                <div class="action-bar">
-                    <button class="btn btn-listen" onclick="playMaster('audio_02_shreya_sorpresa.mp3', 'line-2', 'text-2', 'spanish-2')">🔊 Escuchar Maestro</button>
-                    <button class="btn btn-record" id="rec-line-2" onclick="toggleRecord('line-2')">🎙️ Practicar</button>
-                    <button class="btn btn-play-self" id="play-line-2" onclick="playRecorded('line-2')" disabled>🎧 Escucharme</button>
-                    <span id="load-line-2" class="loading-ia">✨ Evaluando...</span>
-                </div>
-                <div class="eval-panel" id="eval-panel-line-2">
-                    <p class="eval-nota" id="nota-line-2">⭐ Nota: 0/10</p>
-                    <p class="eval-transcripcion" id="trans-line-2"></p>
-                    <p class="eval-consejo" id="consejo-line-2"></p>
-                </div>
-            </div>
-
-            <!-- LÍNEA 3: AAYAN (INTRIGA) -->
-            <div class="dialogue-line" id="line-3">
-                <div class="meta-info">
-                    <span class="speaker-tag speaker-aayan">aayan</span>
-                </div>
-                <div class="gujarati-text" id="text-3">
-                    <span data-start="0.334" data-end="1.026">અફસોસ</span>
-                    <span data-start="1.364" data-end="2.629">પણ દુકાનદાર અહીં નથી.</span>
-                    <span data-start="3.085" data-end="4.688">હવે આપણે આગળ શું કરીશું?</span>
-                </div>
-                <div class="spanish-text" id="spanish-3">
-                    <span data-start="0.334" data-end="1.026">Qué lástima,</span>
-                    <span data-start="1.364" data-end="2.629">pero el tendero no está aquí...</span>
-                    <span data-start="3.085" data-end="4.688">¿Qué haremos ahora?</span>
-                </div>
-                <div class="action-bar">
-                    <button class="btn btn-listen" onclick="playMaster('audio_03_aayan_intriga.mp3', 'line-3', 'text-3', 'spanish-3')">🔊 Escuchar Maestro</button>
-                    <button class="btn btn-record" id="rec-line-3" onclick="toggleRecord('line-3')">🎙️ Practicar</button>
-                    <button class="btn btn-play-self" id="play-line-3" onclick="playRecorded('line-3')" disabled>🎧 Escucharme</button>
-                    <span id="load-line-3" class="loading-ia">✨ Evaluando...</span>
-                </div>
-                <div class="eval-panel" id="eval-panel-line-3">
-                    <p class="eval-nota" id="nota-line-3">⭐ Nota: 0/10</p>
-                    <p class="eval-transcripcion" id="trans-line-3"></p>
-                    <p class="eval-consejo" id="consejo-line-3"></p>
-                </div>
-            </div>
-
-            <!-- LÍNEA 4: SHREYA (CALMA) -->
-            <div class="dialogue-line" id="line-4">
-                <div class="meta-info">
-                    <span class="speaker-tag speaker-shreya">shreya</span>
-                </div>
-                <div class="gujarati-text" id="text-4">
-                    <span data-start="0.334" data-end="2.410">હવે ધીમેથી આ જુઓ.</span>
-                    <span data-start="2.781" data-end="3.794">અને વિચારો.</span>
-                    <span data-start="4.249" data-end="6.122">અહીં કંઈક સંકેત જરૂર હશે.</span>
-                </div>
-                <div class="spanish-text" id="spanish-4">
-                    <span data-start="0.334" data-end="2.410">Ahora, mira esto con calma...</span>
-                    <span data-start="2.781" data-end="3.794">y piensa.</span>
-                    <span data-start="4.249" data-end="6.122">Seguro que debe haber alguna pista aquí.</span>
-                </div>
-                <div class="action-bar">
-                    <button class="btn btn-listen" onclick="playMaster('audio_04_shreya_calma.mp3', 'line-4', 'text-4', 'spanish-4')">🔊 Escuchar Maestro</button>
-                    <button class="btn btn-record" id="rec-line-4" onclick="toggleRecord('line-4')">🎙️ Practicar</button>
-                    <button class="btn btn-play-self" id="play-line-4" onclick="playRecorded('line-4')" disabled>🎧 Escucharme</button>
-                    <span id="load-line-4" class="loading-ia">✨ Evaluando...</span>
-                </div>
-                <div class="eval-panel" id="eval-panel-line-4">
-                    <p class="eval-nota" id="nota-line-4">⭐ Nota: 0/10</p>
-                    <p class="eval-transcripcion" id="trans-line-4"></p>
-                    <p class="eval-consejo" id="consejo-line-4"></p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <audio id="master-player" playsinline></audio>
-    <audio id="self-player" playsinline></audio>
-    
     <script>
-        const BACKEND_URL = "https://gujaratitraining.onrender.com"; 
+        const BACKEND_URL = "https://gujaratitraining.onrender.com";
 
-        const masterPlayer = document.getElementById('master-player');
-        const selfPlayer = document.getElementById('self-player');
-        const ambientAudio = document.getElementById('ambient-audio');
-        
-        ambientAudio.loop = true;
-        ambientAudio.volume = 0.25; // Bajamos un poco el volumen del entorno para que las voces destaquen
-        
-        let ambientActive = false; 
-        let mediaRecorder;
-        let audioChunks = {};
-        let activeTextId = null;
-        let recordingLineId = null; // Mantiene el control exacto del botón que está grabando
+        // Si ya tiene sesión activa, saltar el login directamente
+        if (sessionStorage.getItem('accessToken')) {
+            window.location.href = 'teatro.html';
+        }
 
-        // =====================================================================
-        // CONTROL DE ACCESO SEGURIZADO (LOGIN)
-        // =====================================================================
         function ejecutarLogin(e) {
-            if(e) e.preventDefault(); // Evita que la página se recargue en móviles al dar Enter/Ir
-            
-            const user = document.getElementById('user-input').value;
-            const pass = document.getElementById('pass-input').value;
+            e.preventDefault();
+
+            const user = document.getElementById('user-input').value.trim();
+            const pass = document.getElementById('pass-input').value.trim();
             const errorMsg = document.getElementById('login-error');
+            const btn = document.querySelector('.login-btn');
 
             errorMsg.style.display = "none";
+            btn.textContent = "Verificando...";
+            btn.disabled = true;
 
             fetch(`${BACKEND_URL}/api/login`, {
                 method: 'POST',
@@ -508,241 +208,18 @@
             .then(data => {
                 if (data.acceso) {
                     sessionStorage.setItem('accessToken', data.token);
-                    const loginScreen = document.getElementById('login-screen');
-                    loginScreen.style.opacity = "0";
-                    setTimeout(() => loginScreen.style.display = "none", 500);
+                    // Redirigir al teatro
+                    window.location.href = 'index.html';
                 }
             })
-            .catch(err => {
+            .catch(() => {
                 errorMsg.innerText = "Usuario o contraseña incorrectos, Bhai.";
                 errorMsg.style.display = "block";
-            });
-        }
-
-        // =====================================================================
-        // GESTIÓN DEL ENTORNO ACÚSTICO
-        // =====================================================================
-        window.addEventListener('DOMContentLoaded', () => {
-            ambientAudio.play().then(() => {
-                ambientActive = true;
-                actualizarBotonAmbiente(true);
-            }).catch(e => {
-                ambientActive = false;
-                actualizarBotonAmbiente(false);
-            });
-        });
-
-        function toggleAmbience() {
-            if (ambientActive) {
-                ambientAudio.pause();
-                ambientActive = false;
-                actualizarBotonAmbiente(false);
-            } else {
-                ambientAudio.play().catch(e => console.log(e));
-                ambientActive = true;
-                actualizarBotonAmbiente(true);
-            }
-        }
-
-        function actualizarBotonAmbiente(activo) {
-            const btn = document.getElementById('ambient-toggle');
-            if (btn) {
-                btn.innerHTML = activo ? "🔇 Silenciar Entorno" : "🎵 Activar Entorno";
-            }
-        }
-
-        // =====================================================================
-        // REPRODUCTOR MAESTRO (CON RESALTADO EN ESPEJO)
-        // =====================================================================
-        function playMaster(archivoUrl, lineId, textId, spanishId) {
-            document.querySelectorAll('.dialogue-line').forEach(l => l.classList.remove('active'));
-            // Mejor práctica: usar classList.remove en lugar de vaciar toda la className
-            document.querySelectorAll('.gujarati-text span, .spanish-text span').forEach(w => w.classList.remove('word-active'));
-
-            activeTextId = textId;
-            masterPlayer.src = archivoUrl;
-            masterPlayer.load();
-
-            masterPlayer.play().then(() => {
-                const currentLine = document.getElementById(lineId);
-                if (currentLine) currentLine.classList.add('active');
-            }).catch(e => console.log("Interacción requerida"));
-
-            masterPlayer.ontimeupdate = function() {
-                const currentTime = masterPlayer.currentTime;
-                
-                // Resaltar Gujarati
-                const words = document.querySelectorAll(`#${activeTextId} span`);
-                words.forEach(word => {
-                    const start = parseFloat(word.getAttribute('data-start'));
-                    const end = parseFloat(word.getAttribute('data-end'));
-                    if (currentTime >= start && currentTime <= end) {
-                        word.classList.add('word-active');
-                    } else {
-                        word.classList.remove('word-active'); 
-                    }
-                });
-
-                // Resaltar Español Espejo
-                if (spanishId) {
-                    const spanishPhrases = document.querySelectorAll(`#${spanishId} span`);
-                    spanishPhrases.forEach(phrase => {
-                        const start = parseFloat(phrase.getAttribute('data-start'));
-                        const end = parseFloat(phrase.getAttribute('data-end'));
-                        if (currentTime >= start && currentTime <= end) {
-                            phrase.classList.add('word-active');
-                        } else {
-                            phrase.classList.remove('word-active'); 
-                        }
-                    });
-                }
-            };
-
-            masterPlayer.onended = function() {
-                const currentLine = document.getElementById(lineId);
-                if (currentLine) currentLine.classList.remove('active');
-                document.querySelectorAll(`#${activeTextId} span`).forEach(w => w.classList.remove('word-active'));
-                if (spanishId) {
-                    document.querySelectorAll(`#${spanishId} span`).forEach(w => w.classList.remove('word-active'));
-                }
-            };
-        }
-
-        // =====================================================================
-        // GRABACIÓN INTEGRADA Y ENVÍO SEGURO A LA IA
-        // =====================================================================
-        function toggleRecord(lineId) {
-            const btn = document.getElementById(`rec-${lineId}`);
-            
-            // Si ya hay una grabación corriendo en CUALQUIER línea
-            if (mediaRecorder && mediaRecorder.state === "recording") {
-                mediaRecorder.stop();
-                
-                // Resetear la UI del botón que estaba grabando
-                if (recordingLineId) {
-                    const prevBtn = document.getElementById(`rec-${recordingLineId}`);
-                    if (prevBtn) {
-                        prevBtn.innerHTML = "🎙️ Practicar";
-                        prevBtn.classList.remove('recording');
-                    }
-                }
-                
-                // Si el usuario presionó el MISMO botón, terminamos aquí (solo quería detener)
-                if (recordingLineId === lineId) {
-                    recordingLineId = null;
-                    return; 
-                }
-            }
-
-            // Iniciar nueva grabación
-            recordingLineId = lineId;
-            if (ambientActive) ambientAudio.pause();
-
-            if (selfPlayer) {
-                selfPlayer.src = ""; 
-                selfPlayer.play().then(() => selfPlayer.pause()).catch(() => {});
-            }
-
-            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-                mediaRecorder = new MediaRecorder(stream);
-                audioChunks[lineId] = [];
-
-                mediaRecorder.ondataavailable = e => {
-                    if (e.data && e.data.size > 0) {
-                        audioChunks[lineId].push(e.data);
-                    }
-                };
-
-                mediaRecorder.onstop = () => {
-                    const tipoReal = mediaRecorder.mimeType || "audio/webm";
-                    const blob = new Blob(audioChunks[lineId], { type: tipoReal });
-                    const url = URL.createObjectURL(blob);
-                    
-                    const playBtn = document.getElementById(`play-${lineId}`);
-                    if (playBtn) {
-                        playBtn.removeAttribute('disabled'); 
-                        playBtn.dataset.url = url; 
-                    }
-                    if (ambientActive) ambientAudio.play().catch(e => console.log(e));
-                    convertirAudioABase64(blob, lineId);
-                };
-
-                mediaRecorder.start();
-                btn.innerHTML = "🛑 Detener";
-                btn.classList.add('recording');
-            }).catch(err => {
-                alert("Verifica los permisos de tu micrófono en los ajustes del dispositivo.");
-            });
-        }
-
-        function playRecorded(lineId) {
-            const playBtn = document.getElementById(`play-${lineId}`);
-            if (playBtn && playBtn.dataset.url) {
-                selfPlayer.src = playBtn.dataset.url;
-                selfPlayer.load(); 
-                selfPlayer.play().catch(e => {
-                    alert("Asegúrate de que el switch físico de silencio de tu dispositivo no esté activado.");
-                });
-            }
-        }
-
-        function convertirAudioABase64(blob, lineId) {
-            const reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = () => {
-                const base64Limpio = reader.result.split(',')[1];
-                const mimeTypeReal = blob.type || "audio/webm"; 
-                const textoGujaratiCompleto = document.getElementById(`text-${lineId.split('-')[1]}`).innerText;
-                
-                enviarAlTeatroIA(base64Limpio, mimeTypeReal, textoGujaratiCompleto, lineId);
-            };
-        }
-
-        function enviarAlTeatroIA(audioBase64, mimeType, fraseObjetivo, lineId) {
-            const spinner = document.getElementById(`load-${lineId}`);
-            const panel = document.getElementById(`eval-panel-${lineId}`);
-            
-            if (spinner) spinner.style.display = "inline-block";
-            if (panel) panel.style.display = "none";
-
-            fetch(`${BACKEND_URL}/api/evaluar-audio`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'x-access-token': sessionStorage.getItem('accessToken') || ''
-                },
-                body: JSON.stringify({
-                    audioBase64: audioBase64,
-                    mimeType: mimeType, 
-                    fraseObjetivo: fraseObjetivo
-                })
-            })
-            .then(res => {
-                if (!res.ok) throw new Error("Error en la respuesta del servidor");
-                return res.json();
-            })
-            .then(data => {
-                const sufijo = lineId.split('-')[1];
-                const notaTxt = document.getElementById(`nota-line-${sufijo}`);
-                const transTxt = document.getElementById(`trans-line-${sufijo}`);
-                const consejoTxt = document.getElementById(`consejo-line-${sufijo}`);
-
-                notaTxt.innerText = `⭐ Nota: ${data.nota}/10`;
-                transTxt.innerText = `Gemini entendió: "${data.transcripcion}"`;
-                consejoTxt.innerText = `💡 Consejo Fonético: ${data.consejo}`;
-
-                notaTxt.style.color = data.nota >= 7 ? "#ffd700" : "#ff3333";
-                if (panel) panel.style.display = "block";
-            })
-            .catch(err => {
-                console.error("Error conectando al backend:", err);
-                alert("Hubo un detalle al recibir la nota de Gemini. Inténtalo de nuevo.");
-            })
-            .finally(() => {
-                if (spinner) spinner.style.display = "none";
+                btn.textContent = "🎭 Ingresar al Teatro";
+                btn.disabled = false;
             });
         }
     </script>
+
 </body>
 </html>
-

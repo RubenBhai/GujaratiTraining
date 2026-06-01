@@ -719,15 +719,18 @@
             reader.readAsDataURL(blob);
             reader.onloadend = () => {
                 const base64Limpio = reader.result.split(',')[1];
+                // 🚀 NUEVO: Capturamos el formato exacto del dispositivo móvil
+                const mimeTypeReal = blob.type || "audio/mp4"; 
                 
-                // Obtenemos el texto completo de la frase para pasárselo de guía a Gemini
                 const textoGujaratiCompleto = document.getElementById(`text-${lineId.split('-')[1]}`).innerText;
                 
-                enviarAlTeatroIA(base64Limpio, textoGujaratiCompleto, lineId);
+                // Le pasamos el mimeTypeReal a la siguiente función
+                enviarAlTeatroIA(base64Limpio, mimeTypeReal, textoGujaratiCompleto, lineId);
             };
         }
 
-        function enviarAlTeatroIA(audioBase64, fraseObjetivo, lineId) {
+        // 🚀 NUEVO: Recibe el mimeType y lo mete en el cuerpo de la petición
+        function enviarAlTeatroIA(audioBase64, mimeType, fraseObjetivo, lineId) {
             const spinner = document.getElementById(`load-${lineId}`);
             const panel = document.getElementById(`eval-panel-${lineId}`);
             
@@ -739,6 +742,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     audioBase64: audioBase64,
+                    mimeType: mimeType, // <-- Se lo mandamos al servidor
                     fraseObjetivo: fraseObjetivo
                 })
             })

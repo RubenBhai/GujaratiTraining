@@ -183,7 +183,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             document.getElementById('ambient-audio').play().catch(e => console.log(e));
-        });        
+        }, { once: true });        
 
         // Si ya tiene sesión activa, saltar el login directamente
         if (sessionStorage.getItem('accessToken')) {

@@ -49,10 +49,10 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-// ENDPOINT DE IA: Recibe el audio del Android y lo manda a evaluar a Gemini
+// ENDPOINT DE IA: Recibe el audio del dispositivo y lo manda a evaluar a Gemini
 app.post('/api/evaluar-audio', async (req, res) => {
     
-    // 🚀 ACTUALIZADO: Ahora recibe el mimeType real que manda el celular
+    // 🚀 ACTUALIZADO: Ahora recibe el mimeType real que manda el celular/navegador
     const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
     if (!audioBase64 || !fraseObjetivo) {
@@ -72,23 +72,26 @@ app.post('/api/evaluar-audio', async (req, res) => {
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-flash',
+            model: 'gemini-2.5-flash', // Actualizado a la versión recomendada para el nuevo SDK
             contents: [
                 promptPedagogico,
                 {
                     inlineData: {
-                        mimeType: mimeType || "audio/mp4", // 🚀 ACTUALIZADO: Usa el formato real que grabó el teléfono
+                        mimeType: mimeType || "audio/webm", // 🚀 ACTUALIZADO: Fallback a webm que es más estándar en navegadores web que mp4
                         data: audioBase64
                     }
                 }
             ],
-            config: { responseMimeType: "application/json" }
+            config: { 
+                responseMimeType: "application/json",
+                // temperature: 0.2 // Opcional: bajar la temperatura hace que las evaluaciones sean más consistentes y menos creativas
+            }
         });
 
-        // 🚀 ACTUALIZADO: Limpiamos los backticks de Markdown antes de parsear, por seguridad
+        // 🚀 ACTUALIZADO: Con responseMimeType: "application/json", la API ya devuelve el JSON limpio en la mayoría de los casos.
+        // Pero mantenemos una pequeña limpieza por si el modelo a veces añade backticks por costumbre.
         let iaTexto = response.text;
-        iaTexto = iaTexto.replace(/```json/gi, "").replace(/
-```/g, "").trim();
+        iaTexto = iaTexto.replace(/```json/gi, "").replace(/```/g, "").trim();
 
         // Devolvemos la respuesta estructurada de la IA directamente al celular del alumno
         res.json(JSON.parse(iaTexto));

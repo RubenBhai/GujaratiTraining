@@ -26,6 +26,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 //   USUARIOS_JSON = {"rubenbhai":"144000","vanessaben":"144000",...}
 // =====================================================================
 const USUARIOS_AUTORIZADOS = JSON.parse(process.env.USUARIOS_JSON || "{}");
+console.log(`Usuarios cargados: ${Object.keys(USUARIOS_AUTORIZADOS).length}`);
 
 // =====================================================================
 // MIDDLEWARE DE AUTENTICACIÓN

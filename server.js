@@ -5,54 +5,63 @@ const { GoogleGenAI } = require('@google/genai');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuración de Seguridad
-// Cambia esto por el link real de tu GitHub Pages si quieres bloquearlo aún más en el futuro
-app.use(cors()); 
-app.use(express.json({ limit: '10mb' })); // Permitir archivos de audio base64 medianos
+// =====================================================================
+// CONFIGURACIÓN DE SEGURIDAD
+// En Render, agrega la variable: FRONTEND_URL = https://tu-usuario.github.io
+// =====================================================================
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "*"
+}));
+app.use(express.json({ limit: '10mb' }));
 
-// 1. INICIALIZACIÓN DE GEMINI API
-// Render inyectará de forma invisible la KEY que guardaste en el panel
+// =====================================================================
+// GEMINI API
+// =====================================================================
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-// 2. LISTA DE ACCESO CONTROLADO (Agrega o cambia tus amigos aquí)
-const USUARIOS_AUTORIZADOS = {
-    "rubenbhai": "144000",
-    "vanessaben": "144000",
-    "saraben": "144000",
-    "maritereben": "144000",
-    "kellyben": "144000",
-    "dianaben": "144000",
-    "nonaben": "144000",
-    "veronicaben": "144000",
-    "shamiraben": "144000",
-    "xiomaraben": "144000"
-};
+// =====================================================================
+// LISTA DE ACCESO
+// IMPORTANTE: No hardcodear credenciales en el código.
+// En Render, crea la variable de entorno:
+//   USUARIOS_JSON = {"rubenbhai":"144000","vanessaben":"144000",...}
+// =====================================================================
+const USUARIOS_AUTORIZADOS = JSON.parse(process.env.USUARIOS_JSON || "{}");
 
-// RUTA DE PRUEBA: Para verificar que el servidor esté vivo
+// =====================================================================
+// MIDDLEWARE DE AUTENTICACIÓN
+// Protege /api/evaluar-audio de llamadas externas no autorizadas.
+// En Render, crea la variable: ACCESS_TOKEN = (cualquier string seguro)
+// =====================================================================
+function verificarAcceso(req, res, next) {
+    const token = req.headers['x-access-token'];
+    if (!token || token !== process.env.ACCESS_TOKEN) {
+        return res.status(401).json({ error: "No autorizado." });
+    }
+    next();
+}
+
+// =====================================================================
+// RUTAS
+// =====================================================================
 app.get('/', (req, res) => {
     res.send('🎭 El Servidor del Teatro de Gujarati está activo y listo, Bhai.');
 });
 
-// ENDPOINT DE LOGIN: Valida usuarios sin exponer claves en el celular
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-
     if (!username || !password) {
         return res.status(400).json({ acceso: false, mensaje: "Faltan datos de ingreso." });
     }
-
     const usuarioClave = username.toLowerCase().trim();
     if (USUARIOS_AUTORIZADOS[usuarioClave] && USUARIOS_AUTORIZADOS[usuarioClave] === password) {
-        return res.json({ acceso: true, mensaje: "¡Acceso concedido!" });
+        // Devuelve el token para que el cliente lo use en peticiones a /api/evaluar-audio
+        return res.json({ acceso: true, mensaje: "¡Acceso concedido!", token: process.env.ACCESS_TOKEN });
     } else {
         return res.status(401).json({ acceso: false, mensaje: "Usuario o contraseña incorrectos." });
     }
 });
 
-// ENDPOINT DE IA: Recibe el audio del dispositivo y lo manda a evaluar a Gemini
-app.post('/api/evaluar-audio', async (req, res) => {
-    
-    // 🚀 ACTUALIZADO: Ahora recibe el mimeType real que manda el celular/navegador
+app.post('/api/evaluar-audio', verificarAcceso, async (req, res) => {
     const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
     if (!audioBase64 || !fraseObjetivo) {
@@ -65,35 +74,33 @@ app.post('/api/evaluar-audio', async (req, res) => {
         Compara su voz con el estándar nativo y devuélveme ESTRICTAMENTE un objeto JSON con esta estructura:
         {
           "nota": (un número entero del 1 al 10 según su precisión),
-          "transcripcion": (lo que lograste entender textualanente de su pronunciación),
+          "transcripcion": (lo que lograste entender textualmente de su pronunciación),
           "consejo": (un tip corto, empático y práctico en español para mejorar su acento)
         }
     `;
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash', // Actualizado a la versión recomendada para el nuevo SDK
-            contents: [
-                promptPedagogico,
-                {
-                    inlineData: {
-                        mimeType: mimeType || "audio/webm", // 🚀 ACTUALIZADO: Fallback a webm que es más estándar en navegadores web que mp4
-                        data: audioBase64
+            model: 'gemini-2.0-flash',
+            contents: {
+                role: "user",
+                parts: [
+                    { text: promptPedagogico },
+                    {
+                        inlineData: {
+                            mimeType: mimeType || "audio/webm",
+                            data: audioBase64
+                        }
                     }
-                }
-            ],
-            config: { 
-                responseMimeType: "application/json",
-                // temperature: 0.2 // Opcional: bajar la temperatura hace que las evaluaciones sean más consistentes y menos creativas
-            }
+                ]
+            },
+            config: { responseMimeType: "application/json" }
         });
 
-        // 🚀 ACTUALIZADO: Con responseMimeType: "application/json", la API ya devuelve el JSON limpio en la mayoría de los casos.
-        // Pero mantenemos una pequeña limpieza por si el modelo a veces añade backticks por costumbre.
+        // BUG FIX: \n escapado correctamente (no salto de línea literal)
         let iaTexto = response.text;
-        iaTexto = iaTexto.replace(/```json/gi, "").replace(/```/g, "").trim();
+        iaTexto = iaTexto.replace(/```json/gi, "").replace(/\n```/g, "").trim();
 
-        // Devolvemos la respuesta estructurada de la IA directamente al celular del alumno
         res.json(JSON.parse(iaTexto));
 
     } catch (error) {
@@ -102,7 +109,6 @@ app.post('/api/evaluar-audio', async (req, res) => {
     }
 });
 
-// Encender el servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo con éxito en el puerto ${PORT}`);
 });

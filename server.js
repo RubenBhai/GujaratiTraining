@@ -54,7 +54,13 @@ app.post('/api/login', (req, res) => {
         return res.status(400).json({ acceso: false, mensaje: "Faltan datos de ingreso." });
     }
     const usuarioClave = username.toLowerCase().trim();
-    if (USUARIOS_AUTORIZADOS[usuarioClave] && USUARIOS_AUTORIZADOS[usuarioClave] === password) {
+    const passwordLimpia = password.trim();
+
+    // ← agregar aquí
+    console.log(`Usuario "${usuarioClave}" existe: ${!!USUARIOS_AUTORIZADOS[usuarioClave]}`);
+    console.log(`Longitud password ingresada: ${passwordLimpia.length} | almacenada: ${(USUARIOS_AUTORIZADOS[usuarioClave] || '').length}`);
+    
+    if (USUARIOS_AUTORIZADOS[usuarioClave] && USUARIOS_AUTORIZADOS[usuarioClave] === passwordLimpia) {
         // Devuelve el token para que el cliente lo use en peticiones a /api/evaluar-audio
         return res.json({ acceso: true, mensaje: "¡Acceso concedido!", token: process.env.ACCESS_TOKEN });
     } else {

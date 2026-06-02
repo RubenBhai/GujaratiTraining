@@ -367,6 +367,7 @@
             masterPlayer.src = archivoUrl;
             masterPlayer.load();
             masterPlayer.playbackRate = velocidad;
+            masterPlayer.preservesPitch = true;
 
             masterPlayer.play().then(() => {
                 const currentLine = document.getElementById(lineId);

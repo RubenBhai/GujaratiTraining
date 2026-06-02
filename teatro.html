@@ -382,8 +382,15 @@
                     if (currentTime >= start && currentTime <= end) {
                         span.classList.add('word-active');
                     } else if (currentTime > end) {
-                        const retardo = (masterPlayer.playbackRate < 1.0) ? 1000 : 0;
-                        setTimeout(() => span.classList.remove('word-active'), retardo);
+                        if (masterPlayer.playbackRate < 1.0) {
+                            masterPlayer.pause();
+                            setTimeout(() => {
+                                span.classList.remove('word-active');
+                                masterPlayer.play();
+                            }, 1000);
+                        } else {
+                            span.classList.remove('word-active');
+                        }
                     }
                 });
 
@@ -394,8 +401,15 @@
                         if (currentTime >= start && currentTime <= end) {
                             span.classList.add('word-active');
                         } else if (currentTime > end) {
-                            const retardo = (masterPlayer.playbackRate < 1.0) ? 1000 : 0;
-                            setTimeout(() => span.classList.remove('word-active'), retardo);
+                           if (masterPlayer.playbackRate < 1.0) {
+                               masterPlayer.pause();
+                               setTimeout(() => {
+                                   span.classList.remove('word-active');
+                                   masterPlayer.play();
+                               }, 1000);
+                           } else {
+                               span.classList.remove('word-active');
+                           }
                         }
                     });
                 }

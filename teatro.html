@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gujarati Ultra-Inmersivo - RubenBhai Misión 1 Completa</title>
-    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico?v=1.0.0">
+    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico?v=1.0.1">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         :root {
@@ -381,8 +381,10 @@
                     const end = parseFloat(span.getAttribute('data-end'));
                     if (currentTime >= start && currentTime <= end) {
                         span.classList.add('word-active');
-                    } else if (currentTime > end) {
+                        span.dataset.pausado = '';
+                    } else if (currentTime > end && span.classList.contains('word-active') && !span.dataset.pausado) {
                         if (masterPlayer.playbackRate < 1.0) {
+                            span.dataset.pausado = 'true';
                             masterPlayer.pause();
                             setTimeout(() => {
                                 span.classList.remove('word-active');
@@ -395,21 +397,23 @@
                 });
 
                 if (spanishId) {
-                    document.querySelectorAll(`#${spanishId} span`).forEach(span => {
+                    document.querySelectorAll(`#${activeTextId} span`).forEach(span => {
                         const start = parseFloat(span.getAttribute('data-start'));
                         const end = parseFloat(span.getAttribute('data-end'));
                         if (currentTime >= start && currentTime <= end) {
                             span.classList.add('word-active');
-                        } else if (currentTime > end) {
-                           if (masterPlayer.playbackRate < 1.0) {
-                               masterPlayer.pause();
-                               setTimeout(() => {
-                                   span.classList.remove('word-active');
-                                   masterPlayer.play();
-                               }, 1000);
-                           } else {
-                               span.classList.remove('word-active');
-                           }
+                            span.dataset.pausado = '';
+                        } else if (currentTime > end && span.classList.contains('word-active') && !span.dataset.pausado) {
+                            if (masterPlayer.playbackRate < 1.0) {
+                                span.dataset.pausado = 'true';
+                                masterPlayer.pause();
+                                setTimeout(() => {
+                                    span.classList.remove('word-active');
+                                    masterPlayer.play();
+                                }, 1000);
+                            } else {
+                                span.classList.remove('word-active');
+                            }
                         }
                     });
                 }

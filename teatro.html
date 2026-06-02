@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gujarati Ultra-Inmersivo - RubenBhai Misión 1 Completa</title>
-    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico?v=1.0.2">
+    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico?v=1.0.0">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         :root {
@@ -381,18 +381,15 @@
                     const end = parseFloat(span.getAttribute('data-end'));
                     if (currentTime >= start && currentTime <= end) {
                         span.classList.add('word-active');
-                        span.dataset.pausado = 'false';
-                    } else if (currentTime > end && span.classList.contains('word-active') && span.dataset.pausado !== 'true') {
-                        if (masterPlayer.playbackRate < 1.0) {
+                    } else if (currentTime > end && span.classList.contains('word-active')) {
+                        span.classList.remove('word-active');
+                        if (masterPlayer.playbackRate < 1.0 && !span.dataset.pausado) {
                             span.dataset.pausado = 'true';
                             masterPlayer.pause();
-                            setTimeout(() => {
-                                span.classList.remove('word-active');
-                                masterPlayer.play();
-                            }, 1000);
-                        } else {
-                            span.classList.remove('word-active');
+                            setTimeout(() => masterPlayer.play(), 1000);
                         }
+                    } else if (currentTime < start) {
+                        span.dataset.pausado = '';
                     }
                 });
             
@@ -402,12 +399,8 @@
                         const end = parseFloat(span.getAttribute('data-end'));
                         if (currentTime >= start && currentTime <= end) {
                             span.classList.add('word-active');
-                            span.dataset.pausado = 'false';
-                        } else if (currentTime > end && span.classList.contains('word-active') && span.dataset.pausado !== 'true') {
-                            span.dataset.pausado = 'true';
-                            setTimeout(() => {
-                                span.classList.remove('word-active');
-                            }, masterPlayer.playbackRate < 1.0 ? 1000 : 0);
+                        } else {
+                            span.classList.remove('word-active');
                         }
                     });
                 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gujarati Ultra-Inmersivo - RubenBhai Misión 1 Completa</title>
-    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico">
+    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico?v=0">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         :root {
@@ -376,13 +376,14 @@
             masterPlayer.ontimeupdate = function() {
                 const currentTime = masterPlayer.currentTime;
 
-                document.querySelectorAll(`#${activeTextId} span`).forEach(span => {
+               document.querySelectorAll(`#${activeTextId} span`).forEach(span => {
                     const start = parseFloat(span.getAttribute('data-start'));
                     const end = parseFloat(span.getAttribute('data-end'));
                     if (currentTime >= start && currentTime <= end) {
                         span.classList.add('word-active');
-                    } else {
-                        span.classList.remove('word-active');
+                    } else if (currentTime > end) {
+                        const retardo = (masterPlayer.playbackRate < 1.0) ? 1000 : 0;
+                        setTimeout(() => span.classList.remove('word-active'), retardo);
                     }
                 });
 
@@ -392,8 +393,9 @@
                         const end = parseFloat(span.getAttribute('data-end'));
                         if (currentTime >= start && currentTime <= end) {
                             span.classList.add('word-active');
-                        } else {
-                            span.classList.remove('word-active');
+                        } else if (currentTime > end) {
+                            const retardo = (masterPlayer.playbackRate < 1.0) ? 1000 : 0;
+                            setTimeout(() => span.classList.remove('word-active'), retardo);
                         }
                     });
                 }

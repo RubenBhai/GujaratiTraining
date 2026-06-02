@@ -380,23 +380,31 @@
                 document.querySelectorAll(`#${activeTextId} span`).forEach(span => {
                     const start = parseFloat(span.getAttribute('data-start'));
                     const end   = parseFloat(span.getAttribute('data-end'));
-            
+                
                     if (currentTime >= start && currentTime <= end) {
                         span.classList.add('word-active');
-            
+                
                     } else if (currentTime > end && span.classList.contains('word-active')) {
                         if (masterPlayer.playbackRate < 1.0 && !span.dataset.pausado) {
                             span.dataset.pausado = 'true';
                             masterPlayer.pause();
+                
+                            // busca el span español con el mismo data-start
+                            const spanishSpan = spanishId
+                                ? document.querySelector(`#${spanishId} span[data-start="${span.getAttribute('data-start')}"]`)
+                                : null;
+                
                             setTimeout(() => {
-                                span.classList.remove('word-active');
+                                span.classList.remove('word-active');                        // gujarati
+                                if (spanishSpan) spanishSpan.classList.remove('word-active'); // español
                                 delete span.dataset.pausado;
                                 masterPlayer.play();
                             }, 1000);
+                
                         } else if (masterPlayer.playbackRate >= 1.0) {
                             span.classList.remove('word-active');
                         }
-            
+                
                     } else if (currentTime < start) {
                         span.dataset.pausado = '';
                     }
@@ -406,12 +414,9 @@
                     document.querySelectorAll(`#${spanishId} span`).forEach(span => {
                         const start = parseFloat(span.getAttribute('data-start'));
                         const end   = parseFloat(span.getAttribute('data-end'));
-                
                         if (currentTime >= start && currentTime <= end) {
                             span.classList.add('word-active');
-                        } else if (currentTime > end && !masterPlayer.paused) {
-                            span.classList.remove('word-active');
-                        } else if (currentTime < start) {
+                        } else {
                             span.classList.remove('word-active');
                         }
                     });

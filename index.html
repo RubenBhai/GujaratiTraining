@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Learn Gujarati Ultra-Inmersivo — Acceso</title>
-    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico?v=1.0.0">
+    <link rel="icon" type="image/x-icon" href="LearnGujarati_SuperInmersivo.ico">
     <style>
         *, *::before, *::after { box-sizing: border-box; }
 
@@ -12,7 +12,7 @@
             --primary-color: #ffd700;
             --accent-color: #00ffcc;
             --bg-color: #0d0d0d;
-            --surface-color: rgba(22, 22, 22, 0.60);
+            --surface-color: rgba(22, 22, 22, 0.88);
             --text-muted: #888888;
             --border-color: #333333;
         }
@@ -28,7 +28,7 @@
             background-color: var(--bg-color);
 
             /* IMAGEN DE FONDO */
-            background-image: url('LearnGujarati_SuperInmersivo_Main.jpg');
+            background-image: url('LearnGujarati_SuperInmersivo_Main.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -157,8 +157,6 @@
 </head>
 <body>
 
-    <audio id="ambient-audio" loop autoplay src="bazar.mp3"></audio>
-
     <div class="login-wrapper">
         <form class="login-box" onsubmit="ejecutarLogin(event)">
 
@@ -180,29 +178,28 @@
 
     <script>
         const BACKEND_URL = "https://gujaratitraining.onrender.com";
-    
-        // Si ya tiene sesión activa, saltar el login directamente
+
+        // Leer el parámetro ?return= para saber a dónde redirigir tras el login
+        const params = new URLSearchParams(window.location.search);
+        const destinoFinal = params.get('return') || 'teatro.html';
+
+        // Si ya tiene sesión activa, saltar el login y redirigir al destino
         if (sessionStorage.getItem('accessToken')) {
-            window.location.href = 'teatro.html';
+            window.location.href = destinoFinal;
         }
-    
-        // Activar ambiente en el primer toque del usuario
-        document.addEventListener('click', () => {
-            document.getElementById('ambient-audio').play().catch(e => console.log(e));
-        }, { once: true });
-    
+
         function ejecutarLogin(e) {
             e.preventDefault();
-    
+
             const user = document.getElementById('user-input').value.trim();
             const pass = document.getElementById('pass-input').value.trim();
             const errorMsg = document.getElementById('login-error');
             const btn = document.querySelector('.login-btn');
-    
+
             errorMsg.style.display = "none";
             btn.textContent = "Verificando...";
             btn.disabled = true;
-    
+
             fetch(`${BACKEND_URL}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -215,8 +212,8 @@
             .then(data => {
                 if (data.acceso) {
                     sessionStorage.setItem('accessToken', data.token);
-                    sessionStorage.setItem('autoplayAmbient', 'true');
-                    window.location.href = 'teatro.html';
+                    // Redirigir al destino final (practica.html o teatro.html)
+                    window.location.href = destinoFinal;
                 }
             })
             .catch(() => {
@@ -227,6 +224,6 @@
             });
         }
     </script>
-        
+
 </body>
 </html>

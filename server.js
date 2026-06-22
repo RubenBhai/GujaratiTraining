@@ -32,9 +32,7 @@ const USUARIOS_AUTORIZADOS = JSON.parse(process.env.USUARIOS_JSON || "{}");
 console.log(`Usuarios cargados: ${Object.keys(USUARIOS_AUTORIZADOS).length}`);
 
 // =====================================================================
-// MIDDLEWARE DE AUTENTICACIÓN
-// Protege /api/evaluar-audio de llamadas externas no autorizadas.
-// En Render, crea la variable: ACCESS_TOKEN = (cualquier string seguro)
+// MIDDLEWARE DE AUTENTICACIÓN (comentado - acceso libre)
 // =====================================================================
 function verificarAcceso(req, res, next) {
     const token = req.headers['x-access-token'];
@@ -59,19 +57,17 @@ app.post('/api/login', (req, res) => {
     const usuarioClave = username.toLowerCase().trim();
     const passwordLimpia = password.trim();
 
-    // ← agregar aquí
     console.log(`Usuario "${usuarioClave}" existe: ${!!USUARIOS_AUTORIZADOS[usuarioClave]}`);
     console.log(`Longitud password ingresada: ${passwordLimpia.length} | almacenada: ${(USUARIOS_AUTORIZADOS[usuarioClave] || '').length}`);
     
     if (USUARIOS_AUTORIZADOS[usuarioClave] && USUARIOS_AUTORIZADOS[usuarioClave] === passwordLimpia) {
-        // Devuelve el token para que el cliente lo use en peticiones a /api/evaluar-audio
         return res.json({ acceso: true, mensaje: "¡Acceso concedido!", token: process.env.ACCESS_TOKEN });
     } else {
         return res.status(401).json({ acceso: false, mensaje: "Usuario o contraseña incorrectos." });
     }
 });
 
-app.post('/api/evaluar-audio', verificarAcceso, async (req, res) => {
+app.post('/api/evaluar-audio', async (req, res) => {
     const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
     if (!audioBase64 || !fraseObjetivo) {

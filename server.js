@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { GoogleGenAI } = require('@google/genai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,14 +13,12 @@ app.use(cors({
     origin: process.env.FRONTEND_URL || "*"
 }));
 
-app.use(cors());
-
 app.use(express.json({ limit: '10mb' }));
 
 // =====================================================================
 // GEMINI API
 // =====================================================================
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // =====================================================================
 // LISTA DE ACCESO
@@ -32,7 +30,7 @@ const USUARIOS_AUTORIZADOS = JSON.parse(process.env.USUARIOS_JSON || "{}");
 console.log(`Usuarios cargados: ${Object.keys(USUARIOS_AUTORIZADOS).length}`);
 
 // =====================================================================
-// MIDDLEWARE DE AUTENTICACIÓN
+// MIDDLEWARE DE AUTENTICACIÓN (opcional, comentado para acceso libre)
 // Protege /api/evaluar-audio de llamadas externas no autorizadas.
 // En Render, crea la variable: ACCESS_TOKEN = (cualquier string seguro)
 // =====================================================================
@@ -59,23 +57,26 @@ app.post('/api/login', (req, res) => {
     const usuarioClave = username.toLowerCase().trim();
     const passwordLimpia = password.trim();
 
-    // ← agregar aquí
     console.log(`Usuario "${usuarioClave}" existe: ${!!USUARIOS_AUTORIZADOS[usuarioClave]}`);
     console.log(`Longitud password ingresada: ${passwordLimpia.length} | almacenada: ${(USUARIOS_AUTORIZADOS[usuarioClave] || '').length}`);
     
     if (USUARIOS_AUTORIZADOS[usuarioClave] && USUARIOS_AUTORIZADOS[usuarioClave] === passwordLimpia) {
-        // Devuelve el token para que el cliente lo use en peticiones a /api/evaluar-audio
         return res.json({ acceso: true, mensaje: "¡Acceso concedido!", token: process.env.ACCESS_TOKEN });
     } else {
         return res.status(401).json({ acceso: false, mensaje: "Usuario o contraseña incorrectos." });
     }
 });
 
-app.post('/api/evaluar-audio', verificarAcceso, async (req, res) => {
+app.post('/api/evaluar-audio', async (req, res) => {
     const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
     if (!audioBase64 || !fraseObjetivo) {
         return res.status(400).json({ error: "Datos multimedia incompletos o corruptos." });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+        console.error("❌ GEMINI_API_KEY no está configurada en Render");
+        return res.status(500).json({ error: "Servidor no configurado: falta GEMINI_API_KEY" });
     }
 
     const promptPedagogico = `
@@ -90,29 +91,33 @@ app.post('/api/evaluar-audio', verificarAcceso, async (req, res) => {
     `;
 
     try {
-        const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+        
+        const response = await model.generateContent({
             contents: [
                 {
                     role: "user",
                     parts: [
                         { text: promptPedagogico },
-                        { inlineData: { mimeType: mimeType || "audio/webm", data: audioBase64 } }
+                        { 
+                            inlineData: { 
+                                mimeType: mimeType || "audio/webm", 
+                                data: audioBase64 
+                            } 
+                        }
                     ]
                 }
-            ],
-            config: { responseMimeType: "application/json" }
+            ]
         });
 
-        // BUG FIX: \n escapado correctamente (no salto de línea literal)
-        let iaTexto = response.text;
-        iaTexto = iaTexto.replace(/```json/gi, "").replace(/\n```/g, "").trim();
+        let iaTexto = response.response.text();
+        iaTexto = iaTexto.replace(/```json/gi, "").replace(/```/g, "").trim();
 
         res.json(JSON.parse(iaTexto));
 
     } catch (error) {
-        console.error("Error en el motor de IA:", error);
-        res.status(500).json({ error: "Error interno procesando la voz en el servidor." });
+        console.error("❌ Error en el motor de IA:", error.message);
+        res.status(500).json({ error: `Error interno: ${error.message}` });
     }
 });
 

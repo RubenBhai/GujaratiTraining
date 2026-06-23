@@ -1,0 +1,84 @@
+{
+  "1.1-1": {
+    "titulo": "Lección 1.1.1 — Consonantes y vocabulario base",
+    "fuente": "Sesión 1.1 — Alfabeto",
+    "frases": [
+      {
+        "gujarati": "ત",
+        "espanol": "Consonante ta — como la 't' en taco",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/alfabeto/c09_ta.mujer.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_alfa_ta.png"
+      },
+      {
+        "gujarati": "ર",
+        "espanol": "Consonante ra — como la 'r' suave en caro",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/alfabeto/c27_ra-mujer.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_alfa_ra.png"
+      },
+      {
+        "gujarati": "સ",
+        "espanol": "Consonante sa — como la 's' en sapo",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/alfabeto/c26_sa-hombre.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_alfa_sa.png"
+      },
+      {
+        "gujarati": "મ",
+        "espanol": "Consonante ma — como la 'm' en mamá",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/alfabeto/c23_ma-mujer.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_alfa_ma.png"
+      },
+      {
+        "gujarati": "તરત",
+        "espanol": "enseguida",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.1_h_tarat.mp3",
+        "audioClip2": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.1_m_tarat.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_1.1.1.1_tarat.png"
+      },
+      {
+        "gujarati": "રસ",
+        "espanol": "jugo",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.2_h_ras.mp3",
+        "audioClip2": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.2_m_ras.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_1.1.1.2_ras.png"
+      },
+      {
+        "gujarati": "રમત",
+        "espanol": "juego",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.3_h_ramat.mp3",
+        "audioClip2": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.3_m_ramat.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_1.1.1.3_ramat.png"
+      },
+      {
+        "gujarati": "સતત",
+        "espanol": "continuo",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.4_h_satat.mp3",
+        "audioClip2": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.4_m_satat.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_1.1.1.4_satat.png"
+      },
+      {
+        "gujarati": "તરસ",
+        "espanol": "sed",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.5_h_taras.mp3",
+        "audioClip2": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.5_m_taras.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_1.1.1.5_taras.png"
+      },
+      {
+        "gujarati": "સરસ",
+        "espanol": "excelente",
+        "tipo": "clipIndividual",
+        "audioClip": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.6_h_saras.mp3",
+        "audioClip2": "https://rubenbhai.github.io/GujaratiResources/audios/clase_1_1/Clase_1.1.1.6_m_saras.mp3",
+        "imagen": "https://rubenbhai.github.io/GujaratiResources/imagenes/Clase_1_1/img_1.1.1.6_saras.png"
+      }
+    ]
+  }
+}

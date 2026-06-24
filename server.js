@@ -116,7 +116,7 @@ app.post('/api/evaluar-audio', async (req, res) => {
 
     try {
         const response = await generarConReintentos({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-3.5-flash',
             contents: [
                 {
                     role: "user",
@@ -126,7 +126,10 @@ app.post('/api/evaluar-audio', async (req, res) => {
                     ]
                 }
             ],
-            config: { responseMimeType: "application/json" }
+            config: {
+                responseMimeType: "application/json",
+                thinkingConfig: { thinkingLevel: "low" }
+            }
         });
 
         // BUG FIX: \n escapado correctamente (no salto de línea literal)

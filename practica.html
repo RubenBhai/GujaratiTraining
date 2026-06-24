@@ -380,7 +380,7 @@
         if (e.data && e.data.size > 0) audioChunks[lineId].push(e.data);
       };
 
-      mediaRecorder.onstop = () => {
+      mediaRecorder.onstop = async () => {
         const tipoReal = mediaRecorder.mimeType || "audio/webm";
         const blob = new Blob(audioChunks[lineId], { type: tipoReal });
         const url = URL.createObjectURL(blob);
@@ -390,7 +390,14 @@
           playBtn.removeAttribute('disabled');
           playBtn.dataset.url = url;
         }
-        convertirAudioABase64(blob, lineId, fraseObjetivo);
+        // Convertir el WebM grabado a WAV 16kHz mono (Sarvam no acepta WebM)
+        try {
+          const wavBlob = await convertirAWav(blob, 16000);
+          convertirAudioABase64(wavBlob, lineId, fraseObjetivo);
+        } catch (e) {
+          console.error("Error convirtiendo a WAV:", e);
+          alert("Hubo un problema al procesar tu grabación. Intenta de nuevo.");
+        }
       };
 
       mediaRecorder.start();
@@ -412,12 +419,74 @@
     }
   }
 
+  // ===================================================================
+  // Conversión WebM -> WAV mono 16kHz (Sarvam solo acepta WAV/MP3/PCM)
+  // ===================================================================
+  async function convertirAWav(blob, sampleRateObjetivo) {
+    const arrayBuffer = await blob.arrayBuffer();
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const ctxTemp = new AudioCtx();
+    const audioBuffer = await ctxTemp.decodeAudioData(arrayBuffer);
+    ctxTemp.close();
+
+    // Remuestrear a sampleRateObjetivo y mezclar a mono usando OfflineAudioContext
+    const duracion = audioBuffer.duration;
+    const offline = new OfflineAudioContext(1, Math.ceil(duracion * sampleRateObjetivo), sampleRateObjetivo);
+    const fuente = offline.createBufferSource();
+    fuente.buffer = audioBuffer;
+    fuente.connect(offline.destination);
+    fuente.start(0);
+    const renderizado = await offline.startRendering();
+
+    return bufferAWavBlob(renderizado);
+  }
+
+  function bufferAWavBlob(audioBuffer) {
+    const numCanales = 1;
+    const sampleRate = audioBuffer.sampleRate;
+    const muestras = audioBuffer.getChannelData(0);
+    const longitud = muestras.length;
+
+    const buffer = new ArrayBuffer(44 + longitud * 2);
+    const vista = new DataView(buffer);
+
+    function escribirTexto(offset, texto) {
+      for (let i = 0; i < texto.length; i++) vista.setUint8(offset + i, texto.charCodeAt(i));
+    }
+
+    // Cabecera WAV (PCM 16-bit)
+    escribirTexto(0, 'RIFF');
+    vista.setUint32(4, 36 + longitud * 2, true);
+    escribirTexto(8, 'WAVE');
+    escribirTexto(12, 'fmt ');
+    vista.setUint32(16, 16, true);
+    vista.setUint16(20, 1, true);          // PCM
+    vista.setUint16(22, numCanales, true);
+    vista.setUint32(24, sampleRate, true);
+    vista.setUint32(28, sampleRate * numCanales * 2, true);
+    vista.setUint16(32, numCanales * 2, true);
+    vista.setUint16(34, 16, true);         // bits por muestra
+    escribirTexto(36, 'data');
+    vista.setUint32(40, longitud * 2, true);
+
+    // Muestras PCM 16-bit
+    let offset = 44;
+    for (let i = 0; i < longitud; i++) {
+      let s = Math.max(-1, Math.min(1, muestras[i]));
+      s = s < 0 ? s * 0x8000 : s * 0x7FFF;
+      vista.setInt16(offset, s, true);
+      offset += 2;
+    }
+
+    return new Blob([buffer], { type: 'audio/wav' });
+  }
+
   function convertirAudioABase64(blob, lineId, fraseObjetivo) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
       const base64Limpio = reader.result.split(',')[1];
-      const mimeTypeReal = blob.type || "audio/webm";
+      const mimeTypeReal = blob.type || "audio/wav";
       enviarAlTeatroIA(base64Limpio, mimeTypeReal, fraseObjetivo, lineId);
     };
   }

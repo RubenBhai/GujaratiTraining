@@ -46,15 +46,10 @@ async function transcribirConReintentos(audioBuffer, mimeType, maxIntentos = 3) 
     let ultimoError;
     for (let intento = 1; intento <= maxIntentos; intento++) {
         try {
-            // Determinar extensión/nombre según el mimeType del navegador
-            let filename = "audio.webm";
-            if (mimeType && mimeType.includes("mp4"))  filename = "audio.mp4";
-            if (mimeType && mimeType.includes("ogg"))  filename = "audio.ogg";
-            if (mimeType && mimeType.includes("wav"))  filename = "audio.wav";
-
+            // El navegador ya convierte a WAV 16kHz mono antes de enviar
             const form = new FormData();
-            const blob = new Blob([audioBuffer], { type: mimeType || "audio/webm" });
-            form.append("file", blob, filename);
+            const blob = new Blob([audioBuffer], { type: "audio/wav" });
+            form.append("file", blob, "audio.wav");
             form.append("language_code", LANGUAGE_CODE);
             form.append("model", STT_MODEL);
 

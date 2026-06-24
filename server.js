@@ -1,91 +1,64 @@
 const express = require('express');
 const cors = require('cors');
+const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // =====================================================================
-// CONFIGURACIÓN
+// CONFIGURACIÓN DE SEGURIDAD
 // =====================================================================
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
+app.use(cors({
+    origin: process.env.FRONTEND_URL || "*"
+}));
+
 app.use(cors());
+
 app.use(express.json({ limit: '10mb' }));
 
 // =====================================================================
-// SARVAM STT
+// GEMINI API
 // =====================================================================
-const SARVAM_STT_URL = "https://api.sarvam.ai/speech-to-text";
-const SARVAM_KEY     = process.env.SARAM_KEY;
-const LANGUAGE_CODE  = "gu-IN";
-const STT_MODEL      = "saarika:v2.5";
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // =====================================================================
-// LISTA DE ACCESO (login conservado por compatibilidad)
+// LISTA DE ACCESO
 // =====================================================================
 const USUARIOS_AUTORIZADOS = JSON.parse(process.env.USUARIOS_JSON || "{}");
 console.log(`Usuarios cargados: ${Object.keys(USUARIOS_AUTORIZADOS).length}`);
 
 // =====================================================================
-// HELPER: normalizar texto gujarati para comparar
+// MIDDLEWARE DE AUTENTICACIÓN (comentado - acceso libre)
 // =====================================================================
-function normalizar(texto) {
-    if (!texto) return "";
-    return String(texto)
-        .trim()
-        // quitar signos de puntuación comunes
-        .replace(/[।॥?!.,'"\s]/g, "")
-        .toLowerCase();
+function verificarAcceso(req, res, next) {
+    const token = req.headers['x-access-token'];
+    if (!token || token !== process.env.ACCESS_TOKEN) {
+        return res.status(401).json({ error: "No autorizado." });
+    }
+    next();
 }
 
 // =====================================================================
-// HELPER: reintentos para errores temporales de Sarvam
+// HELPER: Reintentos con espera progresiva para errores 503 de Gemini
 // =====================================================================
-function esperar(ms) { return new Promise(r => setTimeout(r, ms)); }
+function esperar(ms) {
+    return new Promise(function(resolve) { setTimeout(resolve, ms); });
+}
 
-async function transcribirConReintentos(audioBuffer, mimeType, maxIntentos = 3) {
+async function generarConReintentos(peticion, maxIntentos = 4) {
     let ultimoError;
     for (let intento = 1; intento <= maxIntentos; intento++) {
         try {
-            // El navegador ya convierte a WAV 16kHz mono antes de enviar
-            const form = new FormData();
-            const blob = new Blob([audioBuffer], { type: "audio/wav" });
-            form.append("file", blob, "audio.wav");
-            form.append("language_code", LANGUAGE_CODE);
-            form.append("model", STT_MODEL);
-
-            const resp = await fetch(SARVAM_STT_URL, {
-                method: "POST",
-                headers: { "api-subscription-key": SARVAM_KEY },
-                body: form
-            });
-
-            if (resp.ok) {
-                return await resp.json();
+            return await ai.models.generateContent(peticion);
+        } catch (error) {
+            ultimoError = error;
+            const status = error.status || (error.response && error.response.status);
+            const esTemporal = status === 503 || status === 429 || status === 500;
+            if (!esTemporal || intento === maxIntentos) {
+                throw error;
             }
-
-            // 429 (rate limit) o 5xx -> reintentar
-            if (resp.status === 429 || resp.status >= 500) {
-                ultimoError = new Error(`Sarvam HTTP ${resp.status}`);
-                ultimoError.status = resp.status;
-                if (intento < maxIntentos) {
-                    const espera = 500 * Math.pow(2, intento - 1);
-                    console.log(`Sarvam ${resp.status} (intento ${intento}/${maxIntentos}). Reintentando en ${espera}ms...`);
-                    await esperar(espera);
-                    continue;
-                }
-            }
-
-            // otros errores: no reintentar
-            const txt = await resp.text();
-            const err = new Error(`Sarvam HTTP ${resp.status}: ${txt.slice(0,200)}`);
-            err.status = resp.status;
-            throw err;
-
-        } catch (e) {
-            ultimoError = e;
-            if (intento === maxIntentos) throw e;
             const espera = 500 * Math.pow(2, intento - 1);
-            console.log(`Error Sarvam (intento ${intento}/${maxIntentos}): ${e.message}. Reintentando en ${espera}ms...`);
+            console.log(`Gemini ${status} (intento ${intento}/${maxIntentos}). Reintentando en ${espera}ms...`);
             await esperar(espera);
         }
     }
@@ -96,7 +69,7 @@ async function transcribirConReintentos(audioBuffer, mimeType, maxIntentos = 3) 
 // RUTAS
 // =====================================================================
 app.get('/', (req, res) => {
-    res.send('🎭 Servidor Piensa en Gujarati activo (Sarvam STT).');
+    res.send('🎭 El Servidor del Teatro de Gujarati está activo y listo, Bhai.');
 });
 
 app.post('/api/login', (req, res) => {
@@ -106,58 +79,70 @@ app.post('/api/login', (req, res) => {
     }
     const usuarioClave = username.toLowerCase().trim();
     const passwordLimpia = password.trim();
+
     if (USUARIOS_AUTORIZADOS[usuarioClave] && USUARIOS_AUTORIZADOS[usuarioClave] === passwordLimpia) {
         return res.json({ acceso: true, mensaje: "¡Acceso concedido!", token: process.env.ACCESS_TOKEN });
+    } else {
+        return res.status(401).json({ acceso: false, mensaje: "Usuario o contraseña incorrectos." });
     }
-    return res.status(401).json({ acceso: false, mensaje: "Usuario o contraseña incorrectos." });
 });
 
-// =====================================================================
-// EVALUAR PRONUNCIACIÓN — Sarvam STT (devuelve "lo que escuchó")
-// =====================================================================
 app.post('/api/evaluar-audio', async (req, res) => {
     const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
     if (!audioBase64 || !fraseObjetivo) {
-        return res.status(400).json({ error: "Datos de audio incompletos." });
+        return res.status(400).json({ error: "Datos multimedia incompletos o corruptos." });
     }
 
-    if (!SARVAM_KEY) {
-        console.error("Falta la variable de entorno SARAM_KEY");
-        return res.status(500).json({ error: "Configuración del servidor incompleta." });
-    }
+    const promptPedagogico = `
+        Eres un tutor nativo de Gujarati y experto en fonética. Escucha el audio adjunto.
+        El alumno está intentando pronunciar exactamente esta frase: "${fraseObjetivo}".
+        Compara su voz con el estándar nativo y devuélveme ESTRICTAMENTE un objeto JSON con esta estructura:
+        {
+          "nota": (un número entero del 1 al 10 según su precisión),
+          "transcripcion": (lo que lograste entender textualmente de su pronunciación),
+          "consejo": (un tip corto, empático y práctico en español para mejorar su acento)
+        }
+    `;
 
     try {
-        const audioBuffer = Buffer.from(audioBase64, "base64");
-        const data = await transcribirConReintentos(audioBuffer, mimeType);
-
-        // Sarvam devuelve el texto en "transcript" (o "text")
-        const escuchado = (data && (data.transcript || data.text) || "").trim();
-
-        // Comparar normalizado contra la frase objetivo
-        const objetivoNorm = normalizar(fraseObjetivo);
-        const escuchadoNorm = normalizar(escuchado);
-        const acierto = objetivoNorm.length > 0 && objetivoNorm === escuchadoNorm;
-
-        res.json({
-            escuchado: escuchado,        // lo que Sarvam entendió
-            objetivo: fraseObjetivo,     // lo que debía decir
-            acierto: acierto             // true si coinciden
+        const response = await generarConReintentos({
+            model: 'gemini-2.5-flash',
+            contents: [
+                {
+                    role: "user",
+                    parts: [
+                        { text: promptPedagogico },
+                        { inlineData: { mimeType: mimeType || "audio/webm", data: audioBase64 } }
+                    ]
+                }
+            ],
+            config: { responseMimeType: "application/json" }
         });
 
+        let iaTexto = response.text;
+        iaTexto = iaTexto.replace(/```json/gi, "").replace(/```/g, "").trim();
+        const inicio = iaTexto.indexOf('{');
+        const fin = iaTexto.lastIndexOf('}');
+        if (inicio !== -1 && fin !== -1 && fin > inicio) {
+            iaTexto = iaTexto.substring(inicio, fin + 1);
+        }
+
+        res.json(JSON.parse(iaTexto));
+
     } catch (error) {
-        console.error("Error en Sarvam STT:", error.message);
-        const status = error.status;
-        if (status === 429 || (status >= 500 && status < 600)) {
+        console.error("Error en el motor de IA:", error);
+        const status = error.status || (error.response && error.response.status);
+        if (status === 503 || status === 429) {
             return res.status(503).json({
-                error: "El servicio de reconocimiento está ocupado. Intenta de nuevo en un momento.",
+                error: "El evaluador está muy ocupado en este momento. Espera unos segundos e intenta de nuevo.",
                 reintentar: true
             });
         }
-        res.status(500).json({ error: "Error procesando el audio." });
+        res.status(500).json({ error: "Error interno procesando la voz en el servidor." });
     }
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log(`Servidor corriendo con éxito en el puerto ${PORT}`);
 });

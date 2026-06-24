@@ -67,6 +67,35 @@ app.post('/api/login', (req, res) => {
     }
 });
 
+// =====================================================================
+// HELPER: Reintentos con espera progresiva para errores 503 de Gemini
+// =====================================================================
+function esperar(ms) {
+    return new Promise(function(resolve) { setTimeout(resolve, ms); });
+}
+
+async function generarConReintentos(peticion, maxIntentos = 4) {
+    let ultimoError;
+    for (let intento = 1; intento <= maxIntentos; intento++) {
+        try {
+            return await ai.models.generateContent(peticion);
+        } catch (error) {
+            ultimoError = error;
+            // Solo reintentar en errores temporales (503 saturación, 429 límite, 500 interno)
+            const status = error.status || (error.response && error.response.status);
+            const esTemporal = status === 503 || status === 429 || status === 500;
+            if (!esTemporal || intento === maxIntentos) {
+                throw error;
+            }
+            // Espera progresiva: 1s, 2s, 4s
+            const espera = 1000 * Math.pow(2, intento - 1);
+            console.log(`Gemini ${status} (intento ${intento}/${maxIntentos}). Reintentando en ${espera}ms...`);
+            await esperar(espera);
+        }
+    }
+    throw ultimoError;
+}
+
 app.post('/api/evaluar-audio', async (req, res) => {
     const { audioBase64, mimeType, fraseObjetivo } = req.body;
 
@@ -86,7 +115,7 @@ app.post('/api/evaluar-audio', async (req, res) => {
     `;
 
     try {
-        const response = await ai.models.generateContent({
+        const response = await generarConReintentos({
             model: 'gemini-2.5-flash',
             contents: [
                 {
@@ -108,6 +137,13 @@ app.post('/api/evaluar-audio', async (req, res) => {
 
     } catch (error) {
         console.error("Error en el motor de IA:", error);
+        const status = error.status || (error.response && error.response.status);
+        if (status === 503 || status === 429) {
+            return res.status(503).json({
+                error: "El evaluador está muy ocupado en este momento. Espera unos segundos e intenta de nuevo.",
+                reintentar: true
+            });
+        }
         res.status(500).json({ error: "Error interno procesando la voz en el servidor." });
     }
 });

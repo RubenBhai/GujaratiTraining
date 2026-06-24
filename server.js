@@ -116,7 +116,7 @@ app.post('/api/evaluar-audio', async (req, res) => {
 
     try {
         const response = await generarConReintentos({
-            model: 'gemini-2.5-flash-lite',
+            model: 'gemini-2.5-flash',
             contents: [
                 {
                     role: "user",

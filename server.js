@@ -132,11 +132,29 @@ app.post('/api/evaluar-audio', async (req, res) => {
             }
         });
 
-        // BUG FIX: \n escapado correctamente (no salto de línea literal)
-        let iaTexto = response.text;
-        iaTexto = iaTexto.replace(/```json/gi, "").replace(/\n```/g, "").trim();
+        // Limpieza robusta: extraer el JSON aunque venga con texto o fences alrededor
+        let iaTexto = response.text || "";
+        // Quitar fences de markdown
+        iaTexto = iaTexto.replace(/```json/gi, "").replace(/```/g, "").trim();
+        // Extraer solo el bloque JSON (desde el primer { hasta el último })
+        const inicio = iaTexto.indexOf('{');
+        const fin = iaTexto.lastIndexOf('}');
+        if (inicio !== -1 && fin !== -1 && fin > inicio) {
+            iaTexto = iaTexto.substring(inicio, fin + 1);
+        }
 
-        res.json(JSON.parse(iaTexto));
+        let resultado;
+        try {
+            resultado = JSON.parse(iaTexto);
+        } catch (parseErr) {
+            console.error("No se pudo parsear JSON de Gemini. Respuesta cruda:", response.text);
+            return res.status(502).json({
+                error: "El evaluador devolvió una respuesta inesperada. Intenta de nuevo.",
+                reintentar: true
+            });
+        }
+
+        res.json(resultado);
 
     } catch (error) {
         console.error("Error en el motor de IA:", error);

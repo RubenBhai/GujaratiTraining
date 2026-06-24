@@ -88,7 +88,7 @@ async function generarConReintentos(peticion, maxIntentos = 4) {
                 throw error;
             }
             // Espera progresiva: 1s, 2s, 4s
-            const espera = 1000 * Math.pow(2, intento - 1);
+            const espera = 500 * Math.pow(2, intento - 1);
             console.log(`Gemini ${status} (intento ${intento}/${maxIntentos}). Reintentando en ${espera}ms...`);
             await esperar(espera);
         }
@@ -116,7 +116,7 @@ app.post('/api/evaluar-audio', async (req, res) => {
 
     try {
         const response = await generarConReintentos({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-2.0-flash',
             contents: [
                 {
                     role: "user",

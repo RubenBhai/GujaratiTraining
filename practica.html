@@ -106,8 +106,9 @@
     border: 1px solid var(--border);
     display: none;
   }
-  .eval-resultado { font-size: 1.05rem; font-weight: 700; margin: 0 0 8px; }
-  .eval-escuche { font-size: 0.95rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+  .eval-nota { font-size: 1.1rem; font-weight: 700; margin: 0 0 5px; }
+  .eval-transcripcion { font-size: 0.9rem; color: #ccc; margin: 0 0 5px; font-style: italic; }
+  .eval-consejo { font-size: 0.88rem; color: var(--saffron); margin: 0; line-height: 1.4; }
 
   .empty-state, .error-state {
     text-align: center;
@@ -158,7 +159,7 @@
   <a class="top-link" href="#" id="back-link">← Volver al módulo</a>
 
   <header>
-    <span class="badge">Práctica de pronunciación</span>
+    <span class="badge">Práctica con evaluación de Gemini</span>
     <h1 id="page-title">Cargando…</h1>
     <p class="subtitle" id="page-subtitle"></p>
     <div class="speed-bar">
@@ -293,8 +294,9 @@
         + '<span id="load-' + lineId + '" class="loading-ia">&#10024; Evaluando&#8230;</span>'
         + '</div>'
         + '<div class="eval-panel" id="eval-panel-' + lineId + '">'
-        + '<p class="eval-resultado" id="resultado-' + lineId + '"></p>'
-        + '<p class="eval-escuche" id="escuche-' + lineId + '"></p>'
+        + '<p class="eval-nota" id="nota-' + lineId + '">&#11088; Nota: 0/10</p>'
+        + '<p class="eval-transcripcion" id="trans-' + lineId + '"></p>'
+        + '<p class="eval-consejo" id="consejo-' + lineId + '"></p>'
         + '</div>';
 
       theater.appendChild(div);
@@ -380,7 +382,7 @@
         if (e.data && e.data.size > 0) audioChunks[lineId].push(e.data);
       };
 
-      mediaRecorder.onstop = async () => {
+      mediaRecorder.onstop = () => {
         const tipoReal = mediaRecorder.mimeType || "audio/webm";
         const blob = new Blob(audioChunks[lineId], { type: tipoReal });
         const url = URL.createObjectURL(blob);
@@ -390,14 +392,7 @@
           playBtn.removeAttribute('disabled');
           playBtn.dataset.url = url;
         }
-        // Convertir el WebM grabado a WAV 16kHz mono (Sarvam no acepta WebM)
-        try {
-          const wavBlob = await convertirAWav(blob, 16000);
-          convertirAudioABase64(wavBlob, lineId, fraseObjetivo);
-        } catch (e) {
-          console.error("Error convirtiendo a WAV:", e);
-          alert("Hubo un problema al procesar tu grabación. Intenta de nuevo.");
-        }
+        convertirAudioABase64(blob, lineId, fraseObjetivo);
       };
 
       mediaRecorder.start();
@@ -419,74 +414,12 @@
     }
   }
 
-  // ===================================================================
-  // Conversión WebM -> WAV mono 16kHz (Sarvam solo acepta WAV/MP3/PCM)
-  // ===================================================================
-  async function convertirAWav(blob, sampleRateObjetivo) {
-    const arrayBuffer = await blob.arrayBuffer();
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    const ctxTemp = new AudioCtx();
-    const audioBuffer = await ctxTemp.decodeAudioData(arrayBuffer);
-    ctxTemp.close();
-
-    // Remuestrear a sampleRateObjetivo y mezclar a mono usando OfflineAudioContext
-    const duracion = audioBuffer.duration;
-    const offline = new OfflineAudioContext(1, Math.ceil(duracion * sampleRateObjetivo), sampleRateObjetivo);
-    const fuente = offline.createBufferSource();
-    fuente.buffer = audioBuffer;
-    fuente.connect(offline.destination);
-    fuente.start(0);
-    const renderizado = await offline.startRendering();
-
-    return bufferAWavBlob(renderizado);
-  }
-
-  function bufferAWavBlob(audioBuffer) {
-    const numCanales = 1;
-    const sampleRate = audioBuffer.sampleRate;
-    const muestras = audioBuffer.getChannelData(0);
-    const longitud = muestras.length;
-
-    const buffer = new ArrayBuffer(44 + longitud * 2);
-    const vista = new DataView(buffer);
-
-    function escribirTexto(offset, texto) {
-      for (let i = 0; i < texto.length; i++) vista.setUint8(offset + i, texto.charCodeAt(i));
-    }
-
-    // Cabecera WAV (PCM 16-bit)
-    escribirTexto(0, 'RIFF');
-    vista.setUint32(4, 36 + longitud * 2, true);
-    escribirTexto(8, 'WAVE');
-    escribirTexto(12, 'fmt ');
-    vista.setUint32(16, 16, true);
-    vista.setUint16(20, 1, true);          // PCM
-    vista.setUint16(22, numCanales, true);
-    vista.setUint32(24, sampleRate, true);
-    vista.setUint32(28, sampleRate * numCanales * 2, true);
-    vista.setUint16(32, numCanales * 2, true);
-    vista.setUint16(34, 16, true);         // bits por muestra
-    escribirTexto(36, 'data');
-    vista.setUint32(40, longitud * 2, true);
-
-    // Muestras PCM 16-bit
-    let offset = 44;
-    for (let i = 0; i < longitud; i++) {
-      let s = Math.max(-1, Math.min(1, muestras[i]));
-      s = s < 0 ? s * 0x8000 : s * 0x7FFF;
-      vista.setInt16(offset, s, true);
-      offset += 2;
-    }
-
-    return new Blob([buffer], { type: 'audio/wav' });
-  }
-
   function convertirAudioABase64(blob, lineId, fraseObjetivo) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
     reader.onloadend = () => {
       const base64Limpio = reader.result.split(',')[1];
-      const mimeTypeReal = blob.type || "audio/wav";
+      const mimeTypeReal = blob.type || "audio/webm";
       enviarAlTeatroIA(base64Limpio, mimeTypeReal, fraseObjetivo, lineId);
     };
   }
@@ -504,7 +437,8 @@
     fetch(`${BACKEND_URL}/api/evaluar-audio`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-access-token': sessionStorage.getItem('accessToken') || ''
       },
       body: JSON.stringify({ audioBase64, mimeType, fraseObjetivo })
     })
@@ -513,23 +447,15 @@
       return res.json();
     })
     .then(data => {
-      const resultadoEl = document.getElementById(`resultado-${lineId}`);
-      const escucheEl = document.getElementById(`escuche-${lineId}`);
-      const escuchado = data.escuchado && data.escuchado.trim() ? data.escuchado : "(no se entendió)";
-
-      if (data.acierto) {
-        resultadoEl.innerHTML = "&#10004; &iexcl;Muy bien! Lo dijiste correctamente.";
-        resultadoEl.style.color = "#7FBF8E";
-      } else {
-        resultadoEl.innerHTML = "&#128257; Sigue practicando, int&eacute;ntalo de nuevo.";
-        resultadoEl.style.color = "#D4A24C";
-      }
-      escucheEl.innerHTML = 'Escuch&eacute;: <span class="gu" style="font-size:1.2rem;color:var(--paper)">' + escuchado + '</span>';
+      document.getElementById(`nota-${lineId}`).innerText = `⭐ Nota: ${data.nota}/10`;
+      document.getElementById(`trans-${lineId}`).innerText = `Gemini entendió: "${data.transcripcion}"`;
+      document.getElementById(`consejo-${lineId}`).innerText = `💡 Consejo: ${data.consejo}`;
+      document.getElementById(`nota-${lineId}`).style.color = data.nota >= 7 ? "#D4A24C" : "#C24A3A";
       if (panel) panel.style.display = "block";
     })
     .catch(err => {
       console.error("Error conectando al backend:", err);
-      alert("Hubo un detalle al procesar tu voz. Inténtalo de nuevo.");
+      alert("Hubo un detalle al recibir la nota de Gemini. Inténtalo de nuevo.");
     })
     .finally(() => {
       if (spinner) spinner.style.display = "none";

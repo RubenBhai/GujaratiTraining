@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Practica tu pronunciación · Piensa en Gujarati</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Noto+Serif+Gujarati:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :root {
+    --bg: #2C2420;
+    --surface: #362C28;
+    --paper: #E8D9C0;
+    --sindoor: #A8362A;
+    --sindoor-deep: #832920;
+    --saffron: #B8863D;
+    --olive: #8A9678;
+    --ink-soft: #C8B99A;
+    --border: #4A3C34;
+  }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    background-image: radial-gradient(ellipse at top, rgba(184,134,61,0.07), transparent 60%);
+    color: var(--paper);
+    font-family: 'Source Sans 3', sans-serif;
+    padding: 20px;
+  }
+  .gu { font-family: 'Noto Serif Gujarati', serif; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  .top-link {
+    display: inline-block;
+    color: var(--saffron);
+    text-decoration: none;
+    font-size: 0.88rem;
+    margin: 18px 0 10px;
+  }
+  .top-link:hover { text-decoration: underline; }
+
+  header { text-align: center; padding: 20px 0 30px; border-bottom: 1px solid var(--border); margin-bottom: 30px; }
+  .badge {
+    display: inline-block;
+    background: var(--sindoor);
+    color: var(--paper);
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+  h1 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.9rem; margin: 0 0 8px; }
+  .subtitle { color: var(--ink-soft); font-size: 0.95rem; margin: 0; }
+
+  .audio-theater { display: flex; flex-direction: column; gap: 22px; margin-bottom: 50px; }
+  .dialogue-line {
+    background: var(--surface);
+    padding: 22px 24px;
+    border-radius: 14px;
+    border-left: 4px solid var(--border);
+    transition: all 0.35s ease;
+  }
+  .dialogue-line.active {
+    border-left-color: var(--saffron);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  }
+  .gujarati-text { font-size: 1.7rem; line-height: 2.5rem; color: #8a8174; margin-bottom: 6px; font-family: 'Noto Serif Gujarati', serif; transition: color 0.15s; }
+  .dialogue-line.active .gujarati-text { color: var(--paper); }
+  .spanish-text { font-size: 0.98rem; color: var(--ink-soft); margin-bottom: 16px; }
+
+  .action-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .btn {
+    border: none;
+    padding: 9px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    background: #2e2419;
+    color: var(--paper);
+  }
+  .btn-listen:hover { background: var(--saffron); color: #1a1410; }
+  .btn-record.recording { background: var(--sindoor); animation: pulse 1.4s infinite; }
+  .btn-record:hover:not(.recording) { background: var(--olive); color: #1a1410; }
+  .btn-play-self { color: var(--olive); opacity: 0.4; cursor: not-allowed; }
+  .btn-play-self:not([disabled]) { opacity: 1; cursor: pointer; }
+  .btn-play-self:not([disabled]):hover { background: var(--olive); color: #1a1410; }
+  .btn-next-practice { background: var(--saffron); color: #1a1410; }
+  .btn-next-practice:hover { background: #cf9a48; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+
+  .loading-ia { display: none; color: var(--saffron); font-size: 0.85rem; font-weight: 600; animation: pulse 1s infinite; }
+
+  .eval-panel {
+    margin-top: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: #15110c;
+    border: 1px solid var(--border);
+    display: none;
+  }
+  .eval-resultado { font-size: 1.05rem; font-weight: 700; margin: 0 0 8px; }
+  .eval-escuche { font-size: 0.95rem; color: var(--ink-soft); margin: 0; line-height: 1.5; }
+
+  .empty-state, .error-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-soft);
+  }
+
+  .speed-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .btn-speed {
+    border: 1px solid var(--border);
+    background: #2e2419;
+    color: var(--ink-soft);
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .btn-speed.active {
+    background: var(--saffron);
+    color: #1a1410;
+    border-color: var(--saffron);
+  }
+  .btn-speed:hover:not(.active) {
+    border-color: var(--saffron);
+    color: var(--saffron);
+  }
+  .speed-label {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  footer { text-align: center; padding: 30px 0 10px; color: var(--ink-soft); font-size: 0.85rem; }
+  footer a { color: var(--saffron); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="top-link" href="#" id="back-link">← Volver al módulo</a>
+
+  <header>
+    <span class="badge">Práctica de pronunciación</span>
+    <h1 id="page-title">Cargando…</h1>
+    <p class="subtitle" id="page-subtitle"></p>
+    <div class="speed-bar">
+      <button class="btn-speed" onclick="setSpeed(0.75)">🐢 0.75x</button>
+      <button class="btn-speed active" id="speed-1" onclick="setSpeed(1.0)">▶ 1x</button>
+      <button class="btn-speed" onclick="setSpeed(1.25)">⚡ 1.25x</button>
+    </div>
+    <p class="speed-label">Velocidad de reproducción (solo afecta el audio de referencia)</p>
+  </header>
+
+  <section class="audio-theater" id="theater"></section>
+
+  <footer>
+    <p>Piensa en Gujarati — <a href="index.html">volver al índice del curso</a></p>
+  </footer>
+</div>
+
+<audio id="master-player" playsinline></audio>
+<audio id="self-player" playsinline></audio>
+
+<script>
+  const BACKEND_URL = "https://gujaratitraining-production.up.railway.app";
+  const LOGIN_URL = "https://rubenbhai.github.io/GujaratiTraining/index.html";
+
+  // ===================================================================
+  // 1. Leer parámetros de la URL (módulo y lección)
+  // ===================================================================
+  const params = new URLSearchParams(window.location.search);
+  const modulo = params.get('modulo');
+  const leccion = params.get('leccion');
+  const claveLeccion = `${modulo}-${leccion}`;
+
+  document.getElementById('back-link').href = `Leccion_${modulo.replace('.','_')}_${leccion}_fin.html`;
+
+  // ===================================================================
+  // 2. Verificación de sesión — si no hay token, ir al login con retorno
+  // ===================================================================
+  //if (!sessionStorage.getItem('accessToken')) {
+  //  const returnUrl = encodeURIComponent(window.location.href);
+  //  window.location.href = `${LOGIN_URL}?return=${returnUrl}`;
+  // }
+
+  // ===================================================================
+  // 3. Reproductores y estado global (igual lógica que teatro.html)
+  // ===================================================================
+  const masterPlayer = document.getElementById('master-player');
+  const selfPlayer = document.getElementById('self-player');
+  let mediaRecorder;
+  let audioChunks = {};
+  let recordingLineId = null;
+  let currentSpeed = 1.0;
+
+  // ===================================================================
+  // Control de velocidad de reproducción (solo masterPlayer)
+  // ===================================================================
+  function setSpeed(speed) {
+    currentSpeed = speed;
+    masterPlayer.playbackRate = speed;
+    // Actualizar botón activo
+    document.querySelectorAll('.btn-speed').forEach(btn => btn.classList.remove('active'));
+    const labels = { 0.75: '🐢 0.75x', 1.0: '▶ 1x', 1.25: '⚡ 1.25x' };
+    document.querySelectorAll('.btn-speed').forEach(btn => {
+      if (btn.innerText === labels[speed]) btn.classList.add('active');
+    });
+  }
+
+  // ===================================================================
+  // 4. Cargar el JSON de frases y construir la interfaz
+  // ===================================================================
+  // Validar que exista el parámetro 'modulo'
+  if (!modulo || !leccion) {
+    document.getElementById('theater').innerHTML =
+      `<div class="error-state">Parámetros inválidos en la URL. Verifica los valores de 'modulo' y 'leccion'.</div>`;
+  } else {
+    const jsonFile = `data/practica_clase_${modulo.replace('.','_')}_${leccion}.json`;
+    
+    fetch(jsonFile)
+      .then(res => {
+        if (!res.ok) throw new Error(`No se encontró ${jsonFile}`);
+        return res.json();
+      })
+      .then(data => {
+        const leccionData = data[claveLeccion];
+        if (!leccionData) {
+          document.getElementById('theater').innerHTML =
+            `<div class="error-state">No se encontró la lección ${claveLeccion}. Verifica el enlace.</div>`;
+          return;
+        }
+        construirInterfaz(leccionData);
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('theater').innerHTML =
+          `<div class="error-state">No se pudo cargar el contenido de práctica. Intenta de nuevo más tarde. (${err.message})</div>`;
+      });
+  }
+
+  function construirInterfaz(leccionData) {
+    document.getElementById('page-title').innerText = leccionData.titulo;
+    document.getElementById('page-subtitle').innerText = 'Fuente: ' + leccionData.fuente;
+
+    const theater = document.getElementById('theater');
+    const total = leccionData.frases.length;
+    leccionData.frases.forEach(function(frase, i) {
+      var lineId = 'line-' + i;
+      var div = document.createElement('div');
+      div.className = 'dialogue-line';
+      div.id = lineId;
+
+      var gu = frase.gujarati.replace(/'/g, "\'");
+      var imgHtml = frase.imagen
+        ? '<img src="' + frase.imagen + '" style="width:100%;border-radius:10px;margin-bottom:12px;display:block;" onerror="this.style.display=\'none\'">'
+        : '';
+      var btnMujer = frase.audioClip2
+        ? '<button class="btn btn-listen" onclick="playMaster(\'' + frase.audioClip2 + '\',\'' + lineId + '\',null,null)">&#9792; Mujer</button>'
+        : '';
+
+      // Botón "Próxima práctica" — salta al siguiente ejercicio (excepto en el último)
+      var btnNext = (i < total - 1)
+        ? '<button class="btn btn-next-practice" onclick="irAProxima(' + (i + 1) + ')">&#11015; Pr&oacute;xima pr&aacute;ctica</button>'
+        : '<button class="btn btn-next-practice" onclick="irAlFinal()">&#127937; Terminar</button>';
+
+      div.innerHTML = imgHtml
+        + '<div class="gujarati-text">' + frase.gujarati + '</div>'
+        + '<div class="spanish-text">' + frase.espanol + '</div>'
+        + '<div class="action-bar">'
+        + '<button class="btn btn-listen" onclick="playMaster(\'' + frase.audioClip + '\',\'' + lineId + '\',null,null)">&#128266; Escuchar</button>'
+        + btnMujer
+        + '<button class="btn btn-record" id="rec-' + lineId + '" onclick="toggleRecord(\'' + lineId + '\',\'' + gu + '\')">&#127899; Practicar</button>'
+        + '<button class="btn btn-play-self" id="play-' + lineId + '" onclick="playRecorded(\'' + lineId + '\')" disabled>&#127911; Escucharme</button>'
+        + btnNext
+        + '<span id="load-' + lineId + '" class="loading-ia">&#10024; Evaluando&#8230;</span>'
+        + '</div>'
+        + '<div class="eval-panel" id="eval-panel-' + lineId + '">'
+        + '<p class="eval-resultado" id="resultado-' + lineId + '"></p>'
+        + '<p class="eval-escuche" id="escuche-' + lineId + '"></p>'
+        + '</div>';
+
+      theater.appendChild(div);
+    });
+  }
+
+  // Desplaza la pantalla al siguiente ejercicio y lo resalta
+  function irAProxima(indice) {
+    var destino = document.getElementById('line-' + indice);
+    if (destino) {
+      document.querySelectorAll('.dialogue-line').forEach(function(l){ l.classList.remove('active'); });
+      destino.classList.add('active');
+      destino.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  function irAlFinal() {
+    var footer = document.querySelector('footer');
+    if (footer) footer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ===================================================================
+  // 5. Reproductor maestro — soporta fragmento de audio largo o clip suelto
+  // ===================================================================
+  function playMaster(archivoUrl, lineId, inicio, fin) {
+    document.querySelectorAll('.dialogue-line').forEach(l => l.classList.remove('active'));
+
+    masterPlayer.src = archivoUrl;
+    masterPlayer.load();
+
+    masterPlayer.onloadedmetadata = function() {
+      if (inicio !== null) masterPlayer.currentTime = inicio;
+      masterPlayer.playbackRate = currentSpeed;
+      masterPlayer.play().then(() => {
+        document.getElementById(lineId)?.classList.add('active');
+      }).catch(e => console.log("Interacción requerida"));
+    };
+
+    if (fin !== null) {
+      masterPlayer.ontimeupdate = function() {
+        if (masterPlayer.currentTime >= fin) {
+          masterPlayer.pause();
+          document.getElementById(lineId)?.classList.remove('active');
+        }
+      };
+    } else {
+      masterPlayer.ontimeupdate = null;
+    }
+
+    masterPlayer.onended = function() {
+      document.getElementById(lineId)?.classList.remove('active');
+    };
+  }
+
+  // ===================================================================
+  // 6. Grabación (idéntica lógica a teatro.html)
+  // ===================================================================
+  function toggleRecord(lineId, fraseObjetivo) {
+    const btn = document.getElementById(`rec-${lineId}`);
+
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+      mediaRecorder.stop();
+      if (recordingLineId) {
+        const prevBtn = document.getElementById(`rec-${recordingLineId}`);
+        if (prevBtn) {
+          prevBtn.innerHTML = "🎙️ Practicar";
+          prevBtn.classList.remove('recording');
+        }
+      }
+      if (recordingLineId === lineId) {
+        recordingLineId = null;
+        return;
+      }
+    }
+
+    recordingLineId = lineId;
+
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+      mediaRecorder = new MediaRecorder(stream);
+      audioChunks[lineId] = [];
+
+      mediaRecorder.ondataavailable = e => {
+        if (e.data && e.data.size > 0) audioChunks[lineId].push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const tipoReal = mediaRecorder.mimeType || "audio/webm";
+        const blob = new Blob(audioChunks[lineId], { type: tipoReal });
+        const url = URL.createObjectURL(blob);
+
+        const playBtn = document.getElementById(`play-${lineId}`);
+        if (playBtn) {
+          playBtn.removeAttribute('disabled');
+          playBtn.dataset.url = url;
+        }
+        convertirAudioABase64(blob, lineId, fraseObjetivo);
+      };
+
+      mediaRecorder.start();
+      btn.innerHTML = "🛑 Detener";
+      btn.classList.add('recording');
+    }).catch(() => {
+      alert("Verifica los permisos de tu micrófono en los ajustes del dispositivo.");
+    });
+  }
+
+  function playRecorded(lineId) {
+    const playBtn = document.getElementById(`play-${lineId}`);
+    if (playBtn && playBtn.dataset.url) {
+      selfPlayer.src = playBtn.dataset.url;
+      selfPlayer.load();
+      selfPlayer.play().catch(() => {
+        alert("Asegúrate de que el switch físico de silencio de tu dispositivo no esté activado.");
+      });
+    }
+  }
+
+  function convertirAudioABase64(blob, lineId, fraseObjetivo) {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const base64Limpio = reader.result.split(',')[1];
+      const mimeTypeReal = blob.type || "audio/webm";
+      enviarAlTeatroIA(base64Limpio, mimeTypeReal, fraseObjetivo, lineId);
+    };
+  }
+
+  // ===================================================================
+  // 7. Llamada al backend de evaluación (idéntico contrato a teatro.html)
+  // ===================================================================
+  function enviarAlTeatroIA(audioBase64, mimeType, fraseObjetivo, lineId) {
+    const spinner = document.getElementById(`load-${lineId}`);
+    const panel = document.getElementById(`eval-panel-${lineId}`);
+
+    if (spinner) spinner.style.display = "inline-block";
+    if (panel) panel.style.display = "none";
+
+    fetch(`${BACKEND_URL}/api/evaluar-audio`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ audioBase64, mimeType, fraseObjetivo })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("Error en la respuesta del servidor");
+      return res.json();
+    })
+    .then(data => {
+      const resultadoEl = document.getElementById(`resultado-${lineId}`);
+      const escucheEl = document.getElementById(`escuche-${lineId}`);
+      const escuchado = data.escuchado && data.escuchado.trim() ? data.escuchado : "(no se entendió)";
+
+      if (data.acierto) {
+        resultadoEl.innerHTML = "&#10004; &iexcl;Muy bien! Lo dijiste correctamente.";
+        resultadoEl.style.color = "#7FBF8E";
+      } else {
+        resultadoEl.innerHTML = "&#128257; Sigue practicando, int&eacute;ntalo de nuevo.";
+        resultadoEl.style.color = "#D4A24C";
+      }
+      escucheEl.innerHTML = 'Escuch&eacute;: <span class="gu" style="font-size:1.2rem;color:var(--paper)">' + escuchado + '</span>';
+      if (panel) panel.style.display = "block";
+    })
+    .catch(err => {
+      console.error("Error conectando al backend:", err);
+      alert("Hubo un detalle al procesar tu voz. Inténtalo de nuevo.");
+    })
+    .finally(() => {
+      if (spinner) spinner.style.display = "none";
+    });
+  }
+</script>
+</body>
+</html>

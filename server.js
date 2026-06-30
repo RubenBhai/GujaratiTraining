@@ -103,9 +103,10 @@ app.post('/api/evaluar-audio', async (req, res) => {
         Compara su voz con el estándar nativo y devuélveme ESTRICTAMENTE un objeto JSON con esta estructura:
         {
           "nota": (un número entero del 1 al 10 según su precisión),
-          "transcripcion": (lo que lograste entender textualmente de su pronunciación),
+          "transcripcion": (lo que lograste entender de su pronunciación, SIEMPRE escrito en escritura gujarati (ગુજરાતી લિપિ). NUNCA uses letras latinas, romanización ni transliteración. Si no logras entender palabras gujarati claras, escribe en gujarati lo más cercano a los sonidos que escuchaste),
           "consejo": (un tip corto, empático y práctico en español para mejorar su acento)
         }
+        REGLA ABSOLUTA: el campo "transcripcion" debe estar 100% en escritura gujarati (nunca romanizado). El campo "consejo" va en español.
     `;
 
     try {

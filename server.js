@@ -9,10 +9,13 @@ const PORT = process.env.PORT || 3000;
 // CONFIGURACIÓN DE SEGURIDAD
 // =====================================================================
 app.use(cors({
-    origin: process.env.FRONTEND_URL || "*"
+    origin: [
+        "https://rubenbhai.github.io",
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "null"
+    ]
 }));
-
-app.use(cors());
 
 app.use(express.json({ limit: '10mb' }));
 

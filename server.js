@@ -11,6 +11,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
     origin: [
         "https://rubenbhai.github.io",
+        "https://piensaengujarati.com",
+        "https://www.piensaengujarati.com",
         "http://localhost:8000",
         "http://127.0.0.1:8000",
         "null"
@@ -46,6 +48,27 @@ function verificarAcceso(req, res, next) {
 // =====================================================================
 function esperar(ms) {
     return new Promise(function(resolve) { setTimeout(resolve, ms); });
+}
+
+// Modelos en orden de preferencia; si uno no existe o no acepta la petición (400/403/404), se prueba el siguiente.
+const MODELOS = (process.env.GEMINI_MODELS || 'gemini-3.8-flash,gemini-2.5-flash').split(',').map(function(m){ return m.trim(); }).filter(Boolean);
+
+async function generarConModelos(peticion) {
+    let ultimoError;
+    for (const modelo of MODELOS) {
+        try {
+            return await generarConReintentos(Object.assign({}, peticion, { model: modelo }));
+        } catch (error) {
+            ultimoError = error;
+            const status = error.status || (error.response && error.response.status);
+            if (status === 400 || status === 403 || status === 404) {
+                console.log(`Modelo ${modelo} no disponible (${status}); pruebo el siguiente.`);
+                continue;
+            }
+            throw error;
+        }
+    }
+    throw ultimoError;
 }
 
 async function generarConReintentos(peticion, maxIntentos = 4) {
@@ -110,8 +133,7 @@ app.post('/api/evaluar-audio', async (req, res) => {
     `;
 
     try {
-        const response = await generarConReintentos({
-            model: 'gemini-2.5-flash',
+        const response = await generarConModelos({
             contents: [
                 {
                     role: "user",

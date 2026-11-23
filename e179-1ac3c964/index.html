@@ -1,0 +1,429 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style><script>window.PORTABLE=true;</script></head><body><title>Intérprete 179</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&family=Hind+Vadodara:wght@400;500;600&display=swap">
+<style>
+/* Layout: una columna de estudio (máx. 720px), cabecera fija con los días como pestañas; tarjetas solo donde hay que tocar */
+:root{
+  --bg:#F3F5F8; --panel:#FFFFFF; --ink:#18212F; --muted:#5B6576; --line:#DCE1E9;
+  --accent:#D9822B; --accent-ink:#8A4A0C; --accent-soft:#FBEBD8;
+  --es:#2F5D9E; --es-soft:#E3ECF8; --ok:#2E7D4F; --ok-soft:#DFF1E6; --bad:#B03A2E; --bad-soft:#F7E1DE;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:Inter, "Segoe UI", system-ui, sans-serif;
+  --f-gu:"Hind Vadodara", "Noto Sans Gujarati", "Shruti", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151D; --panel:#18202B; --ink:#E7ECF3; --muted:#9AA5B5; --line:#2A3443;
+  --accent:#F0A04B; --accent-ink:#FFD2A1; --accent-soft:#3A2A17;
+  --es:#8DB4EC; --es-soft:#1C2B42; --ok:#6FCB94; --ok-soft:#173226; --bad:#F08A7E; --bad-soft:#3A1E1B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151D; --panel:#18202B; --ink:#E7ECF3; --muted:#9AA5B5; --line:#2A3443;
+  --accent:#F0A04B; --accent-ink:#FFD2A1; --accent-soft:#3A2A17;
+  --es:#8DB4EC; --es-soft:#1C2B42; --ok:#6FCB94; --ok-soft:#173226; --bad:#F08A7E; --bad-soft:#3A1E1B; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--f-body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border-bottom:1px solid var(--line)}
+.top .in{max-width:760px;margin:0 auto;padding-block:10px 0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.marca{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.marca b{font:800 19px/1.1 var(--f-display);letter-spacing:-.01em}
+.marca span{color:var(--muted);font-size:13px}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;padding:8px 11px 10px;color:var(--muted);text-decoration:none;font-weight:600;font-size:13.5px;border-bottom:3px solid transparent;white-space:nowrap}
+nav a.on{color:var(--ink);border-color:var(--accent)}
+nav a .ok{color:var(--ok)}
+main{max-width:760px;margin:0 auto;padding-block:18px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:18px}
+h1{font:800 clamp(26px,6vw,36px)/1.1 var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.015em}
+h2{font:700 19px/1.25 var(--f-display);margin:8px 0 0;text-wrap:balance}
+h2 small{font:500 12px var(--f-body);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:2px}
+p{margin:0;max-width:65ch}
+.sub{color:var(--muted)}
+.gu{font-family:var(--f-gu);font-size:1.18em;line-height:1.5}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+button,.btn{font:600 14px var(--f-body);border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:9px 14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button:focus-visible,.btn:focus-visible,nav a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn.pri,button.pri{background:var(--accent);border-color:var(--accent);color:#1d1205}
+button.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+button.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.play{width:40px;height:40px;padding:0;justify-content:center;border-radius:50%;flex:0 0 40px;font-size:13px}
+.play.es{color:var(--es);border-color:var(--es)}
+.play.gup{color:var(--accent-ink);border-color:var(--accent)}
+.play.on{background:var(--accent);color:#1d1205;border-color:var(--accent)}
+.play.es.on{background:var(--es);color:var(--panel)}
+/* plan */
+.semana{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.dia{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:inherit;text-decoration:none}
+.dia .f{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dia b{font:700 16px/1.2 var(--f-display)}
+.dia .t{font-size:13px;color:var(--muted)}
+.dia.hecho{border-color:var(--ok)} .dia.hecho .f::after{content:"  ✓ hecho";color:var(--ok);font-weight:600}
+.dia.final{background:var(--accent-soft);border-color:var(--accent)}
+ol.guia{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+ul.tips{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;max-width:65ch}
+/* listas */
+.lista{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+.it{display:flex;gap:12px;align-items:center;padding:11px 14px;border-top:1px solid var(--line)}
+.it:first-child{border-top:0}
+.it .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.it .es{color:var(--es);font-size:14px}
+.it .nota{font-size:12.5px;color:var(--muted)}
+.it.sec{background:var(--bg);font:600 12px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 14px}
+.oculto .gu{filter:blur(6px);cursor:pointer;user-select:none}
+.oculto .it.ver .gu{filter:none}
+.tag{font-size:11px;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--es-soft);color:var(--es);white-space:nowrap}
+.tag.lee{background:var(--accent-soft);color:var(--accent-ink)}
+/* taller */
+.taller{display:flex;flex-direction:column;gap:14px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.taller .cont{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;display:flex;justify-content:space-between;gap:8px}
+.taller .esq{font-size:19px;line-height:1.45;color:var(--es)}
+.taller .resp{border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.taller .resp .gu{font-size:1.35em}
+.reloj{font:700 28px var(--f-display);font-variant-numeric:tabular-nums;color:var(--accent-ink)}
+.barra{height:6px;background:var(--line);border-radius:9px;overflow:hidden}
+.barra i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.marcar{background:var(--accent-soft);color:var(--accent-ink);border-radius:4px;padding:0 2px}
+.cabina{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.fase{font:700 13px var(--f-body);letter-spacing:.08em;text-transform:uppercase}
+.fase.es{color:var(--es)} .fase.tu{color:var(--accent-ink)} .fase.mod{color:var(--ok)}
+label.sw{display:inline-flex;flex-wrap:wrap;max-width:100%;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+select{max-width:100%;min-width:0;font:inherit;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.pims{display:flex;flex-direction:column;gap:8px}.pims-it{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}.pims audio{width:100%;max-width:100%}
+.corte{color:var(--accent);font-weight:600;padding:0 2px}.partes{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}.pz-a{padding:3px 9px;font-size:12px;border-radius:99px;color:var(--accent-ink);border-color:var(--accent)}.pz-a.on{background:var(--accent);color:#1d1205}
+main.ancho{max-width:1180px}
+.est{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
+.est-txt{display:flex;flex-direction:column;gap:10px;min-width:0}
+.est-txt h2{margin-top:14px}
+.ef{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ef-top,.ef-gu{display:flex;gap:10px;align-items:center}
+.ef-top span.es{flex:1;min-width:0;color:var(--es)} .ef-gu span.gu{flex:1;min-width:0}
+.ef-n{font:600 12px var(--f-body);color:var(--muted);font-variant-numeric:tabular-nums;min-width:20px}
+.ef-acc{display:flex;gap:8px;flex-wrap:wrap}
+button.mini{padding:5px 10px;font-size:12.5px;border-radius:99px}
+.chat{background:var(--panel);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;min-height:0}
+.chat-cab{display:flex;gap:8px;align-items:baseline;padding:12px 14px;border-bottom:1px solid var(--line)}
+.chat-cab .sub{flex:1;font-size:12.5px}
+.chat-msgs{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;min-height:200px}
+.msg{padding:9px 12px;border-radius:12px;max-width:92%;line-height:1.5;overflow-wrap:anywhere}
+.msg.yo{align-self:flex-end;background:var(--es-soft);color:var(--ink)}
+.msg.cl{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.msg.pensando{color:var(--muted);font-style:italic}
+.msg .li{display:block;padding-left:4px}
+.sug{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.chat-in{padding:10px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.chat-in textarea{width:100%;font:15px/1.4 var(--f-body);border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:var(--bg);color:var(--ink);resize:vertical}
+.chat-aviso{padding:0 14px 12px;font-size:12.5px}
+.fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--accent);border-color:var(--accent);color:#1d1205;border-radius:99px;padding:12px 18px;box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:6}
+@media (min-width:980px){.est{grid-template-columns:minmax(0,1fr) 380px}.chat{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);height:calc(100vh - 120px)}.solo-movil{display:none!important}}
+@media (max-width:979px){.chat{position:fixed;left:0;right:0;bottom:0;height:75vh;border-radius:16px 16px 0 0;z-index:8;transform:translateY(105%);transition:transform .25s;padding-bottom:env(safe-area-inset-bottom,0px)}.chat.abierto{transform:none}}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:99px;font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.ver{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top"><div class="in">
+  <div class="marca"><b>Intérprete · discurso 179</b><span>español → gujarati · domingo 29 de noviembre</span></div>
+  <nav id="nav"></nav>
+</div></header>
+<main id="app"><p class="sub">Cargando…</p></main>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var D=null, app=document.getElementById('app'), player=new Audio(), btnSon=null, cancel=0;
+var DIAS=[
+ {n:1,id:'dia-1',f:'Lun 23',t:'La base y la sección 1',sec:['intro','s1'],obj:'Las palabras que se repiten en todo el discurso (fantasía, sueño, Reino, realidad) y la introducción completa.',salv:[0,6],pims:[['pims_d1','18 min','?v=3']]},
+ {n:2,id:'dia-2',f:'Mar 24',t:'Por qué rechazarlas: Satanás',sec:['s2'],obj:'La cadena de Santiago 1:14, 15 y el ejemplo de Satanás. Ten listos los textos en gujarati.',salv:[6,12],pims:[['pims_d2','19 min','?v=3']]},
+ {n:3,id:'dia-3',f:'Mié 25',t:'Materialismo e inmoralidad',sec:['s2b','s2c'],obj:'Los dos casos de hoy. Son los temas con palabras más delicadas: que salgan serenas y sin dudar.',salv:[12,17],pims:[['pims_d3','19 min','?v=3']]},
+ {n:4,id:'dia-4',f:'Jue 26',t:'El Reino es real · conclusión',sec:['s3','s4'],obj:'Las 4 preguntas del Reino, las cifras en lakh y la conclusión con Mateo 25:34.',salv:[17,22],pims:[['pims_d4a','Parte 1 · 22 min','?v=3'],['pims_d4b','Parte 2 · 17 min','?v=3']]}
+];
+function L(k,d){try{var v=localStorage.getItem('i179_'+k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
+function G(k,v){try{localStorage.setItem('i179_'+k,JSON.stringify(v));}catch(e){}}
+function E(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('ver');clearTimeout(toast.t);toast.t=setTimeout(function(){el.classList.remove('ver');},2000);}
+function parar(){cancel++;player.pause();if(btnSon)btnSon.classList.remove('on');btnSon=null;}
+function oir(src,btn){return new Promise(function(res){
+  if(btnSon)btnSon.classList.remove('on');
+  player.pause();player.src=src;btnSon=btn||null;if(btn)btn.classList.add('on');
+  var fin=function(){if(btn)btn.classList.remove('on');res(player.duration||2);};
+  player.onended=fin;player.onerror=fin;
+  var v=L('vel',1);player.playbackRate=v;
+  player.play().catch(fin);
+});}
+function esperar(ms){var c=cancel;return new Promise(function(res,rej){setTimeout(function(){c===cancel?res():rej('x');},ms);});}
+function hechos(){return L('hechos',{});}
+function malas(){return L('malas',{});}
+
+function nav(){
+  var h=location.hash.replace('#','')||'plan', hc=hechos();
+  var items=[['plan','Plan']].concat(DIAS.map(function(d){return[d.id,'Día '+d.n+(hc[d.id]?' <span class="ok">✓</span>':'')];}))
+    .concat([['estudio','Estudio + Claude'],['simulacro','Viernes · simulacro'],['salvavidas','Salvavidas'],['numeros','Números'],['textos','Textos']]);
+  document.getElementById('nav').innerHTML=items.map(function(x){return'<a href="#'+x[0]+'" class="'+(x[0]===h?'on':'')+'">'+x[1]+'</a>';}).join('');
+  var on=document.querySelector('nav a.on');if(on&&on.scrollIntoView)on.scrollIntoView({block:'nearest',inline:'center'});
+}
+function guC(f){return f.partes?f.partes.map(function(p){return E(p.gu);}).join(' <span class="corte">‖</span> '):E(f.gu);}
+function frasesDe(secs){return D.frases.filter(function(f){return secs.indexOf(f.sec)>=0;});}
+function secTitulo(id){return(D.secs.filter(function(s){return s.id===id;})[0]||{}).titulo||'';}
+
+/* ── PLAN ── */
+function plan(){
+  var hc=hechos();
+  var h='<div><div class="eyebrow">Plan de 5 días</div><h1>Que el gujarati te salga antes de pensarlo</h1></div>'+
+  '<p class="sub">Interpretación consecutiva: el hermano Sukhjit dice una oración y tú la dices en gujarati. Cada día son unos 35 minutos: vocabulario, escuchar y repetir, interpretar en voz alta y repasar lo que falló. Y un audio de 10 a 15 minutos estilo Pimsleur para oírlo sin pantalla.</p>'+
+  '<div class="semana">'+DIAS.map(function(d){return'<a class="dia'+(hc[d.id]?' hecho':'')+'" href="#'+d.id+'"><span class="f">'+d.f+'</span><b>Día '+d.n+'</b><span class="t">'+d.t+'</span></a>';}).join('')+
+  '<a class="dia" href="#simulacro"><span class="f">Vie 27</span><b>Día 5</b><span class="t">Simulacro completo y práctica con él</span></a>'+
+  '<div class="dia final"><span class="f">Dom 29</span><b>El discurso</b><span class="t">30 minutos · canción 21</span></div></div>'+
+  '<h2><small>Lo que dijo en su audio</small>Así va a dar el discurso</h2><div class="panel"><ol class="guia">'+
+  '<li>El mundo vive en fantasías: películas, cine, anuncios. Pregunta importante: <i>¿son inofensivas?</i></li>'+
+  '<li>Quiénes fantasearon: <b>solo Satanás</b> (quitó Eva y los ángeles) y cómo hoy usa las fantasías para alejarnos de Jehová.</li>'+
+  '<li>Dos casos de hoy: <b>el materialismo y la inmoralidad</b> (los dos, sí o sí).</li>'+
+  '<li>Busquemos las realidades del Reino, resumido: quién es el Rey (Jesús), quiénes son los súbditos y la cifra de testigos de jw.org.</li>'+
+  '<li>La predicación y verse en el nuevo mundo, con una ilustración.</li>'+
+  '<li>Conclusión: los que fantasean verán que el Reino ya gobierna. Lee <b>Mateo 25:34</b>: derecha al Reino, izquierda rechazados.</li></ol></div>'+
+  '<h2><small>Para el domingo</small>Consejos de cabina</h2><div class="panel"><ul class="tips">'+
+  '<li><b>Gestos:</b> él usará la <b>mano izquierda</b> para las malas decisiones (Satanás) y la <b>derecha</b> para lo bueno. Si las imitas, el público ve una sola voz.</li>'+
+  '<li><b>Idea, no palabras.</b> Espera a oír la oración entera y di la idea con lo que tienes. Si una palabra no sale, usa una más simple: «fabulosas riquezas» → <span class="gu">ઘણા પૈસા</span>.</li>'+
+  '<li><b>Oraciones cortas.</b> Si él encadena tres ideas, tú haz tres oraciones. El gujarati lo agradece.</li>'+
+  '<li><b>Habla en primera persona</b>, como si fueras él: «yo», «nosotros», «ustedes».</li>'+
+  '<li><b>Números en lakh y crore:</b> 9,2 millones = <span class="gu">૯૨ લાખ</span>. Míralo en «Números».</li>'+
+  '<li><b>Textos:</b> léelos tú en la Biblia en gujarati, ya marcados. No traduzcas su lectura.</li>'+
+  '<li>Lo tachado en sus notas (Eva, los ángeles, las «otras ovejas»…) no se dice. Si aun así lo menciona, la pestaña de cada día trae las palabras.</li></ul></div>'+
+  '<div class="row"><span class="sub">Velocidad del audio:</span><select id="vel"><option value="0.85">Más lento</option><option value="1">Normal</option><option value="1.15">Más rápido</option></select></div>';
+  app.innerHTML=h;
+  var s=document.getElementById('vel');s.value=String(L('vel',1));s.onchange=function(){G('vel',+s.value);toast('Velocidad guardada');};
+}
+
+/* ── UN DÍA ── */
+function dia(d){
+  var fr=frasesDe(d.sec), vo=D.vocab.filter(function(v){return v.dia===d.n;}), sv=D.salv.slice(d.salv[0],d.salv[1]);
+  var ml=malas(), prev=D.frases.filter(function(f){return f.dia<d.n&&ml[f.id];});
+  var h='<div><div class="eyebrow">Día '+d.n+' · '+d.f+'</div><h1>'+E(d.t)+'</h1></div><p class="sub">'+E(d.obj)+'</p>';
+  h+='<div class="panel pims"><div class="eyebrow">🎧 Audio del día · sin pantalla</div><p class="sub">Para el carro o una caminata. Lucía te pregunta en español, tú lo dices en gujarati en el silencio y luego oyes la respuesta. Las palabras vuelven a los pocos segundos, al minuto y a los 5 minutos.</p>'+
+     d.pims.map(function(x){return'<div class="pims-it"><span>'+E(x[1])+'</span><audio controls preload="none" src="audio/'+x[0]+'.mp3'+(x[2]||'')+'"></audio></div>';}).join('')+'</div>';
+  // paso 1
+  h+='<h2><small>Paso 1 · 8 min</small>Vocabulario</h2><p class="sub">Lee el español, di el gujarati en voz alta y toca para comprobar.</p>'+
+     '<div class="row"><label class="sw"><input type="checkbox" id="ocv" checked> Ocultar gujarati</label></div>'+
+     '<div class="lista oculto" id="lv">'+vo.map(function(v){return'<div class="it"><div class="tx"><span class="es">'+E(v.es)+'</span><span class="gu">'+E(v.gu)+'</span></div><button class="play gup" data-a="'+v.a+'" aria-label="Escuchar">▶</button></div>';}).join('')+'</div>';
+  // paso 2
+  h+='<h2><small>Paso 2 · 10 min</small>Escucha y repite</h2><p class="sub">Oye cada frase en gujarati y repítela encima, al mismo ritmo. «Repetir todas» deja una pausa para que la digas tú.</p>'+
+     '<div class="row"><button class="pri" id="todas">▶ Repetir todas</button></div><div class="lista" id="lf">';
+  var ult='';
+  fr.forEach(function(f){
+    if(f.sec!==ult){h+='<div class="it sec">'+E(secTitulo(f.sec))+'</div>';ult=f.sec;}
+    h+='<div class="it" data-id="'+f.id+'"><div class="tx"><span class="es">'+E(f.es)+'</span><span class="gu">'+guC(f)+'</span>'+(f.partes?'<span class="partes">Por partes: '+f.partes.map(function(p,j){return'<button class="pz-a" data-a="'+p.a+'" aria-label="Escuchar la parte '+(j+1)+'">▶ '+(j+1)+'</button>';}).join('')+'</span>':'')+(f.nota?'<span class="nota">'+E(f.nota)+'</span>':'')+'</div><button class="play gup" data-a="'+f.a+'" aria-label="Escuchar">▶</button></div>';
+  });
+  h+='</div>';
+  // salvavidas
+  h+='<h2><small>Paso 3 · 4 min</small>Salvavidas del día</h2><p class="sub">Frases comodín para ganar un segundo mientras piensas.</p><div class="lista">'+
+     sv.map(function(s){return'<div class="it"><div class="tx"><span class="es">'+E(s.es)+'</span><span class="gu">'+E(s.gu)+'</span></div><button class="play gup" data-a="'+s.a+'" aria-label="Escuchar">▶</button></div>';}).join('')+'</div>';
+  // taller
+  h+='<h2><small>Paso 4 · 10 min</small>Interpreta</h2><p class="sub">Oyes al discursante en español. Dilo en gujarati en voz alta, luego compara y marca cómo te fue. Lo que marques «Repasar» vuelve al final y en los días siguientes.</p><div id="taller"></div>';
+  if(prev.length) h+='<h2><small>Paso 5 · 3 min</small>Repaso de días anteriores</h2><p class="sub">'+prev.length+' frase'+(prev.length>1?'s':'')+' que marcaste para repasar.</p><div id="taller2"></div>';
+  h+='<div class="row" style="margin-top:6px"><button class="'+(hechos()[d.id]?'ok':'pri')+'" id="hecho">'+(hechos()[d.id]?'✓ Día completado':'Marcar el día como hecho')+'</button></div>';
+  app.innerHTML=h;
+  enlazarPlays(app);
+  var ocv=document.getElementById('ocv'),lv=document.getElementById('lv');
+  ocv.onchange=function(){lv.classList.toggle('oculto',ocv.checked);};
+  lv.querySelectorAll('.it').forEach(function(it){it.querySelector('.gu').onclick=function(){it.classList.add('ver');};});
+  document.getElementById('todas').onclick=function(){repetirTodas(this,fr);};
+  taller(document.getElementById('taller'),fr,'d'+d.n);
+  if(prev.length) taller(document.getElementById('taller2'),prev,'p'+d.n);
+  document.getElementById('hecho').onclick=function(){var hc=hechos();hc[d.id]=!hc[d.id];G('hechos',hc);toast(hc[d.id]?'¡Día '+d.n+' hecho!':'Desmarcado');ruta();};
+}
+function enlazarPlays(raiz){raiz.querySelectorAll('.play[data-a],.pz-a[data-a]').forEach(function(b){b.onclick=function(){parar();oir(b.dataset.a,b);};});}
+function repetirTodas(btn,fr){
+  if(btn.classList.contains('on')){parar();btn.classList.remove('on');btn.textContent='▶ Repetir todas';return;}
+  parar();var c=cancel;btn.classList.add('on');btn.textContent='■ Parar';
+  var i=0;
+  (function sig(){
+    if(c!==cancel)return;
+    if(i>=fr.length){btn.classList.remove('on');btn.textContent='▶ Repetir todas';return;}
+    var f=fr[i++],it=document.querySelector('#lf .it[data-id="'+f.id+'"]'),b=it&&it.querySelector('.play');
+    if(it)it.scrollIntoView({block:'center',behavior:'smooth'});
+    oir(f.a,b).then(function(dur){if(c!==cancel)return;return esperar(Math.max(1500,dur*1000*1.1/(L('vel',1))+500));}).then(sig,function(){});
+  })();
+}
+
+/* ── TALLER: oír español → decir gujarati → comparar ── */
+function taller(cont,lista,clave){
+  var cola=lista.slice(), hechas=0, total=lista.length, ocultarEs=L('ocultarEs',false);
+  function pintar(){
+    parar();
+    if(!cola.length){cont.innerHTML='<div class="taller"><b>¡Terminaste esta ronda! 🎉</b><p class="sub">'+total+' frases. Puedes hacer otra ronda: la segunda siempre sale más rápido.</p><div class="row"><button class="pri" id="otra_'+clave+'">Otra ronda</button></div></div>';
+      document.getElementById('otra_'+clave).onclick=function(){cola=lista.slice();hechas=0;pintar();};return;}
+    var f=cola[0];
+    cont.innerHTML='<div class="taller"><div class="cont"><span>'+(hechas+1)+' de '+(total+Math.max(0,cola.length-(total-hechas)))+'</span><label class="sw"><input type="checkbox" class="oes"'+(ocultarEs?' checked':'')+'> Solo audio (sin texto en español)</label></div>'+
+      '<div class="barra"><i style="width:'+Math.round(100*hechas/total)+'%"></i></div>'+
+      '<div class="row"><button class="play es" aria-label="Oír al discursante">▶</button><span class="fase es">El discursante</span></div>'+
+      '<div class="esq"'+(ocultarEs?' hidden':'')+'>«'+E(f.es)+'»</div>'+
+      '<div class="row"><button class="pri ver">Ya lo dije · comparar</button></div>'+
+      '<div class="resp" hidden><div class="row"><button class="play gup" aria-label="Oír el modelo">▶</button><span class="fase mod">Así puede sonar</span></div><div class="gu">'+guC(f)+'</div>'+(f.nota?'<div class="nota sub">'+E(f.nota)+'</div>':'')+
+      '<div class="row" style="margin-top:6px"><button class="ok bien">✓ Me salió</button><button class="bad mal">↺ Repasar</button></div></div></div>';
+    var pe=cont.querySelector('.play.es'),pg=cont.querySelector('.play.gup'),resp=cont.querySelector('.resp');
+    pe.onclick=function(){parar();oir(f.aes,pe);};
+    pg.onclick=function(){parar();oir(f.a,pg);};
+    cont.querySelector('.oes').onchange=function(){ocultarEs=this.checked;G('ocultarEs',ocultarEs);cont.querySelector('.esq').hidden=ocultarEs;};
+    cont.querySelector('.ver').onclick=function(){resp.hidden=false;this.hidden=true;parar();oir(f.a,pg);};
+    cont.querySelector('.bien').onclick=function(){var m=malas();delete m[f.id];G('malas',m);cola.shift();hechas++;pintar();};
+    cont.querySelector('.mal').onclick=function(){var m=malas();m[f.id]=1;G('malas',m);cola.push(cola.shift());pintar();toast('Vuelve al final');};
+    if(pintar.ya)oir(f.aes,pe);
+    pintar.ya=true;
+  }
+  pintar.ya=false;pintar();
+}
+
+/* ── SIMULACRO ── */
+function simulacro(){
+  var cfg=L('sim',{pausa:1.3,modelo:true,desde:0});
+  var h='<div><div class="eyebrow">Día 5 · Vie 27</div><h1>Simulacro del discurso</h1></div>'+
+  '<p class="sub">Todo el discurso seguido, como el domingo: habla el discursante, tú interpretas en la pausa y luego (si quieres) oyes el modelo. Hazlo dos veces: la primera con el modelo, la segunda sin él. Después, practica con el hermano.</p>'+
+  '<div class="panel row"><label class="sw">Tu pausa <select id="pausa"><option value="1">corta</option><option value="1.3">normal</option><option value="1.7">larga</option></select></label>'+
+  '<label class="sw"><input type="checkbox" id="mod"> Oír el modelo en gujarati</label>'+
+  '<label class="sw">Empezar en <select id="desde">'+D.secs.map(function(s){var i=D.frases.findIndex(function(f){return f.sec===s.id;});return'<option value="'+i+'">'+E(s.titulo)+'</option>';}).join('')+'</select></label></div>'+
+  '<div class="taller cabina"><div class="cont"><span id="pos">Listo</span><span id="sec"></span></div><div class="barra"><i id="bar"></i></div>'+
+  '<div class="fase" id="fase">Pulsa «Empezar»</div><div class="esq" id="txt"></div><div class="gu" id="mtx" hidden></div><div class="reloj" id="reloj" hidden></div>'+
+  '<div class="row"><button class="pri" id="go">▶ Empezar</button><button id="pa" hidden>⏸ Pausa</button><button id="sk" hidden>Siguiente ⏭</button></div></div>'+
+  '<h2><small>Sin pantalla</small>El domingo, en la cabina</h2><p class="sub">Lleva impresas solo tus palabras clave del día 1 al 4, no las oraciones: las oraciones te atan al papel. Mira al público y a sus manos.</p>';
+  app.innerHTML=h;
+  var $=function(i){return document.getElementById(i);};
+  $('pausa').value=String(cfg.pausa);$('mod').checked=cfg.modelo;$('desde').value=String(cfg.desde);
+  function save(){cfg={pausa:+$('pausa').value,modelo:$('mod').checked,desde:+$('desde').value};G('sim',cfg);}
+  ['pausa','mod','desde'].forEach(function(i){$(i).onchange=save;});
+  var i=0,corriendo=false,pausado=false;
+  function fin(){corriendo=false;$('go').hidden=false;$('go').textContent='▶ Otra vez';$('pa').hidden=true;$('sk').hidden=true;$('fase').textContent='¡Discurso completo! 🎉';$('fase').className='fase mod';$('txt').textContent='';$('mtx').hidden=true;$('reloj').hidden=true;}
+  function paso(){
+    if(!corriendo||pausado)return;
+    if(i>=D.frases.length)return fin();
+    var f=D.frases[i],c;
+    $('pos').textContent=(i+1)+' de '+D.frases.length;$('sec').textContent=secTitulo(f.sec);$('bar').style.width=Math.round(100*i/D.frases.length)+'%';
+    $('fase').textContent='Habla el discursante';$('fase').className='fase es';$('txt').textContent='«'+f.es+'»';$('mtx').hidden=true;$('reloj').hidden=true;
+    parar();c=cancel;
+    oir(f.aes).then(function(dur){
+      if(c!==cancel)return Promise.reject('x');
+      var ms=Math.max(2500,dur*1000*cfg.pausa*1.35/L('vel',1));
+      $('fase').textContent='Tu turno: dilo en gujarati';$('fase').className='fase tu';$('reloj').hidden=false;
+      var t0=Date.now();var tk=setInterval(function(){var r=Math.max(0,ms-(Date.now()-t0));$('reloj').textContent=(r/1000).toFixed(1)+' s';if(r<=0||c!==cancel)clearInterval(tk);},100);
+      return esperar(ms);
+    }).then(function(){
+      $('reloj').hidden=true;
+      if(!cfg.modelo)return;
+      $('fase').textContent='Así puede sonar';$('fase').className='fase mod';$('mtx').hidden=false;$('mtx').textContent=f.gu;
+      return oir(f.a).then(function(){return esperar(600);});
+    }).then(function(){if(c!==cancel)return;i++;paso();},function(){});
+  }
+  $('go').onclick=function(){save();i=cfg.desde;corriendo=true;pausado=false;$('go').hidden=true;$('pa').hidden=false;$('sk').hidden=false;$('pa').textContent='⏸ Pausa';paso();};
+  $('pa').onclick=function(){if(!pausado){pausado=true;parar();this.textContent='▶ Seguir';$('fase').textContent='En pausa';}else{pausado=false;this.textContent='⏸ Pausa';paso();}};
+  $('sk').onclick=function(){parar();i++;if(!pausado)paso();};
+}
+
+/* ── LISTAS DE CONSULTA ── */
+function salvavidas(){
+  app.innerHTML='<div><div class="eyebrow">Para improvisar</div><h1>Salvavidas</h1></div><p class="sub">Frases comodín que te dan un segundo para pensar y unen las ideas con naturalidad. Apréndete estas 22 de memoria.</p><div class="lista">'+
+  D.salv.map(function(s){return'<div class="it"><div class="tx"><span class="es">'+E(s.es)+'</span><span class="gu">'+E(s.gu)+'</span></div><button class="play gup" data-a="'+s.a+'" aria-label="Escuchar">▶</button></div>';}).join('')+'</div>';
+  enlazarPlays(app);
+}
+function numeros(){
+  app.innerHTML='<div><div class="eyebrow">Millones → lakh y crore</div><h1>Números</h1></div>'+
+  '<div class="panel"><p><b>La regla:</b> 1 lakh (<span class="gu">લાખ</span>) = 100 000 · 1 crore (<span class="gu">કરોડ</span>) = 100 lakh = 10 millones. Para pasar millones a lakh, multiplica por 10: <b>9,2 millones → 92 lakh</b>.</p></div>'+
+  '<p class="sub">Cifras del <a href="https://www.jw.org/en/library/books/2025-Service-Year-Report-of-Jehovahs-Witnesses-Worldwide/2025-Grand-Totals/" target="_blank" rel="noopener">Informe del año de servicio 2025</a> (jw.org, en inglés): 9 205 326 publicadores en 241 países. En sus notas dice 8,7 millones (2022) y «1 billón y medio de horas»: en español quiso decir 1500 millones = <span class="gu">૧૫૦ કરોડ</span>. Si cita esas, ya las tienes aquí.</p>'+
+  '<div class="lista oculto" id="ln">'+D.nums.map(function(n){return'<div class="it"><div class="tx"><span class="es">'+E(n.es)+'</span><span class="gu">'+E(n.gu)+' · '+E(n.au)+'</span></div><button class="play gup" data-a="'+n.a+'" aria-label="Escuchar">▶</button></div>';}).join('')+'</div>'+
+  '<p class="sub">Toca el gujarati borroso para verlo, después de decirlo.</p>';
+  enlazarPlays(app);
+  app.querySelectorAll('#ln .it').forEach(function(it){it.querySelector('.gu').onclick=function(){it.classList.add('ver');};});
+}
+function textos(){
+  app.innerHTML='<div><div class="eyebrow">Biblia en gujarati</div><h1>Textos</h1></div><p class="sub">Márcalos el martes en JW Library en gujarati. Los que dicen «se lee» los lees tú en gujarati mientras él lee en español; los citados solo se mencionan.</p><div class="lista">'+
+  D.textos.map(function(t){return'<div class="it"><div class="tx"><span class="es">'+E(t.es)+'</span><span class="gu">'+E(t.gu)+'</span></div><span class="tag'+(t.uso.indexOf('lee')>=0||t.uso==='resaltar'?' lee':'')+'">'+E(t.uso)+'</span></div>';}).join('')+'</div>';
+}
+
+/* ── ESTUDIO + CLAUDE: el discurso entero a la izquierda, Claude a la derecha (en el teléfono, abajo) ── */
+var CH=null, chatCtl=null;
+function contexto(){
+  var fr=D.frases.map(function(f){return f.id+' ['+secTitulo(f.sec)+'] ES: '+f.es+' | GU: '+(f.partes?f.partes.map(function(p){return p.gu;}).join(' ‖ '):f.gu)+(f.nota?' | Nota: '+f.nota:'');}).join('\n');
+  var vo=D.vocab.map(function(v){return v.es+' = '+v.gu;}).join('; ');
+  var sv=D.salv.map(function(s){return s.es+' = '+s.gu;}).join('; ');
+  return 'Eres Claude, ayudando a Rubén (hispanohablante de Panamá, estudia gujarati para predicar) a preparar la interpretación CONSECUTIVA del español al gujarati del discurso público núm. 179, «Rechace las fantasías mundanales; busque las realidades del Reino», que da el hermano Sukhjit Singh el domingo 29 de noviembre de 2026 (30 min). El discursante dice una oración y Rubén la dice en gujarati.\n\n'+
+  'Reglas para responder:\n- Responde siempre en español, breve y directo, con calidez.\n- Escribe el gujarati en escritura gujarati, sin romanización. Ortografía actual: યહોવા, વિશે, માથ્થી.\n- Si corriges el gujarati de Rubén: di qué está bien, qué cambiar y por qué (posposiciones, concordancia de género y número, el verbo al final, el sujeto con એ en pasado de verbos con objeto), y termina con una versión natural y corta para decir en voz alta.\n- Prefiere oraciones cortas: en interpretación consecutiva se puede partir una oración larga en dos o tres.\n- Usa las palabras ya validadas con las publicaciones cuando apliquen: વ્યભિચાર, છૂટાછેડા, લગ્નસાથી, મંડળ, બેવફાઈ (traición en el matrimonio), પૈસાનો લોભ, કિસ, વાસના ઉશ્કેરતી, ઉશ્કેરવું, ખોટી ઇચ્છા, મનોરંજન, ફાંદો.\n- Números: millones a lakh y crore (9,2 millones = ૯૨ લાખ).\n- No copies textos completos de la Biblia ni de publicaciones; da solo la referencia en gujarati.\n- Si no estás seguro de una palabra, dilo y ofrece una alternativa más simple.\n\n'+
+  'Lo que el discursante dijo en su audio: solo hablará de Satanás (quitó Eva y los ángeles), luego materialismo e inmoralidad, el Rey Jesús, los súbditos y la cifra de jw.org (9 205 326 publicadores, 241 países), la predicación y verse en el nuevo mundo con una ilustración, y termina leyendo Mateo 25:34 (derecha al Reino, izquierda rechazados). Usará la mano izquierda para lo malo y la derecha para lo bueno.\n\n'+
+  'Las oraciones del discurso con la versión en gujarati que Rubén está practicando (‖ = cortes que él eligió):\n'+fr+'\n\nVocabulario: '+vo+'\n\nFrases comodín: '+sv;
+}
+function md(t){
+  var h=E(t);
+  h=h.replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/(^|\n)[-•] (.*)/g,'$1<span class="li">• $2</span>');
+  return h.replace(/\n/g,'<br>');
+}
+function estudio(){
+  app.classList.add('ancho');
+  var turnos=L('chat',[]);
+  var h='<div><div class="eyebrow">Estudio + Claude</div><h1>El discurso, con Claude al lado</h1></div>'+
+   '<p class="sub">Repasa el discurso de corrido. En cada oración puedes preguntarle a Claude o escribir tu propia versión para que te la corrija.</p>'+
+   '<div class="est"><div class="est-txt"><div class="filtro">'+D.secs.map(function(s){return'<button class="chip" data-s="'+s.id+'">'+E(s.titulo.replace(/ \(.*\)/,''))+'</button>';}).join('')+'</div>';
+  var ult='';
+  D.frases.forEach(function(f){
+    if(f.sec!==ult){h+='<h2 id="s-'+f.sec+'">'+E(secTitulo(f.sec))+'</h2>';ult=f.sec;}
+    h+='<div class="ef" data-id="'+f.id+'"><div class="ef-top"><span class="ef-n">'+f.id.slice(1)+'</span><span class="es">'+E(f.es)+'</span><button class="play es" data-a="'+f.aes+'" aria-label="Oír al discursante">▶</button></div>'+
+      '<div class="ef-gu"><span class="gu">'+guC(f)+'</span><button class="play gup" data-a="'+f.a+'" aria-label="Oír en gujarati">▶</button></div>'+
+      (f.partes?'<span class="partes">Por partes: '+f.partes.map(function(p,j){return'<button class="pz-a" data-a="'+p.a+'">▶ '+(j+1)+'</button>';}).join('')+'</span>':'')+
+      (f.nota?'<div class="nota sub">'+E(f.nota)+'</div>':'')+
+      '<div class="ef-acc"><button class="mini" data-q="'+f.id+'">💬 Preguntar</button><button class="mini" data-c="'+f.id+'">✍️ Corrígeme</button></div></div>';
+  });
+  h+='</div><aside class="chat" id="chat"><div class="chat-cab"><b>Claude</b><span class="sub">te ayuda con el discurso</span><button class="mini" id="ch-borrar">Borrar</button><button class="mini solo-movil" id="ch-cerrar" aria-label="Cerrar">✕</button></div>'+
+     '<div class="chat-msgs" id="ch-msgs"></div>'+
+     '<div class="chat-in"><textarea id="ch-txt" rows="2" placeholder="Pregunta o escribe tu versión en gujarati…"></textarea><div class="row"><button class="pri" id="ch-env">Enviar</button><button id="ch-stop" hidden>■ Parar</button></div></div>'+
+     '<p class="chat-aviso sub" id="ch-aviso" hidden></p></aside></div>'+
+     '<button class="fab solo-movil" id="fab">💬 Claude</button>';
+  app.innerHTML=h;
+  enlazarPlays(app);
+  var msgs=document.getElementById('ch-msgs'),txt=document.getElementById('ch-txt'),env=document.getElementById('ch-env'),stop=document.getElementById('ch-stop'),aviso=document.getElementById('ch-aviso'),chat=document.getElementById('chat');
+  function pintar(){
+    if(!turnos.length){msgs.innerHTML='<div class="sug"><p class="sub">Puedes empezar con:</p>'+
+      ['¿Cómo puedo decir la f39 más corta?','Hazme 5 preguntas de práctica de la sección 2','¿Por qué શેતાને lleva એ?','Dame otra forma de decir «naufragio espiritual»'].map(function(s){return'<button class="chip">'+E(s)+'</button>';}).join('')+'</div>';
+      msgs.querySelectorAll('.sug .chip').forEach(function(c){c.onclick=function(){txt.value=c.textContent;enviar();};});return;}
+    msgs.innerHTML=turnos.map(function(t){return'<div class="msg '+(t.role==='user'?'yo':'cl')+'">'+(t.role==='user'?E(t.content).replace(/\n/g,'<br>'):md(t.content))+'</div>';}).join('');
+    msgs.scrollTop=msgs.scrollHeight;
+  }
+  pintar();
+  if(window.PORTABLE){aviso.hidden=false;aviso.textContent='En la versión web el chat no funciona: Claude solo responde dentro de la página en claude.ai. Todo lo demás funciona igual.';}
+  function abrir(){chat.classList.add('abierto');}
+  document.getElementById('fab').onclick=abrir;
+  document.getElementById('ch-cerrar').onclick=function(){chat.classList.remove('abierto');};
+  document.getElementById('ch-borrar').onclick=function(){if(chatCtl)chatCtl.abort();turnos=[];G('chat',turnos);pintar();};
+  app.querySelectorAll('.filtro .chip[data-s]').forEach(function(c){c.onclick=function(){var el=document.getElementById('s-'+c.dataset.s);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};});
+  app.querySelectorAll('[data-q]').forEach(function(b){b.onclick=function(){var f=D.frases.filter(function(x){return x.id===b.dataset.q;})[0];txt.value='Sobre la '+f.id+' («'+f.es+'»): ';abrir();txt.focus();};});
+  app.querySelectorAll('[data-c]').forEach(function(b){b.onclick=function(){var f=D.frases.filter(function(x){return x.id===b.dataset.c;})[0];txt.value='Corrígeme la '+f.id+' («'+f.es+'»). Mi versión: ';abrir();txt.focus();};});
+  txt.onkeydown=function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();enviar();}};
+  env.onclick=enviar;
+  stop.onclick=function(){if(chatCtl)chatCtl.abort();};
+  function enviar(){
+    var q=txt.value.trim(); if(!q||chatCtl)return;
+    if(!CH){aviso.hidden=false;aviso.textContent=window.PORTABLE?'En la versión web el chat no funciona: Claude solo responde dentro de la página en claude.ai. Todo lo demás funciona igual.':'Claude no está disponible en esta vista. Ábrela desde claude.ai, con tu sesión iniciada.';return;}
+    turnos.push({role:'user',content:q}); txt.value=''; pintar();
+    var div=document.createElement('div');div.className='msg cl pensando';div.textContent='Pensando…';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+    chatCtl=new AbortController(); env.hidden=true; stop.hidden=false;
+    var hist=turnos.slice(-16); while(hist.length&&hist[0].role!=='user')hist.shift();
+    CH([{role:'user',content:contexto()}].concat(hist),{cache:false,signal:chatCtl.signal,onText:function(u){div.classList.remove('pensando');div.innerHTML=md(u.text);msgs.scrollTop=msgs.scrollHeight;}})
+      .then(function(r){turnos.push({role:'assistant',content:r.text});G('chat',turnos.slice(-40));pintar();})
+      .catch(function(e){
+        if(e.text){turnos.push({role:'assistant',content:e.text+(e.code==='cancelled'?'':' …(interrumpido)')});G('chat',turnos.slice(-40));}
+        pintar();
+        var m={not_granted:'No diste permiso para usar Claude en esta página. Puedes activarlo en el menú de permisos.',sampling_disabled:'Claude no está disponible para esta cuenta.',rate_limited:'Demasiadas preguntas seguidas. Espera un momento y vuelve a intentarlo.',session_expired:'Tu sesión venció. Vuelve a iniciar sesión en claude.ai.',refused:'Claude no respondió esa pregunta. Prueba a formularla de otra manera.'};
+        if(e.code!=='cancelled'){aviso.hidden=false;aviso.textContent=m[e.code]||'No se pudo completar la respuesta. Inténtalo otra vez.';}
+      })
+      .then(function(){chatCtl=null;env.hidden=false;stop.hidden=true;});
+  }
+}
+
+function ruta(){
+  parar();window.scrollTo(0,0);nav();app.classList.remove('ancho');
+  var h=location.hash.replace('#','')||'plan', d=DIAS.filter(function(x){return x.id===h;})[0];
+  if(d)dia(d);else if(h==='simulacro')simulacro();else if(h==='salvavidas')salvavidas();else if(h==='numeros')numeros();else if(h==='textos')textos();else if(h==='estudio')estudio();else plan();
+}
+if(window.claude&&claude.use)claude.use('sample').then(function(s){CH=s;}).catch(function(){});
+fetch('datos179.json').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){D=d;window.addEventListener('hashchange',ruta);ruta();})
+ .catch(function(){app.innerHTML='<p>No pude cargar los datos. Revisa la conexión y recarga la página.</p>';});
+})();
+</script>
+</body></html>

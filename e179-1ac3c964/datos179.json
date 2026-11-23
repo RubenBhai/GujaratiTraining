@@ -1,0 +1,1662 @@
+{
+ "frases": [
+  {
+   "id": "f01",
+   "sec": "intro",
+   "dia": 1,
+   "es": "¿Qué es la fantasía?",
+   "gu": "કલ્પના એટલે શું?",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f01.mp3",
+   "aes": "audio/d179_es01.mp3"
+  },
+  {
+   "id": "f02",
+   "sec": "intro",
+   "dia": 1,
+   "es": "Es la capacidad humana de imaginar hechos o situaciones que pueden ser posibles o imposibles, reales o irreales.",
+   "gu": "કલ્પના એટલે મનમાં એવી બાબતો વિચારવી, જે શક્ય પણ હોય ને અશક્ય પણ, સાચી પણ હોય ને ખોટી પણ.",
+   "au": "",
+   "nota": "Si se te traba: «મનમાં એવી બાબતો વિચારવી, જે સાચી ન હોય».",
+   "a": "audio/d179_f02.mp3",
+   "aes": "audio/d179_es02.mp3",
+   "partes": [
+    {
+     "es": "La fantasía es pensar en cosas",
+     "gu": "કલ્પના એટલે મનમાં એવી બાબતો વિચારવી",
+     "a": "audio/d179_f02a.mp3"
+    },
+    {
+     "es": "que pueden ser posibles o imposibles",
+     "gu": "જે શક્ય પણ હોય ને અશક્ય પણ",
+     "a": "audio/d179_f02b.mp3"
+    },
+    {
+     "es": "reales o irreales",
+     "gu": "સાચી પણ હોય ને ખોટી પણ",
+     "a": "audio/d179_f02c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f03",
+   "sec": "intro",
+   "dia": 1,
+   "es": "Millones de personas sueñan despiertos con fantasías.",
+   "gu": "કરોડો લોકો ખુલ્લી આંખે સપનાં જુએ છે.",
+   "au": "",
+   "nota": "«soñar despierto» = ખુલ્લી આંખે સપનાં જોવાં (con los ojos abiertos).",
+   "a": "audio/d179_f03.mp3",
+   "aes": "audio/d179_es03.mp3"
+  },
+  {
+   "id": "f04",
+   "sec": "intro",
+   "dia": 1,
+   "es": "Y la razón es que el mundo promueve fantasías, sueños irreales.",
+   "gu": "એનું કારણ એ છે કે દુનિયા એવાં સપનાંને ઉત્તેજન આપે છે, જે કદી સાચાં પડતાં નથી.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f04.mp3",
+   "aes": "audio/d179_es04.mp3",
+   "partes": [
+    {
+     "es": "Y la razón es que",
+     "gu": "એનું કારણ એ છે કે",
+     "a": "audio/d179_f04a.mp3"
+    },
+    {
+     "es": "el mundo promueve sueños",
+     "gu": "દુનિયા એવાં સપનાંને ઉત્તેજન આપે છે",
+     "a": "audio/d179_f04b.mp3"
+    },
+    {
+     "es": "que nunca se hacen realidad",
+     "gu": "જે કદી સાચાં પડતાં નથી",
+     "a": "audio/d179_f04c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f05",
+   "sec": "s1",
+   "dia": 1,
+   "es": "Las fantasías suelen aparecer en anuncios publicitarios, películas y programas de televisión.",
+   "gu": "જાહેરાતો, ફિલ્મો અને ટીવી પ્રોગ્રામમાં મોટે ભાગે આવી કાલ્પનિક વાતો જોવા મળે છે.",
+   "au": "",
+   "nota": "Tachado en sus notas: «revistas y libros». Si igual lo dice: મૅગેઝિન અને પુસ્તકો.",
+   "a": "audio/d179_f05.mp3",
+   "aes": "audio/d179_es05.mp3",
+   "partes": [
+    {
+     "es": "en anuncios, películas y programas de televisión",
+     "gu": "જાહેરાતો, ફિલ્મો અને ટીવી પ્રોગ્રામમાં",
+     "a": "audio/d179_f05a.mp3"
+    },
+    {
+     "es": "por lo general, estas fantasías",
+     "gu": "મોટે ભાગે આવી કાલ્પનિક વાતો",
+     "a": "audio/d179_f05b.mp3"
+    },
+    {
+     "es": "se ven",
+     "gu": "જોવા મળે છે",
+     "a": "audio/d179_f05c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f06",
+   "sec": "s1",
+   "dia": 1,
+   "es": "La gente sueña con conseguir poder, fama o fabulosas riquezas, o con satisfacer todos sus deseos.",
+   "gu": "લોકો સત્તા, નામના કે અઢળક પૈસા મેળવવાનાં, અથવા પોતાની બધી ઇચ્છાઓ પૂરી કરવાનાં સપનાં જુએ છે.",
+   "au": "",
+   "nota": "El verbo va al final: guarda «સપનાં જુએ છે» para el cierre. (Tachado: la parte sexual de esta línea.)",
+   "a": "audio/d179_f06.mp3",
+   "aes": "audio/d179_es06.mp3",
+   "partes": [
+    {
+     "es": "la gente, con conseguir poder, fama o grandes riquezas",
+     "gu": "લોકો સત્તા, નામના કે અઢળક પૈસા મેળવવાનાં",
+     "a": "audio/d179_f06a.mp3"
+    },
+    {
+     "es": "o con satisfacer todos sus deseos",
+     "gu": "અથવા પોતાની બધી ઇચ્છાઓ પૂરી કરવાનાં",
+     "a": "audio/d179_f06b.mp3"
+    },
+    {
+     "es": "sueña",
+     "gu": "સપનાં જુએ છે",
+     "a": "audio/d179_f06c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f07",
+   "sec": "s1",
+   "dia": 1,
+   "es": "¿Son inofensivas esas fantasías mundanas?",
+   "gu": "શું દુનિયાની આવી કલ્પનાઓથી કોઈ નુકસાન થતું નથી?",
+   "au": "",
+   "nota": "Pregunta clave (él dijo que es importante): dila despacio, con tono de pregunta.",
+   "a": "audio/d179_f07.mp3",
+   "aes": "audio/d179_es07.mp3"
+  },
+  {
+   "id": "f08",
+   "sec": "s2",
+   "dia": 2,
+   "es": "La verdad es que debemos rechazar las fantasías mundanales.",
+   "gu": "હકીકત એ છે કે આપણે દુનિયાની કલ્પનાઓથી દૂર રહેવું જોઈએ.",
+   "au": "",
+   "nota": "«rechazar» aquí = દૂર રહેવું (mantenerse lejos). También vale: નકારવી.",
+   "a": "audio/d179_f08.mp3",
+   "aes": "audio/d179_es08.mp3"
+  },
+  {
+   "id": "f09",
+   "sec": "s2",
+   "dia": 2,
+   "es": "¿Por qué debemos hacer esto? Para responder, leamos Santiago 1:14, 15.",
+   "gu": "આપણે કેમ એમ કરવું જોઈએ? એનો જવાબ મેળવવા ચાલો યાકૂબ ૧:૧૪, ૧૫ વાંચીએ.",
+   "au": "આપણે કેમ એમ કરવું જોઈએ? એનો જવાબ મેળવવા ચાલો યાકૂબ એક, ચૌદ અને પંદર વાંચીએ.",
+   "nota": "Santiago = યાકૂબ. Ten el texto abierto en gujarati.",
+   "a": "audio/d179_f09.mp3",
+   "aes": "audio/d179_es09.mp3"
+  },
+  {
+   "id": "f10",
+   "sec": "s2",
+   "dia": 2,
+   "es": "Las fantasías mundanales van en una cadena: empiezan despertando los malos deseos…",
+   "gu": "દુનિયાની કલ્પનાઓ એક સાંકળ જેવી છે. પહેલા એ ખોટી ઇચ્છાઓ જગાડે છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f10.mp3",
+   "aes": "audio/d179_es10.mp3"
+  },
+  {
+   "id": "f11",
+   "sec": "s2",
+   "dia": 2,
+   "es": "…y pueden ponernos frente a frente con situaciones muy difíciles, o incluso con la muerte.",
+   "gu": "પછી એ આપણને ખૂબ મુશ્કેલ સંજોગોમાં, અરે, મોત સુધી પણ લઈ જઈ શકે છે.",
+   "au": "",
+   "nota": "«incluso» = અરે, … પણ",
+   "a": "audio/d179_f11.mp3",
+   "aes": "audio/d179_es11.mp3"
+  },
+  {
+   "id": "f12",
+   "sec": "s2",
+   "dia": 2,
+   "es": "Ahora vamos a considerar un ejemplo que demuestra por qué debemos rechazar las fantasías.",
+   "gu": "હવે ચાલો એક દાખલો જોઈએ, જે બતાવે છે કે આપણે કેમ કલ્પનાઓથી દૂર રહેવું જોઈએ.",
+   "au": "",
+   "nota": "Si dice «algunos ejemplos»: અમુક દાખલા. En el audio dijo que solo hablará de Satanás.",
+   "a": "audio/d179_f12.mp3",
+   "aes": "audio/d179_es12.mp3",
+   "partes": [
+    {
+     "es": "Ahora veamos un ejemplo",
+     "gu": "હવે ચાલો એક દાખલો જોઈએ",
+     "a": "audio/d179_f12a.mp3"
+    },
+    {
+     "es": "que demuestra",
+     "gu": "જે બતાવે છે કે",
+     "a": "audio/d179_f12b.mp3"
+    },
+    {
+     "es": "por qué debemos alejarnos de las fantasías",
+     "gu": "આપણે કેમ કલ્પનાઓથી દૂર રહેવું જોઈએ",
+     "a": "audio/d179_f12c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f13",
+   "sec": "s2",
+   "dia": 2,
+   "es": "El caso de Satanás es el ejemplo más destacado del daño que causa entregarse a las fantasías egoístas.",
+   "gu": "સ્વાર્થી કલ્પનાઓમાં ડૂબી જવાથી કેટલું નુકસાન થાય છે, એનો સૌથી મોટો દાખલો શેતાન છે.",
+   "au": "",
+   "nota": "Truco: empieza por el final en gujarati («…એનો સૌથી મોટો દાખલો શેતાન છે») si ya oíste la idea entera.",
+   "a": "audio/d179_f13.mp3",
+   "aes": "audio/d179_es13.mp3",
+   "partes": [
+    {
+     "es": "por entregarse a fantasías egoístas",
+     "gu": "સ્વાર્થી કલ્પનાઓમાં ડૂબી જવાથી",
+     "a": "audio/d179_f13a.mp3"
+    },
+    {
+     "es": "cuánto daño se causa",
+     "gu": "કેટલું નુકસાન થાય છે",
+     "a": "audio/d179_f13b.mp3"
+    },
+    {
+     "es": "el mayor ejemplo es Satanás",
+     "gu": "એનો સૌથી મોટો દાખલો શેતાન છે",
+     "a": "audio/d179_f13c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f14",
+   "sec": "s2",
+   "dia": 2,
+   "es": "Al parecer, Satanás fantaseó: se dejó dominar por la vanidad.",
+   "gu": "એવું લાગે છે કે શેતાને ખોટી કલ્પનાઓ કરી. તેના પર અભિમાન સવાર થઈ ગયું.",
+   "au": "",
+   "nota": "✋ Mano izquierda: él la usará para la mala decisión de Satanás.",
+   "a": "audio/d179_f14.mp3",
+   "aes": "audio/d179_es14.mp3"
+  },
+  {
+   "id": "f15",
+   "sec": "s2",
+   "dia": 2,
+   "es": "Empezó a anhelar que lo adoraran, sabiendo que el único que lo merece es Jehová.",
+   "gu": "તે ચાહવા લાગ્યો કે લોકો તેની ભક્તિ કરે. પણ તે જાણતો હતો કે ફક્ત યહોવા જ ભક્તિને લાયક છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f15.mp3",
+   "aes": "audio/d179_es15.mp3"
+  },
+  {
+   "id": "f16",
+   "sec": "s2",
+   "dia": 2,
+   "es": "¿Era una fantasía sin fundamento real? ¡Por supuesto!",
+   "gu": "શું એ ફક્ત કલ્પના હતી, જેનો કોઈ પાયો ન હતો? હા, ચોક્કસ!",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f16.mp3",
+   "aes": "audio/d179_es16.mp3"
+  },
+  {
+   "id": "f17",
+   "sec": "s2",
+   "dia": 2,
+   "es": "El resultado de sus acciones se describe en Apocalipsis 20:1-3, 10. Leámoslo.",
+   "gu": "તેનાં કામોનું શું પરિણામ આવશે, એ પ્રકટીકરણ ૨૦:૧-૩, ૧૦માં જણાવ્યું છે. ચાલો વાંચીએ.",
+   "au": "તેનાં કામોનું શું પરિણામ આવશે, એ પ્રકટીકરણ વીસ, એકથી ત્રણ અને દસમાં જણાવ્યું છે. ચાલો વાંચીએ.",
+   "nota": "Apocalipsis = પ્રકટીકરણ.",
+   "a": "audio/d179_f17.mp3",
+   "aes": "audio/d179_es17.mp3"
+  },
+  {
+   "id": "f18",
+   "sec": "s2",
+   "dia": 2,
+   "es": "En resumen: Satanás será juzgado, atado, y al final destruido para siempre.",
+   "gu": "ટૂંકમાં, શેતાનનો ન્યાય થશે, તેને બાંધી દેવામાં આવશે અને છેવટે તેનો હંમેશ માટે નાશ થશે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f18.mp3",
+   "aes": "audio/d179_es18.mp3",
+   "partes": [
+    {
+     "es": "En resumen, Satanás será juzgado",
+     "gu": "ટૂંકમાં, શેતાનનો ન્યાય થશે",
+     "a": "audio/d179_f18a.mp3"
+    },
+    {
+     "es": "será atado",
+     "gu": "તેને બાંધી દેવામાં આવશે",
+     "a": "audio/d179_f18b.mp3"
+    },
+    {
+     "es": "y al final será destruido para siempre",
+     "gu": "અને છેવટે તેનો હંમેશ માટે નાશ થશે",
+     "a": "audio/d179_f18c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f19",
+   "sec": "s2",
+   "dia": 2,
+   "es": "Es el resultado de fantasear con algo que no era real.",
+   "gu": "જે સાચું ન હતું, એની કલ્પનાઓમાં રાચવાનું આ પરિણામ છે.",
+   "au": "",
+   "nota": "«fantasear» = કલ્પનાઓમાં રાચવું",
+   "a": "audio/d179_f19.mp3",
+   "aes": "audio/d179_es19.mp3"
+  },
+  {
+   "id": "f20",
+   "sec": "s2",
+   "dia": 2,
+   "es": "En la actualidad, Satanás sigue promoviendo fantasías.",
+   "gu": "આજે પણ શેતાન કલ્પનાઓ ફેલાવી રહ્યો છે.",
+   "au": "",
+   "nota": "En el audio: «para desviarnos de Jehová» → આપણને યહોવાથી દૂર લઈ જવા.",
+   "a": "audio/d179_f20.mp3",
+   "aes": "audio/d179_es20.mp3"
+  },
+  {
+   "id": "f21",
+   "sec": "s2b",
+   "dia": 3,
+   "es": "Muchos se pasan las horas muertas en internet, con películas, telenovelas y concursos…",
+   "gu": "ઘણા લોકો કલાકોના કલાકો ઇન્ટરનેટ, ફિલ્મો, સિરિયલો અને ગેમ શૉ પાછળ વિતાવે છે.",
+   "au": "",
+   "nota": "Primer caso: el materialismo.",
+   "a": "audio/d179_f21.mp3",
+   "aes": "audio/d179_es21.mp3",
+   "partes": [
+    {
+     "es": "Muchas personas",
+     "gu": "ઘણા લોકો",
+     "a": "audio/d179_f21a.mp3"
+    },
+    {
+     "es": "horas y horas",
+     "gu": "કલાકોના કલાકો",
+     "a": "audio/d179_f21b.mp3"
+    },
+    {
+     "es": "en internet, películas, telenovelas y concursos",
+     "gu": "ઇન્ટરનેટ, ફિલ્મો, સિરિયલો અને ગેમ શૉ",
+     "a": "audio/d179_f21c.mp3"
+    },
+    {
+     "es": "pasan",
+     "gu": "પાછળ વિતાવે છે",
+     "a": "audio/d179_f21d.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f22",
+   "sec": "s2b",
+   "dia": 3,
+   "es": "…que alimentan la ambición y el deseo de obtener riquezas.",
+   "gu": "એનાથી પૈસાનો લોભ વધે છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f22.mp3?v=2",
+   "aes": "audio/d179_es22.mp3"
+  },
+  {
+   "id": "f23",
+   "sec": "s2b",
+   "dia": 3,
+   "es": "Para realizar esos sueños materialistas, algunos se han puesto a trabajar más y más…",
+   "gu": "પૈસાદાર બનવાનું સપનું પૂરું કરવા અમુક લોકો વધારે ને વધારે કામ કરવા લાગ્યા છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f23.mp3",
+   "aes": "audio/d179_es23.mp3"
+  },
+  {
+   "id": "f24",
+   "sec": "s2b",
+   "dia": 3,
+   "es": "…lo que los ha llevado al naufragio espiritual.",
+   "gu": "એના લીધે તેઓની શ્રદ્ધાનું વહાણ ભાંગી ગયું છે.",
+   "au": "",
+   "nota": "Expresión bíblica (1 Ti 1:19): શ્રદ્ધાનું વહાણ ભાંગી જવું.",
+   "a": "audio/d179_f24.mp3",
+   "aes": "audio/d179_es24.mp3"
+  },
+  {
+   "id": "f25",
+   "sec": "s2b",
+   "dia": 3,
+   "es": "La seguridad material es una ilusión. No nos dejemos engañar por Satanás.",
+   "gu": "પૈસાથી સલામતી મળે છે, એ ફક્ત ભ્રમ છે. ચાલો શેતાનથી છેતરાઈએ નહિ.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f25.mp3",
+   "aes": "audio/d179_es25.mp3"
+  },
+  {
+   "id": "f26",
+   "sec": "s2b",
+   "dia": 3,
+   "es": "La Biblia nos anima a contentarnos con lo que tenemos.",
+   "gu": "આપણી પાસે જે છે એમાં સંતોષ માનવાનું બાઇબલ ઉત્તેજન આપે છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f26.mp3",
+   "aes": "audio/d179_es26.mp3"
+  },
+  {
+   "id": "f27",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Hay quienes se entregan a fantasías sexuales.",
+   "gu": "અમુક લોકો જાતીય કલ્પનાઓમાં ડૂબી જાય છે.",
+   "au": "",
+   "nota": "Segundo caso: la inmoralidad. Tono serio y sereno.",
+   "a": "audio/d179_f27.mp3",
+   "aes": "audio/d179_es27.mp3"
+  },
+  {
+   "id": "f28",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Avivan sus malos deseos leyendo novelas románticas o viendo películas o videos inmorales.",
+   "gu": "અમુક લોકો પ્રેમકથાઓ વાંચે છે કે વાસના ઉશ્કેરતી ફિલ્મો અને વીડિયો જુએ છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f28.mp3?v=2",
+   "aes": "audio/d179_es28.mp3"
+  },
+  {
+   "id": "f29",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Otros se han enredado en las redes sociales.",
+   "gu": "બીજા અમુક લોકો સોશિયલ મીડિયામાં ફસાઈ ગયા છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f29.mp3",
+   "aes": "audio/d179_es29.mp3"
+  },
+  {
+   "id": "f30",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Esto ha llevado a algunos a tener conversaciones demasiado íntimas con alguien que no es su cónyuge…",
+   "gu": "એના લીધે અમુક લોકો પોતાના લગ્નસાથી સિવાય બીજી વ્યક્તિ સાથે હદ બહારની અંગત વાતો કરવા લાગ્યા છે.",
+   "au": "",
+   "nota": "cónyuge = લગ્નસાથી",
+   "a": "audio/d179_f30.mp3",
+   "aes": "audio/d179_es30.mp3",
+   "partes": [
+    {
+     "es": "Por eso algunos",
+     "gu": "એના લીધે અમુક લોકો",
+     "a": "audio/d179_f30a.mp3"
+    },
+    {
+     "es": "aparte de su cónyuge",
+     "gu": "પોતાના લગ્નસાથી સિવાય",
+     "a": "audio/d179_f30b.mp3"
+    },
+    {
+     "es": "con otra persona",
+     "gu": "બીજી વ્યક્તિ સાથે",
+     "a": "audio/d179_f30c.mp3"
+    },
+    {
+     "es": "empezaron a tener conversaciones demasiado íntimas",
+     "gu": "હદ બહારની અંગત વાતો કરવા લાગ્યા છે",
+     "a": "audio/d179_f30d.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f31",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "…y en algunos casos, a abrazarla y besarla apasionadamente.",
+   "gu": "અને અમુક કિસ્સામાં તો તેને ભેટવા અને કિસ કરવા લાગ્યા છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f31.mp3?v=2",
+   "aes": "audio/d179_es31.mp3"
+  },
+  {
+   "id": "f32",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Y otros han ido más allá: han cometido adulterio y se han divorciado de su cónyuge.",
+   "gu": "બીજા અમુક તો એનાથી પણ આગળ વધી ગયા. તેઓએ વ્યભિચાર કર્યો અને પોતાના લગ્નસાથીને છૂટાછેડા આપ્યા.",
+   "au": "",
+   "nota": "adulterio = વ્યભિચાર · divorcio = છૂટાછેડા",
+   "a": "audio/d179_f32.mp3",
+   "aes": "audio/d179_es32.mp3"
+  },
+  {
+   "id": "f33",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Esa traición es un pecado contra Jehová, el que instituyó el matrimonio, contra el cónyuge y contra la congregación.",
+   "gu": "એવી બેવફાઈ યહોવા વિરુદ્ધ પાપ છે, જેમણે લગ્નની ગોઠવણ કરી. એ લગ્નસાથી અને મંડળ વિરુદ્ધ પણ પાપ છે.",
+   "au": "",
+   "nota": "Pártela en dos oraciones: es más fácil.",
+   "a": "audio/d179_f33.mp3?v=2",
+   "aes": "audio/d179_es33.mp3"
+  },
+  {
+   "id": "f34",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "Quienes persiguen sueños egoístas sufrirán una amarga desilusión.",
+   "gu": "જેઓ સ્વાર્થી સપનાં પાછળ દોડે છે, તેઓએ ખૂબ નિરાશ થવું પડશે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f34.mp3",
+   "aes": "audio/d179_es34.mp3"
+  },
+  {
+   "id": "f35",
+   "sec": "s2c",
+   "dia": 3,
+   "es": "El mundo y sus deseos pronto dejarán de ser. Leamos 1 Juan 2:16, 17.",
+   "gu": "દુનિયા અને એની ઇચ્છાઓ જલદી જ જતી રહેશે. ચાલો ૧ યોહાન ૨:૧૬, ૧૭ વાંચીએ.",
+   "au": "દુનિયા અને એની ઇચ્છાઓ જલદી જ જતી રહેશે. ચાલો પહેલો યોહાન બે, સોળ અને સત્તર વાંચીએ.",
+   "nota": "1 Juan = ૧ યોહાન. En sus notas dice «resaltar».",
+   "a": "audio/d179_f35.mp3",
+   "aes": "audio/d179_es35.mp3"
+  },
+  {
+   "id": "f36",
+   "sec": "s3",
+   "dia": 4,
+   "es": "De seguro usted, que nos visita, y ustedes, hermanos, desean vivir para siempre.",
+   "gu": "અમારી મુલાકાતે આવેલા મિત્રો અને ભાઈ-બહેનો, ચોક્કસ તમે પણ હંમેશ માટે જીવવા ચાહો છો.",
+   "au": "",
+   "nota": "Esta transición va en negrita en sus notas.",
+   "a": "audio/d179_f36.mp3",
+   "aes": "audio/d179_es36.mp3",
+   "partes": [
+    {
+     "es": "Amigos que nos visitan, y hermanos",
+     "gu": "અમારી મુલાકાતે આવેલા મિત્રો અને ભાઈ-બહેનો",
+     "a": "audio/d179_f36a.mp3"
+    },
+    {
+     "es": "seguramente ustedes también desean vivir para siempre",
+     "gu": "ચોક્કસ તમે પણ હંમેશ માટે જીવવા ચાહો છો",
+     "a": "audio/d179_f36b.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f37",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Para lograrlo, busque las realidades del Reino.",
+   "gu": "એ માટે ઈશ્વરના રાજ્યની હકીકતો શોધતા રહો.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f37.mp3",
+   "aes": "audio/d179_es37.mp3"
+  },
+  {
+   "id": "f38",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Jesús nos exhortó a buscar el Reino. Leamos Mateo 6:33.",
+   "gu": "ઈસુએ આપણને રાજ્યને પ્રથમ શોધવાનું ઉત્તેજન આપ્યું. ચાલો માથ્થી ૬:૩૩ વાંચીએ.",
+   "au": "ઈસુએ આપણને રાજ્યને પ્રથમ શોધવાનું ઉત્તેજન આપ્યું. ચાલો માથ્થી છ, તેત્રીસ વાંચીએ.",
+   "nota": "Mateo = માથ્થી. ✋ Mano derecha: lo bueno.",
+   "a": "audio/d179_f38.mp3",
+   "aes": "audio/d179_es38.mp3"
+  },
+  {
+   "id": "f39",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Para buscar el Reino, debemos saber qué es, quién es su Rey, cómo son sus súbditos y qué lenguaje se habla.",
+   "gu": "રાજ્યને શોધવા આપણે જાણવું જોઈએ કે એ રાજ્ય શું છે, એનો રાજા કોણ છે, એની પ્રજા કેવી છે અને ત્યાં કઈ ભાષા બોલાય છે.",
+   "au": "",
+   "nota": "Las 4 preguntas son el esqueleto de la sección: apréndelas de memoria.",
+   "a": "audio/d179_f39.mp3",
+   "aes": "audio/d179_es39.mp3",
+   "partes": [
+    {
+     "es": "Para buscar el Reino",
+     "gu": "રાજ્યને શોધવા",
+     "a": "audio/d179_f39a.mp3"
+    },
+    {
+     "es": "debemos saber",
+     "gu": "આપણે જાણવું જોઈએ કે",
+     "a": "audio/d179_f39b.mp3"
+    },
+    {
+     "es": "qué es ese Reino",
+     "gu": "એ રાજ્ય શું છે",
+     "a": "audio/d179_f39c.mp3"
+    },
+    {
+     "es": "quién es su Rey",
+     "gu": "એનો રાજા કોણ છે",
+     "a": "audio/d179_f39d.mp3"
+    },
+    {
+     "es": "cómo son sus súbditos",
+     "gu": "એની પ્રજા કેવી છે",
+     "a": "audio/d179_f39e.mp3"
+    },
+    {
+     "es": "y qué idioma se habla",
+     "gu": "અને ત્યાં કઈ ભાષા બોલાય છે",
+     "a": "audio/d179_f39f.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f40",
+   "sec": "s3",
+   "dia": 4,
+   "es": "El Reino es un gobierno real, con poder y autoridad; satisfará todo buen deseo.",
+   "gu": "ઈશ્વરનું રાજ્ય એક સાચી સરકાર છે. એની પાસે તાકાત અને અધિકાર છે. એ દરેક સારી ઇચ્છા પૂરી કરશે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f40.mp3",
+   "aes": "audio/d179_es40.mp3"
+  },
+  {
+   "id": "f41",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Cristo, el Rey del Reino, no fue una simple ilusión en el primer siglo, y tampoco lo es hoy.",
+   "gu": "એ રાજ્યના રાજા ઈસુ ખ્રિસ્ત પહેલી સદીમાં કોઈ કલ્પના ન હતા, અને આજે પણ નથી.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f41.mp3",
+   "aes": "audio/d179_es41.mp3",
+   "partes": [
+    {
+     "es": "El Rey de ese Reino, Jesucristo",
+     "gu": "એ રાજ્યના રાજા ઈસુ ખ્રિસ્ત",
+     "a": "audio/d179_f41a.mp3"
+    },
+    {
+     "es": "en el primer siglo",
+     "gu": "પહેલી સદીમાં",
+     "a": "audio/d179_f41b.mp3"
+    },
+    {
+     "es": "no era una fantasía",
+     "gu": "કોઈ કલ્પના ન હતા",
+     "a": "audio/d179_f41c.mp3"
+    },
+    {
+     "es": "y hoy tampoco lo es",
+     "gu": "અને આજે પણ નથી",
+     "a": "audio/d179_f41d.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f42",
+   "sec": "s3",
+   "dia": 4,
+   "es": "A diferencia de las fantasías que prometen los políticos y gobernantes de hoy.",
+   "gu": "આજના નેતાઓ અને સરકારો જે કાલ્પનિક વચનો આપે છે, એનાથી એ સાવ અલગ છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f42.mp3",
+   "aes": "audio/d179_es42.mp3",
+   "partes": [
+    {
+     "es": "los líderes y gobiernos de hoy",
+     "gu": "આજના નેતાઓ અને સરકારો",
+     "a": "audio/d179_f42a.mp3"
+    },
+    {
+     "es": "las promesas imaginarias que hacen",
+     "gu": "જે કાલ્પનિક વચનો આપે છે",
+     "a": "audio/d179_f42b.mp3"
+    },
+    {
+     "es": "de eso es totalmente distinto",
+     "gu": "એનાથી એ સાવ અલગ છે",
+     "a": "audio/d179_f42c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f43",
+   "sec": "s3",
+   "dia": 4,
+   "es": "El Reino ya ha convertido en realidad muchas de sus promesas.",
+   "gu": "ઈશ્વરના રાજ્યે પોતાનાં ઘણાં વચનો પૂરાં કર્યાં છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f43.mp3",
+   "aes": "audio/d179_es43.mp3"
+  },
+  {
+   "id": "f44",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Tiene súbditos leales en toda la Tierra que anuncian que ya está establecido. (Mateo 24:14)",
+   "gu": "આખી દુનિયામાં એની વફાદાર પ્રજા છે, જે જાહેર કરે છે કે એ રાજ્ય સ્થપાઈ ચૂક્યું છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f44.mp3",
+   "aes": "audio/d179_es44.mp3",
+   "partes": [
+    {
+     "es": "En toda la Tierra tiene súbditos leales",
+     "gu": "આખી દુનિયામાં એની વફાદાર પ્રજા છે",
+     "a": "audio/d179_f44a.mp3"
+    },
+    {
+     "es": "que anuncian",
+     "gu": "જે જાહેર કરે છે",
+     "a": "audio/d179_f44b.mp3"
+    },
+    {
+     "es": "que ese Reino ya está establecido",
+     "gu": "કે એ રાજ્ય સ્થપાઈ ચૂક્યું છે",
+     "a": "audio/d179_f44c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f45",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Según jw.org, más de 9 millones 200 mil publicadores en 241 países anuncian este gobierno.",
+   "gu": "jw.org પ્રમાણે, ૨૪૧ દેશોમાં ૯૨ લાખથી વધારે પ્રકાશકો આ સરકાર વિશે પ્રચાર કરે છે.",
+   "au": "જે ડબલ્યુ ડૉટ ઓ આર જી પ્રમાણે, બસો એકતાળીસ દેશોમાં બાણું લાખથી વધારે પ્રકાશકો આ સરકાર વિશે પ્રચાર કરે છે.",
+   "nota": "Cifra del Informe 2025: 9.205.326 publicadores, 241 países. 9,2 millones = ૯૨ લાખ. Mira la pestaña «Números».",
+   "a": "audio/d179_f45.mp3",
+   "aes": "audio/d179_es45.mp3"
+  },
+  {
+   "id": "f46",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Debemos estar seguros de nuestra esperanza; el nuevo mundo debe ser real para nosotros.",
+   "gu": "આપણને આપણી આશા પર પાકો ભરોસો હોવો જોઈએ. નવી દુનિયા આપણા માટે હકીકત જેવી હોવી જોઈએ.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f46.mp3",
+   "aes": "audio/d179_es46.mp3"
+  },
+  {
+   "id": "f47",
+   "sec": "s3",
+   "dia": 4,
+   "es": "La promesa de que Dios hará nuevas todas las cosas no es ninguna fantasía. (Apocalipsis 21:3-5)",
+   "gu": "ઈશ્વર બધું નવું કરશે, બાઇબલનું એ વચન કોઈ કલ્પના નથી.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f47.mp3",
+   "aes": "audio/d179_es47.mp3"
+  },
+  {
+   "id": "f48",
+   "sec": "s3",
+   "dia": 4,
+   "es": "¿Medita usted en esa promesa?",
+   "gu": "શું તમે એ વચન પર મનન કરો છો?",
+   "au": "",
+   "nota": "Aquí usará una ilustración (imagen 4).",
+   "a": "audio/d179_f48.mp3",
+   "aes": "audio/d179_es48.mp3"
+  },
+  {
+   "id": "f49",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Imaginarse en el nuevo mundo no es hacerse ilusiones; demuestra que se tiene fe.",
+   "gu": "પોતાને નવી દુનિયામાં જોવા એ સપનાં જોવા જેવું નથી. એ બતાવે છે કે આપણને શ્રદ્ધા છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f49.mp3",
+   "aes": "audio/d179_es49.mp3"
+  },
+  {
+   "id": "f50",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Debemos seguir fortaleciendo nuestra fe estudiando la Palabra de Dios.",
+   "gu": "ઈશ્વરના શબ્દનો અભ્યાસ કરીને આપણે શ્રદ્ધા મજબૂત કરતા રહેવું જોઈએ.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f50.mp3",
+   "aes": "audio/d179_es50.mp3"
+  },
+  {
+   "id": "f51",
+   "sec": "s3",
+   "dia": 4,
+   "es": "Millones de personas, mansas como ovejas, están aceptando el mensaje del Reino.",
+   "gu": "ઘેટાં જેવા નમ્ર લાખો લોકો રાજ્યનો સંદેશો સ્વીકારી રહ્યા છે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f51.mp3",
+   "aes": "audio/d179_es51.mp3"
+  },
+  {
+   "id": "f52",
+   "sec": "s3",
+   "dia": 4,
+   "es": "¿Predica usted el Reino?",
+   "gu": "શું તમે રાજ્યનો પ્રચાર કરો છો?",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f52.mp3",
+   "aes": "audio/d179_es52.mp3"
+  },
+  {
+   "id": "f53",
+   "sec": "s3",
+   "dia": 4,
+   "es": "¿Puede aumentar su actividad en la predicación?",
+   "gu": "શું તમે પ્રચારમાં વધારે ભાગ લઈ શકો?",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f53.mp3",
+   "aes": "audio/d179_es53.mp3"
+  },
+  {
+   "id": "f54",
+   "sec": "s4",
+   "dia": 4,
+   "es": "Vivimos en un período especial: todos tienen la oportunidad de ser súbditos del Reino.",
+   "gu": "આપણે ખાસ સમયમાં જીવીએ છીએ. બધાને રાજ્યની પ્રજા બનવાનો મોકો મળી રહ્યો છે.",
+   "au": "",
+   "nota": "Tachado: «el resto ungido…» y «las otras ovejas…».",
+   "a": "audio/d179_f54.mp3",
+   "aes": "audio/d179_es54.mp3"
+  },
+  {
+   "id": "f55",
+   "sec": "s4",
+   "dia": 4,
+   "es": "Quienes persiguen las fantasías del mundo pronto se enfrentarán a la cruda realidad…",
+   "gu": "જેઓ દુનિયાની કલ્પનાઓ પાછળ દોડે છે, તેઓએ જલદી જ એક કડવી હકીકતનો સામનો કરવો પડશે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f55.mp3",
+   "aes": "audio/d179_es55.mp3",
+   "partes": [
+    {
+     "es": "Los que persiguen las fantasías del mundo",
+     "gu": "જેઓ દુનિયાની કલ્પનાઓ પાછળ દોડે છે",
+     "a": "audio/d179_f55a.mp3"
+    },
+    {
+     "es": "pronto tendrán que enfrentar una cruda realidad",
+     "gu": "તેઓએ જલદી જ એક કડવી હકીકતનો સામનો કરવો પડશે",
+     "a": "audio/d179_f55b.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f56",
+   "sec": "s4",
+   "dia": 4,
+   "es": "…de que el Reino de Dios ya está gobernando, y de que este sistema malvado será destruido para siempre.",
+   "gu": "ઈશ્વરનું રાજ્ય રાજ કરી રહ્યું છે અને આ દુષ્ટ દુનિયાનો બહુ જલદી હંમેશ માટે નાશ થશે.",
+   "au": "",
+   "nota": "",
+   "a": "audio/d179_f56.mp3",
+   "aes": "audio/d179_es56.mp3",
+   "partes": [
+    {
+     "es": "El Reino de Dios está gobernando",
+     "gu": "ઈશ્વરનું રાજ્ય રાજ કરી રહ્યું છે",
+     "a": "audio/d179_f56a.mp3"
+    },
+    {
+     "es": "y este mundo malvado",
+     "gu": "અને આ દુષ્ટ દુનિયાનો",
+     "a": "audio/d179_f56b.mp3"
+    },
+    {
+     "es": "muy pronto será destruido para siempre",
+     "gu": "બહુ જલદી હંમેશ માટે નાશ થશે",
+     "a": "audio/d179_f56c.mp3"
+    }
+   ]
+  },
+  {
+   "id": "f57",
+   "sec": "s4",
+   "dia": 4,
+   "es": "Leamos Mateo 25:34.",
+   "gu": "ચાલો માથ્થી ૨૫:૩૪ વાંચીએ.",
+   "au": "ચાલો માથ્થી પચીસ, ચોત્રીસ વાંચીએ.",
+   "nota": "Es el texto con el que termina.",
+   "a": "audio/d179_f57.mp3",
+   "aes": "audio/d179_es57.mp3"
+  },
+  {
+   "id": "f58",
+   "sec": "s4",
+   "dia": 4,
+   "es": "A los de su mano derecha los llevará a su Reino; a los de la izquierda los rechazará.",
+   "gu": "જેઓ જમણા હાથે છે, તેઓને રાજ્યમાં લઈ જવામાં આવશે. પણ જેઓ ડાબા હાથે છે, તેઓને નકારવામાં આવશે.",
+   "au": "",
+   "nota": "Lo explicó en el audio, con las manos. ✋ derecha = જમણો હાથ · izquierda = ડાબો હાથ.",
+   "a": "audio/d179_f58.mp3",
+   "aes": "audio/d179_es58.mp3"
+  },
+  {
+   "id": "f59",
+   "sec": "s4",
+   "dia": 4,
+   "es": "Mantengamos la mente y el corazón en el Reino de Dios, y disfrutemos de sus bendiciones eternas.",
+   "gu": "ચાલો આપણું મન અને દિલ ઈશ્વરના રાજ્ય પર જ રાખીએ, અને એના હંમેશના આશીર્વાદોનો આનંદ માણીએ.",
+   "au": "",
+   "nota": "Última frase: despacio y con fuerza.",
+   "a": "audio/d179_f59.mp3",
+   "aes": "audio/d179_es59.mp3",
+   "partes": [
+    {
+     "es": "Mantengamos la mente y el corazón",
+     "gu": "ચાલો આપણું મન અને દિલ",
+     "a": "audio/d179_f59a.mp3"
+    },
+    {
+     "es": "solo en el Reino de Dios",
+     "gu": "ઈશ્વરના રાજ્ય પર જ રાખીએ",
+     "a": "audio/d179_f59b.mp3"
+    },
+    {
+     "es": "y de sus bendiciones eternas",
+     "gu": "અને એના હંમેશના આશીર્વાદોનો",
+     "a": "audio/d179_f59c.mp3"
+    },
+    {
+     "es": "disfrutemos",
+     "gu": "આનંદ માણીએ",
+     "a": "audio/d179_f59d.mp3"
+    }
+   ]
+  }
+ ],
+ "vocab": [
+  {
+   "id": "v01",
+   "dia": 1,
+   "es": "las fantasías del mundo",
+   "gu": "દુનિયાની કલ્પનાઓ",
+   "a": "audio/d179_v01.mp3"
+  },
+  {
+   "id": "v02",
+   "dia": 1,
+   "es": "sueños irreales",
+   "gu": "સાચાં ન પડે એવાં સપનાં",
+   "a": "audio/d179_v02.mp3"
+  },
+  {
+   "id": "v03",
+   "dia": 1,
+   "es": "soñar despierto",
+   "gu": "ખુલ્લી આંખે સપનાં જોવાં",
+   "a": "audio/d179_v03.mp3"
+  },
+  {
+   "id": "v04",
+   "dia": 1,
+   "es": "el Reino de Dios",
+   "gu": "ઈશ્વરનું રાજ્ય",
+   "a": "audio/d179_v04.mp3"
+  },
+  {
+   "id": "v05",
+   "dia": 1,
+   "es": "las realidades del Reino",
+   "gu": "રાજ્યની હકીકતો",
+   "a": "audio/d179_v05.mp3"
+  },
+  {
+   "id": "v06",
+   "dia": 1,
+   "es": "promover fantasías",
+   "gu": "કલ્પનાઓને ઉત્તેજન આપવું",
+   "a": "audio/d179_v06.mp3"
+  },
+  {
+   "id": "v07",
+   "dia": 1,
+   "es": "anuncios y películas",
+   "gu": "જાહેરાતો અને ફિલ્મો",
+   "a": "audio/d179_v07.mp3"
+  },
+  {
+   "id": "v08",
+   "dia": 1,
+   "es": "poder y fama",
+   "gu": "સત્તા અને નામના",
+   "a": "audio/d179_v08.mp3"
+  },
+  {
+   "id": "v09",
+   "dia": 1,
+   "es": "grandes riquezas",
+   "gu": "અઢળક પૈસા",
+   "a": "audio/d179_v09.mp3"
+  },
+  {
+   "id": "v10",
+   "dia": 1,
+   "es": "satisfacer sus deseos",
+   "gu": "પોતાની ઇચ્છાઓ પૂરી કરવી",
+   "a": "audio/d179_v10.mp3"
+  },
+  {
+   "id": "v11",
+   "dia": 1,
+   "es": "¿no hace daño?",
+   "gu": "કોઈ નુકસાન નથી?",
+   "a": "audio/d179_v11.mp3"
+  },
+  {
+   "id": "v12",
+   "dia": 1,
+   "es": "rechazar las fantasías",
+   "gu": "કલ્પનાઓથી દૂર રહેવું",
+   "a": "audio/d179_v12.mp3"
+  },
+  {
+   "id": "v13",
+   "dia": 2,
+   "es": "despertar malos deseos",
+   "gu": "ખોટી ઇચ્છાઓ જગાડવી",
+   "a": "audio/d179_v13.mp3"
+  },
+  {
+   "id": "v14",
+   "dia": 2,
+   "es": "como una cadena",
+   "gu": "એક સાંકળ જેવી",
+   "a": "audio/d179_v14.mp3"
+  },
+  {
+   "id": "v15",
+   "dia": 2,
+   "es": "situaciones muy difíciles",
+   "gu": "ખૂબ મુશ્કેલ સંજોગો",
+   "a": "audio/d179_v15.mp3"
+  },
+  {
+   "id": "v16",
+   "dia": 2,
+   "es": "hasta la muerte",
+   "gu": "મોત સુધી પણ",
+   "a": "audio/d179_v16.mp3"
+  },
+  {
+   "id": "v17",
+   "dia": 2,
+   "es": "fantasías egoístas",
+   "gu": "સ્વાર્થી કલ્પનાઓ",
+   "a": "audio/d179_v17.mp3"
+  },
+  {
+   "id": "v18",
+   "dia": 2,
+   "es": "lo dominó la vanidad",
+   "gu": "તેના પર અભિમાન સવાર થયું",
+   "a": "audio/d179_v18.mp3"
+  },
+  {
+   "id": "v19",
+   "dia": 2,
+   "es": "desear que lo adoren",
+   "gu": "ભક્તિ મેળવવાની ઝંખના",
+   "a": "audio/d179_v19.mp3"
+  },
+  {
+   "id": "v20",
+   "dia": 2,
+   "es": "solo Jehová lo merece",
+   "gu": "ફક્ત યહોવા જ લાયક છે",
+   "a": "audio/d179_v20.mp3"
+  },
+  {
+   "id": "v21",
+   "dia": 2,
+   "es": "sin fundamento",
+   "gu": "કોઈ પાયો ન હતો",
+   "a": "audio/d179_v21.mp3"
+  },
+  {
+   "id": "v22",
+   "dia": 2,
+   "es": "será juzgado",
+   "gu": "તેનો ન્યાય થશે",
+   "a": "audio/d179_v22.mp3"
+  },
+  {
+   "id": "v23",
+   "dia": 2,
+   "es": "será atado",
+   "gu": "તેને બાંધી દેવાશે",
+   "a": "audio/d179_v23.mp3"
+  },
+  {
+   "id": "v24",
+   "dia": 2,
+   "es": "destruido para siempre",
+   "gu": "હંમેશ માટે નાશ",
+   "a": "audio/d179_v24.mp3"
+  },
+  {
+   "id": "v25",
+   "dia": 3,
+   "es": "horas y horas",
+   "gu": "કલાકોના કલાકો",
+   "a": "audio/d179_v25.mp3"
+  },
+  {
+   "id": "v26",
+   "dia": 3,
+   "es": "telenovelas y concursos",
+   "gu": "સિરિયલો અને ગેમ શૉ",
+   "a": "audio/d179_v26.mp3"
+  },
+  {
+   "id": "v27",
+   "dia": 3,
+   "es": "el deseo de ser rico",
+   "gu": "પૈસાનો લોભ",
+   "a": "audio/d179_v27.mp3?v=2"
+  },
+  {
+   "id": "v28",
+   "dia": 3,
+   "es": "trabajar más y más",
+   "gu": "વધારે ને વધારે કામ",
+   "a": "audio/d179_v28.mp3"
+  },
+  {
+   "id": "v29",
+   "dia": 3,
+   "es": "naufragio espiritual",
+   "gu": "શ્રદ્ધાનું વહાણ ભાંગી જવું",
+   "a": "audio/d179_v29.mp3"
+  },
+  {
+   "id": "v30",
+   "dia": 3,
+   "es": "es solo una ilusión",
+   "gu": "ફક્ત ભ્રમ છે",
+   "a": "audio/d179_v30.mp3"
+  },
+  {
+   "id": "v31",
+   "dia": 3,
+   "es": "no nos dejemos engañar",
+   "gu": "ચાલો છેતરાઈએ નહિ",
+   "a": "audio/d179_v31.mp3"
+  },
+  {
+   "id": "v32",
+   "dia": 3,
+   "es": "estar contentos",
+   "gu": "જે છે એમાં સંતોષ",
+   "a": "audio/d179_v32.mp3"
+  },
+  {
+   "id": "v33",
+   "dia": 3,
+   "es": "fantasías sexuales",
+   "gu": "જાતીય કલ્પનાઓ",
+   "a": "audio/d179_v33.mp3"
+  },
+  {
+   "id": "v34",
+   "dia": 3,
+   "es": "las redes sociales",
+   "gu": "સોશિયલ મીડિયા",
+   "a": "audio/d179_v34.mp3"
+  },
+  {
+   "id": "v35",
+   "dia": 3,
+   "es": "su cónyuge",
+   "gu": "પોતાનો લગ્નસાથી",
+   "a": "audio/d179_v35.mp3"
+  },
+  {
+   "id": "v36",
+   "dia": 3,
+   "es": "cometer adulterio",
+   "gu": "વ્યભિચાર કરવો",
+   "a": "audio/d179_v36.mp3"
+  },
+  {
+   "id": "v37",
+   "dia": 3,
+   "es": "divorciarse",
+   "gu": "છૂટાછેડા આપવા",
+   "a": "audio/d179_v37.mp3"
+  },
+  {
+   "id": "v38",
+   "dia": 3,
+   "es": "esa traición",
+   "gu": "એવી બેવફાઈ",
+   "a": "audio/d179_v38.mp3?v=2"
+  },
+  {
+   "id": "v39",
+   "dia": 3,
+   "es": "una amarga desilusión",
+   "gu": "ખૂબ નિરાશ થવું",
+   "a": "audio/d179_v39.mp3"
+  },
+  {
+   "id": "v40",
+   "dia": 4,
+   "es": "un gobierno real",
+   "gu": "સાચી સરકાર",
+   "a": "audio/d179_v40.mp3"
+  },
+  {
+   "id": "v41",
+   "dia": 4,
+   "es": "poder y autoridad",
+   "gu": "તાકાત અને અધિકાર",
+   "a": "audio/d179_v41.mp3"
+  },
+  {
+   "id": "v42",
+   "dia": 4,
+   "es": "todo buen deseo",
+   "gu": "દરેક સારી ઇચ્છા",
+   "a": "audio/d179_v42.mp3"
+  },
+  {
+   "id": "v43",
+   "dia": 4,
+   "es": "el Rey del Reino",
+   "gu": "રાજ્યનો રાજા",
+   "a": "audio/d179_v43.mp3"
+  },
+  {
+   "id": "v44",
+   "dia": 4,
+   "es": "súbditos leales",
+   "gu": "વફાદાર પ્રજા",
+   "a": "audio/d179_v44.mp3"
+  },
+  {
+   "id": "v45",
+   "dia": 4,
+   "es": "ya está establecido",
+   "gu": "સ્થપાઈ ચૂક્યું છે",
+   "a": "audio/d179_v45.mp3"
+  },
+  {
+   "id": "v46",
+   "dia": 4,
+   "es": "nuestra esperanza",
+   "gu": "આપણી આશા",
+   "a": "audio/d179_v46.mp3"
+  },
+  {
+   "id": "v47",
+   "dia": 4,
+   "es": "el nuevo mundo",
+   "gu": "નવી દુનિયા",
+   "a": "audio/d179_v47.mp3"
+  },
+  {
+   "id": "v48",
+   "dia": 4,
+   "es": "meditar en la promesa",
+   "gu": "વચન પર મનન કરવું",
+   "a": "audio/d179_v48.mp3"
+  },
+  {
+   "id": "v49",
+   "dia": 4,
+   "es": "demuestra que hay fe",
+   "gu": "શ્રદ્ધાની સાબિતી",
+   "a": "audio/d179_v49.mp3"
+  },
+  {
+   "id": "v50",
+   "dia": 4,
+   "es": "mansos como ovejas",
+   "gu": "ઘેટાં જેવા નમ્ર",
+   "a": "audio/d179_v50.mp3"
+  },
+  {
+   "id": "v51",
+   "dia": 4,
+   "es": "predicar más",
+   "gu": "પ્રચારમાં વધારે ભાગ",
+   "a": "audio/d179_v51.mp3"
+  },
+  {
+   "id": "v52",
+   "dia": 4,
+   "es": "la cruda realidad",
+   "gu": "કડવી હકીકત",
+   "a": "audio/d179_v52.mp3"
+  },
+  {
+   "id": "v53",
+   "dia": 4,
+   "es": "este sistema malvado",
+   "gu": "આ દુષ્ટ દુનિયા",
+   "a": "audio/d179_v53.mp3"
+  },
+  {
+   "id": "v54",
+   "dia": 4,
+   "es": "a su mano derecha",
+   "gu": "તેમના જમણા હાથે",
+   "a": "audio/d179_v54.mp3"
+  },
+  {
+   "id": "v55",
+   "dia": 4,
+   "es": "a su mano izquierda",
+   "gu": "તેમના ડાબા હાથે",
+   "a": "audio/d179_v55.mp3"
+  },
+  {
+   "id": "v56",
+   "dia": 4,
+   "es": "bendiciones eternas",
+   "gu": "હંમેશના આશીર્વાદો",
+   "a": "audio/d179_v56.mp3"
+  }
+ ],
+ "salv": [
+  {
+   "id": "s01",
+   "es": "Leamos / Vamos a leer",
+   "gu": "ચાલો વાંચીએ",
+   "a": "audio/d179_s01.mp3"
+  },
+  {
+   "id": "s02",
+   "es": "Fíjense / Noten",
+   "gu": "ધ્યાન આપો",
+   "a": "audio/d179_s02.mp3"
+  },
+  {
+   "id": "s03",
+   "es": "Como vemos en el texto",
+   "gu": "આપણે કલમમાં જોયું તેમ",
+   "a": "audio/d179_s03.mp3"
+  },
+  {
+   "id": "s04",
+   "es": "Por ejemplo",
+   "gu": "દાખલા તરીકે",
+   "a": "audio/d179_s04.mp3"
+  },
+  {
+   "id": "s05",
+   "es": "En otras palabras",
+   "gu": "બીજા શબ્દોમાં કહીએ તો",
+   "a": "audio/d179_s05.mp3"
+  },
+  {
+   "id": "s06",
+   "es": "Es decir",
+   "gu": "એટલે કે",
+   "a": "audio/d179_s06.mp3"
+  },
+  {
+   "id": "s07",
+   "es": "La razón es que…",
+   "gu": "એનું કારણ એ છે કે",
+   "a": "audio/d179_s07.mp3"
+  },
+  {
+   "id": "s08",
+   "es": "Por eso / Así que",
+   "gu": "એટલે જ",
+   "a": "audio/d179_s08.mp3"
+  },
+  {
+   "id": "s09",
+   "es": "En resumen",
+   "gu": "ટૂંકમાં કહીએ તો",
+   "a": "audio/d179_s09.mp3"
+  },
+  {
+   "id": "s10",
+   "es": "Al final",
+   "gu": "છેવટે તો",
+   "a": "audio/d179_s10.mp3"
+  },
+  {
+   "id": "s11",
+   "es": "Sin embargo",
+   "gu": "પણ હકીકતમાં",
+   "a": "audio/d179_s11.mp3"
+  },
+  {
+   "id": "s12",
+   "es": "¡Por supuesto!",
+   "gu": "હા, ચોક્કસ!",
+   "a": "audio/d179_s12.mp3"
+  },
+  {
+   "id": "s13",
+   "es": "Pregúntese…",
+   "gu": "પોતાને પૂછો",
+   "a": "audio/d179_s13.mp3"
+  },
+  {
+   "id": "s14",
+   "es": "Imagínese…",
+   "gu": "કલ્પના કરો",
+   "a": "audio/d179_s14.mp3"
+  },
+  {
+   "id": "s15",
+   "es": "Como hemos visto",
+   "gu": "આપણે જોઈ ગયા તેમ",
+   "a": "audio/d179_s15.mp3"
+  },
+  {
+   "id": "s16",
+   "es": "¿Qué aprendemos?",
+   "gu": "આપણે શું શીખી શકીએ?",
+   "a": "audio/d179_s16.mp3"
+  },
+  {
+   "id": "s17",
+   "es": "Esto nos enseña que…",
+   "gu": "એનાથી શીખવા મળે છે કે",
+   "a": "audio/d179_s17.mp3"
+  },
+  {
+   "id": "s18",
+   "es": "Lo importante es…",
+   "gu": "મહત્ત્વની વાત એ છે કે",
+   "a": "audio/d179_s18.mp3"
+  },
+  {
+   "id": "s19",
+   "es": "Recuerden…",
+   "gu": "યાદ રાખો કે",
+   "a": "audio/d179_s19.mp3"
+  },
+  {
+   "id": "s20",
+   "es": "Queridos hermanos",
+   "gu": "વહાલાં ભાઈ-બહેનો",
+   "a": "audio/d179_s20.mp3"
+  },
+  {
+   "id": "s21",
+   "es": "Ahora bien…",
+   "gu": "હવે ચાલો જોઈએ",
+   "a": "audio/d179_s21.mp3"
+  },
+  {
+   "id": "s22",
+   "es": "Muchas gracias",
+   "gu": "ખૂબ ખૂબ આભાર",
+   "a": "audio/d179_s22.mp3"
+  }
+ ],
+ "nums": [
+  {
+   "id": "n01",
+   "es": "1 millón",
+   "gu": "૧૦ લાખ",
+   "au": "દસ લાખ",
+   "a": "audio/d179_n01.mp3"
+  },
+  {
+   "id": "n02",
+   "es": "8 millones 700 mil",
+   "gu": "૮૭ લાખ",
+   "au": "સત્યાસી લાખ",
+   "a": "audio/d179_n02.mp3"
+  },
+  {
+   "id": "n03",
+   "es": "9 millones 200 mil",
+   "gu": "૯૨ લાખ",
+   "au": "બાણું લાખ",
+   "a": "audio/d179_n03.mp3"
+  },
+  {
+   "id": "n04",
+   "es": "10 millones",
+   "gu": "૧ કરોડ",
+   "au": "એક કરોડ",
+   "a": "audio/d179_n04.mp3"
+  },
+  {
+   "id": "n05",
+   "es": "20 millones 600 mil",
+   "gu": "૨ કરોડ ૬ લાખ",
+   "au": "બે કરોડ છ લાખ",
+   "a": "audio/d179_n05.mp3"
+  },
+  {
+   "id": "n06",
+   "es": "1.500 millones de horas",
+   "gu": "૧૫૦ કરોડ કલાક",
+   "au": "દોઢસો કરોડ કલાક",
+   "a": "audio/d179_n06.mp3"
+  },
+  {
+   "id": "n07",
+   "es": "241 países",
+   "gu": "૨૪૧ દેશો",
+   "au": "બસો એકતાળીસ દેશો",
+   "a": "audio/d179_n07.mp3"
+  },
+  {
+   "id": "n08",
+   "es": "7 millones 600 mil cursos bíblicos",
+   "gu": "૭૬ લાખ બાઇબલ અભ્યાસ",
+   "au": "છોંતેર લાખ બાઇબલ અભ્યાસ",
+   "a": "audio/d179_n08.mp3"
+  }
+ ],
+ "textos": [
+  {
+   "es": "Santiago 1:14, 15",
+   "gu": "યાકૂબ ૧:૧૪, ૧૫",
+   "uso": "se lee"
+  },
+  {
+   "es": "Apocalipsis 20:1-3, 10",
+   "gu": "પ્રકટીકરણ ૨૦:૧-૩, ૧૦",
+   "uso": "se lee"
+  },
+  {
+   "es": "Proverbios 11:4; 18:11",
+   "gu": "નીતિવચનો ૧૧:૪; ૧૮:૧૧",
+   "uso": "citado"
+  },
+  {
+   "es": "1 Timoteo 6:6-8",
+   "gu": "૧ તિમોથી ૬:૬-૮",
+   "uso": "citado"
+  },
+  {
+   "es": "Malaquías 2:15, 16",
+   "gu": "માલાખી ૨:૧૫, ૧૬",
+   "uso": "citado"
+  },
+  {
+   "es": "Hebreos 13:4",
+   "gu": "હિબ્રૂઓ ૧૩:૪",
+   "uso": "citado"
+  },
+  {
+   "es": "1 Juan 2:16, 17",
+   "gu": "૧ યોહાન ૨:૧૬, ૧૭",
+   "uso": "resaltar"
+  },
+  {
+   "es": "Mateo 6:33",
+   "gu": "માથ્થી ૬:૩૩",
+   "uso": "se lee"
+  },
+  {
+   "es": "Salmo 145:16",
+   "gu": "ગીતશાસ્ત્ર ૧૪૫:૧૬",
+   "uso": "citado"
+  },
+  {
+   "es": "Mateo 24:14",
+   "gu": "માથ્થી ૨૪:૧૪",
+   "uso": "citado"
+  },
+  {
+   "es": "Apocalipsis 21:3-5",
+   "gu": "પ્રકટીકરણ ૨૧:૩-૫",
+   "uso": "citado"
+  },
+  {
+   "es": "Hebreos 11:1",
+   "gu": "હિબ્રૂઓ ૧૧:૧",
+   "uso": "citado"
+  },
+  {
+   "es": "Isaías 29:8",
+   "gu": "યશાયા ૨૯:૮",
+   "uso": "citado"
+  },
+  {
+   "es": "Mateo 25:34",
+   "gu": "માથ્થી ૨૫:૩૪",
+   "uso": "se lee (final)"
+  }
+ ],
+ "secs": [
+  {
+   "id": "intro",
+   "titulo": "Introducción",
+   "dia": 1
+  },
+  {
+   "id": "s1",
+   "titulo": "1 · El mundo promueve fantasías (2 min)",
+   "dia": 1
+  },
+  {
+   "id": "s2",
+   "titulo": "2 · Por qué rechazarlas: Satanás (15 min)",
+   "dia": 2
+  },
+  {
+   "id": "s2b",
+   "titulo": "2 · Hoy: el materialismo",
+   "dia": 3
+  },
+  {
+   "id": "s2c",
+   "titulo": "2 · Hoy: la inmoralidad",
+   "dia": 3
+  },
+  {
+   "id": "s3",
+   "titulo": "3 · Busque las realidades del Reino (9 min)",
+   "dia": 4
+  },
+  {
+   "id": "s4",
+   "titulo": "4 · Siga buscando el Reino (4 min)",
+   "dia": 4
+  }
+ ]
+}

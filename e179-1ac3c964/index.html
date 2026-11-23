@@ -227,7 +227,7 @@ function dia(d){
   enlazarPlays(app);
   var ocv=document.getElementById('ocv'),lv=document.getElementById('lv');
   ocv.onchange=function(){lv.classList.toggle('oculto',ocv.checked);};
-  lv.querySelectorAll('.it').forEach(function(it){it.querySelector('.gu').onclick=function(){it.classList.add('ver');};});
+  lv.querySelectorAll('.it').forEach(function(it){it.querySelector('.gu').onclick=function(){it.classList.toggle('ver');};});
   document.getElementById('todas').onclick=function(){repetirTodas(this,fr);};
   taller(document.getElementById('taller'),fr,'d'+d.n);
   if(prev.length) taller(document.getElementById('taller2'),prev,'p'+d.n);
@@ -332,7 +332,7 @@ function numeros(){
   '<div class="lista oculto" id="ln">'+D.nums.map(function(n){return'<div class="it"><div class="tx"><span class="es">'+E(n.es)+'</span><span class="gu">'+E(n.gu)+' · '+E(n.au)+'</span></div><button class="play gup" data-a="'+n.a+'" aria-label="Escuchar">▶</button></div>';}).join('')+'</div>'+
   '<p class="sub">Toca el gujarati borroso para verlo, después de decirlo.</p>';
   enlazarPlays(app);
-  app.querySelectorAll('#ln .it').forEach(function(it){it.querySelector('.gu').onclick=function(){it.classList.add('ver');};});
+  app.querySelectorAll('#ln .it').forEach(function(it){it.querySelector('.gu').onclick=function(){it.classList.toggle('ver');};});
 }
 function textos(){
   app.innerHTML='<div><div class="eyebrow">Biblia en gujarati</div><h1>Textos</h1></div><p class="sub">Márcalos el martes en JW Library en gujarati. Los que dicen «se lee» los lees tú en gujarati mientras él lee en español; los citados solo se mencionan.</p><div class="lista">'+
